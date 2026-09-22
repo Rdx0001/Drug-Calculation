@@ -1,0 +1,1437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>NORCET & RRB - Extreme Drug Calculation Masterclass (100 Qs)</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        
+        * { box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; padding: 0; }
+        
+        body { 
+            background-color: #090d16; 
+            color: #f8fafc; 
+            display: flex; 
+            justify-content: center; 
+            line-height: 1.6; 
+            padding: 20px; 
+        }
+        
+        .container { 
+            max-width: 1100px; 
+            width: 100%; 
+        }
+        
+        /* HEADER */
+        .header { 
+            background: #111827; 
+            padding: 30px; 
+            border-radius: 16px; 
+            box-shadow: 0 10px 40px rgba(239, 68, 68, 0.15); 
+            margin-bottom: 25px; 
+            text-align: center; 
+            border-top: 6px solid #ef4444; 
+            border-bottom: 1px solid #1f2937; 
+        }
+        .header h1 { margin: 0 0 5px 0; font-size: 2.2em; color: #f87171; text-transform: uppercase; font-weight: 800; letter-spacing: 1px; }
+        .header p { margin: 0; color: #9ca3af; font-size: 1.05em; font-weight: 500; }
+        
+        /* DASHBOARD - NORCET TIMERS */
+        .dashboard { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            background: #090d16;
+            padding: 15px 25px;
+            border-radius: 12px;
+            margin-top: 20px; 
+            border: 1px solid #1f2937; 
+            font-weight: 700; 
+            font-size: 1.2em; 
+            color: #e2e8f0; 
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .stat-box { 
+            background: rgba(239, 68, 68, 0.1); 
+            padding: 8px 16px; 
+            border-radius: 8px; 
+            border: 1px solid rgba(239, 68, 68, 0.3); 
+            color: #f87171;
+            text-align: center;
+        }
+        .timer-red { color: #ef4444; border-color: rgba(239, 68, 68, 0.4); background: rgba(239, 68, 68, 0.1); }
+        
+        /* QUESTION AREA */
+        .question-container { background: #111827; padding: 40px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); display: none; margin-bottom: 20px; border: 1px solid #1f2937; }
+        .question-container.active { display: block; animation: slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .subject-tag { display: inline-block; padding: 5px 15px; background: #090d16; color: #fca5a5; font-size: 0.85em; border-radius: 20px; margin-bottom: 20px; font-weight: 800; border: 1px solid #dc2626; text-transform: uppercase; letter-spacing: 1px; }
+        .q-text { font-size: 1.3em; font-weight: 700; margin-bottom: 30px; color: #f8fafc; line-height: 1.6; }
+        
+        /* OPTIONS */
+        .options { display: flex; flex-direction: column; gap: 14px; }
+        .option-btn { background: #090d16; border: 2px solid #1f2937; padding: 20px; border-radius: 12px; text-align: left; font-size: 1.1em; cursor: pointer; transition: all 0.2s; color: #cbd5e1; font-weight: 600; line-height: 1.5; }
+        
+        @media (hover: hover) {
+            .option-btn:hover:not(.disabled) { background: #1f2937; border-color: #ef4444; transform: translateX(5px); }
+            .nav-btn:hover:not(:disabled) { background: #dc2626; box-shadow: 0 5px 15px rgba(239, 68, 68, 0.4); transform: translateY(-2px); }
+        }
+
+        .option-btn.correct { background: #064e3b; border-color: #10b981; color: #a7f3d0; font-weight: 700; box-shadow: 0 0 20px rgba(16, 185, 129, 0.2); }
+        .option-btn.incorrect { background: #7f1d1d; border-color: #ef4444; color: #fecaca; box-shadow: 0 0 20px rgba(239, 68, 68, 0.2); }
+        .option-btn.disabled { pointer-events: none; }
+        
+        /* RATIONALE */
+        .rationale { margin-top: 30px; padding: 25px; background: rgba(239, 68, 68, 0.05); border-left: 6px solid #ef4444; border-radius: 0 12px 12px 0; display: none; font-size: 1.1em; color: #fee2e2; animation: fadeIn 0.5s; line-height: 1.7; border-top: 1px solid rgba(239, 68, 68, 0.2); border-right: 1px solid rgba(239, 68, 68, 0.2); border-bottom: 1px solid rgba(239, 68, 68, 0.2); }
+        .rationale strong { color: #fca5a5; font-size: 1.15em; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 12px; border-bottom: 1px solid rgba(239, 68, 68, 0.3); padding-bottom: 6px; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* NAVIGATION & PROGRESS */
+        .navigation { display: flex; justify-content: space-between; margin-top: 35px; gap: 15px; }
+        .nav-btn { flex: 1; background: #ef4444; color: #fff; border: none; padding: 18px; border-radius: 10px; font-size: 1.15em; cursor: pointer; transition: 0.3s; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; text-align: center; }
+        .nav-btn:disabled { background: #1f2937; cursor: not-allowed; color: #4b5563; box-shadow: none; transform: none; }
+        
+        .progress-bar { width: 100%; background: #1f2937; height: 16px; border-radius: 8px; margin-bottom: 30px; overflow: hidden; box-shadow: inset 0 2px 5px rgba(0,0,0,0.5); }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, #dc2626, #ef4444); width: 0%; transition: width 0.3s linear; }
+        
+        /* RESULTS SCREEN */
+        #results-screen { display: none; background: #111827; padding: 60px 20px; border-radius: 16px; text-align: center; border: 1px solid #1f2937; box-shadow: 0 20px 50px rgba(0,0,0,0.6); }
+        .final-score { font-size: 5em; color: #ef4444; font-weight: 900; margin: 30px 0; text-shadow: 0 0 30px rgba(239, 68, 68, 0.3); }
+
+        /* MOBILE RESPONSIVENESS */
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            .header { padding: 25px 15px; margin-bottom: 20px; }
+            .header h1 { font-size: 1.5em; }
+            .header p { font-size: 0.9em; }
+            .dashboard { flex-direction: column; gap: 10px; font-size: 1.05em; padding: 15px; }
+            .stat-box { width: 100%; }
+            .question-container { padding: 25px 15px; margin-bottom: 15px; }
+            .q-text { font-size: 1.15em; margin-bottom: 20px; }
+            .options { gap: 10px; }
+            .option-btn { padding: 15px; font-size: 1em; }
+            .rationale { padding: 15px; font-size: 1em; margin-top: 20px; }
+            .navigation { margin-top: 25px; flex-direction: column-reverse; gap: 10px; }
+            .nav-btn { width: 100%; font-size: 1em; padding: 15px; }
+            .final-score { font-size: 3.5em; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>NORCET & RRB Drug Calculation</h1>
+        <p>100 Extreme Scenario Qs | 5 Sections (18 mins/sec) | 90 Mins Total | -0.33 Negative Marking</p>
+        
+        <div class="dashboard">
+            <div class="stat-box" id="section-display">Section: 1 / 5</div>
+            <div class="stat-box" id="q-counter">Q: 1 / 20</div>
+            <div class="stat-box timer-red" id="section-timer">Section Time: 18:00</div>
+            <div class="stat-box" id="total-timer">Total Time: 90:00</div>
+            <div class="stat-box">Score: <span id="score">0.00</span></div>
+        </div>
+    </div>
+    
+    <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+    <div id="quiz-body"></div>
+
+    <div id="results-screen">
+        <h2>NORCET Calculation Simulation Concluded</h2>
+        <div class="final-score" id="final-score-display">0.00 / 100</div>
+        <p style="font-size:1.1em; color:#cbd5e1; margin-bottom: 20px;">Exam auto-submitted. Review the mathematical rationales below.</p>
+        <button class="nav-btn" onclick="location.reload()">Restart Exam</button>
+    </div>
+</div>
+
+<script>
+const rawQuestions = [
+{
+  "q": "A 70 kg patient in cardiogenic shock is ordered Dopamine at 5 mcg/kg/min. The pharmacy sends Dopamine 400 mg in 250 mL D5W. At what rate in mL/hr should the infusion pump be programmed?",
+  "o": [
+    "10.5 mL/hr",
+    "13.1 mL/hr",
+    "15.8 mL/hr",
+    "21.0 mL/hr"
+  ],
+  "a": 1,
+  "t": "Critical Care Drips",
+  "e": "Formula: Rate (mL/hr) = [Dose (mcg/kg/min) x Weight (kg) x 60 min/hr] / Concentration (mcg/mL). Concentration = 400,000 mcg / 250 mL = 1,600 mcg/mL. Dose/hr = 5 x 70 x 60 = 21,000 mcg/hr. Rate = 21,000 / 1,600 = 13.125 mL/hr ≈ 13.1 mL/hr."
+},
+{
+  "q": "A patient in septic shock is prescribed Norepinephrine at 12 mcg/min. The solution prepared contains 8 mg of Norepinephrine in 250 mL D5W. Calculate the infusion rate in mL/hr.",
+  "o": [
+    "18.0 mL/hr",
+    "22.5 mL/hr",
+    "25.0 mL/hr",
+    "30.5 mL/hr"
+  ],
+  "a": 1,
+  "t": "Critical Care Drips",
+  "e": "Concentration = 8 mg / 250 mL = 8,000 mcg / 250 mL = 32 mcg/mL. Desired dose/hr = 12 mcg/min x 60 min = 720 mcg/hr. Rate = 720 mcg/hr / 32 mcg/mL = 22.5 mL/hr."
+},
+{
+  "q": "A 50 kg patient is prescribed an infusion at 8 mcg/kg/min. The IV bag contains 500 mg of the drug in 500 mL of D5W. Calculate the IV pump rate in mL/hr.",
+  "o": [
+    "29.2 mL/hr",
+    "21.5 mL/hr",
+    "24.0 mL/hr",
+    "36.0 mL/hr"
+  ],
+  "a": 2,
+  "t": "Critical Care - Titration",
+  "e": "1. Concentration = (500 mg * 1000) / 500 mL = 1000.0 mcg/mL. 2. Dose/min = 8 mcg/kg/min * 50 kg = 400 mcg/min. 3. Dose/hr = 400 * 60 = 24000 mcg/hr. 4. Rate = 24000 / 1000.0 = 24.0 mL/hr."
+},
+{
+  "q": "A 65 kg patient is prescribed an infusion at 10 mcg/kg/min. The IV bag contains 200 mg of the drug in 250 mL of D5W. Calculate the IV pump rate in mL/hr.",
+  "o": [
+    "46.2 mL/hr",
+    "54.0 mL/hr",
+    "73.1 mL/hr",
+    "48.8 mL/hr"
+  ],
+  "a": 3,
+  "t": "Critical Care - Titration",
+  "e": "1. Concentration = (200 mg * 1000) / 250 mL = 800.0 mcg/mL. 2. Dose/min = 10 mcg/kg/min * 65 kg = 650 mcg/min. 3. Dose/hr = 650 * 60 = 39000 mcg/hr. 4. Rate = 39000 / 800.0 = 48.8 mL/hr."
+},
+{
+  "q": "A 75 kg patient is prescribed an infusion at 2 mcg/kg/min. The IV bag contains 400 mg of the drug in 500 mL of D5W. Calculate the IV pump rate in mL/hr.",
+  "o": [
+    "16.4 mL/hr",
+    "16.9 mL/hr",
+    "11.2 mL/hr",
+    "8.8 mL/hr"
+  ],
+  "a": 2,
+  "t": "Critical Care - Titration",
+  "e": "1. Concentration = (400 mg * 1000) / 500 mL = 800.0 mcg/mL. 2. Dose/min = 2 mcg/kg/min * 75 kg = 150 mcg/min. 3. Dose/hr = 150 * 60 = 9000 mcg/hr. 4. Rate = 9000 / 800.0 = 11.2 mL/hr."
+},
+{
+  "q": "A 80 kg patient is prescribed an infusion at 5 mcg/kg/min. The IV bag contains 800 mg of the drug in 250 mL of D5W. Calculate the IV pump rate in mL/hr.",
+  "o": [
+    "11.2 mL/hr",
+    "12.7 mL/hr",
+    "5.0 mL/hr",
+    "7.5 mL/hr"
+  ],
+  "a": 3,
+  "t": "Critical Care - Titration",
+  "e": "1. Concentration = (800 mg * 1000) / 250 mL = 3200.0 mcg/mL. 2. Dose/min = 5 mcg/kg/min * 80 kg = 400 mcg/min. 3. Dose/hr = 400 * 60 = 24000 mcg/hr. 4. Rate = 24000 / 3200.0 = 7.5 mL/hr."
+},
+{
+  "q": "A 95 kg patient is prescribed an infusion at 3 mcg/kg/min. The IV bag contains 500 mg of the drug in 250 mL of D5W. Calculate the IV pump rate in mL/hr.",
+  "o": [
+    "13.7 mL/hr",
+    "8.6 mL/hr",
+    "12.8 mL/hr",
+    "6.1 mL/hr"
+  ],
+  "a": 1,
+  "t": "Critical Care - Titration",
+  "e": "1. Concentration = (500 mg * 1000) / 250 mL = 2000.0 mcg/mL. 2. Dose/min = 3 mcg/kg/min * 95 kg = 285 mcg/min. 3. Dose/hr = 285 * 60 = 17100 mcg/hr. 4. Rate = 17100 / 2000.0 = 8.6 mL/hr."
+},
+{
+  "q": "A patient weighing 154 lbs is diagnosed with a DVT. The Heparin protocol orders a bolus of 80 Units/kg followed by a continuous infusion of 18 Units/kg/hr. The pharmacy supplies Heparin 25000 Units in 500 mL D5W. Calculate the exact bolus dose and the initial infusion rate in mL/hr.",
+  "o": [
+    "Bolus: 4800 Units; Drip: 20.2 mL/hr",
+    "Bolus: 5600 Units; Drip: 25.2 mL/hr",
+    "Bolus: 5760 Units; Drip: 37.8 mL/hr",
+    "Bolus: 6100 Units; Drip: 23.2 mL/hr"
+  ],
+  "a": 1,
+  "t": "Heparin Protocol",
+  "e": "1. Convert weight: 154 lbs / 2.2 = 70.0 kg. 2. Bolus = 70.0 kg x 80 U/kg = 5600 Units. 3. Drip dose = 70.0 kg x 18 U/kg/hr = 1260.0 Units/hr. 4. Concentration = 25000 U / 500 mL = 50.0 U/mL. 5. Rate = 1260.0 U/hr / 50.0 U/mL = 25.2 mL/hr."
+},
+{
+  "q": "A patient weighing 176 lbs is diagnosed with a DVT. The Heparin protocol orders a bolus of 80 Units/kg followed by a continuous infusion of 18 Units/kg/hr. The pharmacy supplies Heparin 25000 Units in 500 mL D5W. Calculate the exact bolus dose and the initial infusion rate in mL/hr.",
+  "o": [
+    "Bolus: 6400 Units; Drip: 28.8 mL/hr",
+    "Bolus: 6900 Units; Drip: 26.8 mL/hr",
+    "Bolus: 5600 Units; Drip: 33.8 mL/hr",
+    "Bolus: 7680 Units; Drip: 43.2 mL/hr"
+  ],
+  "a": 0,
+  "t": "Heparin Protocol",
+  "e": "1. Convert weight: 176 lbs / 2.2 = 80.0 kg. 2. Bolus = 80.0 kg x 80 U/kg = 6400 Units. 3. Drip dose = 80.0 kg x 18 U/kg/hr = 1440.0 Units/hr. 4. Concentration = 25000 U / 500 mL = 50.0 U/mL. 5. Rate = 1440.0 U/hr / 50.0 U/mL = 28.8 mL/hr."
+},
+{
+  "q": "A patient weighing 198 lbs is diagnosed with a DVT. The Heparin protocol orders a bolus of 80 Units/kg followed by a continuous infusion of 18 Units/kg/hr. The pharmacy supplies Heparin 25000 Units in 500 mL D5W. Calculate the exact bolus dose and the initial infusion rate in mL/hr.",
+  "o": [
+    "Bolus: 6400 Units; Drip: 37.4 mL/hr",
+    "Bolus: 8640 Units; Drip: 48.6 mL/hr",
+    "Bolus: 7200 Units; Drip: 32.4 mL/hr",
+    "Bolus: 7700 Units; Drip: 30.4 mL/hr"
+  ],
+  "a": 2,
+  "t": "Heparin Protocol",
+  "e": "1. Convert weight: 198 lbs / 2.2 = 90.0 kg. 2. Bolus = 90.0 kg x 80 U/kg = 7200 Units. 3. Drip dose = 90.0 kg x 18 U/kg/hr = 1620.0 Units/hr. 4. Concentration = 25000 U / 500 mL = 50.0 U/mL. 5. Rate = 1620.0 U/hr / 50.0 U/mL = 32.4 mL/hr."
+},
+{
+  "q": "A patient weighing 220 lbs is diagnosed with a DVT. The Heparin protocol orders a bolus of 80 Units/kg followed by a continuous infusion of 18 Units/kg/hr. The pharmacy supplies Heparin 25000 Units in 500 mL D5W. Calculate the exact bolus dose and the initial infusion rate in mL/hr.",
+  "o": [
+    "Bolus: 8000 Units; Drip: 36.0 mL/hr",
+    "Bolus: 9600 Units; Drip: 54.0 mL/hr",
+    "Bolus: 8500 Units; Drip: 34.0 mL/hr",
+    "Bolus: 7200 Units; Drip: 41.0 mL/hr"
+  ],
+  "a": 0,
+  "t": "Heparin Protocol",
+  "e": "1. Convert weight: 220 lbs / 2.2 = 100.0 kg. 2. Bolus = 100.0 kg x 80 U/kg = 8000 Units. 3. Drip dose = 100.0 kg x 18 U/kg/hr = 1800.0 Units/hr. 4. Concentration = 25000 U / 500 mL = 50.0 U/mL. 5. Rate = 1800.0 U/hr / 50.0 U/mL = 36.0 mL/hr."
+},
+{
+  "q": "A patient weighing 143 lbs is diagnosed with a DVT. The Heparin protocol orders a bolus of 80 Units/kg followed by a continuous infusion of 18 Units/kg/hr. The pharmacy supplies Heparin 25000 Units in 500 mL D5W. Calculate the exact bolus dose and the initial infusion rate in mL/hr.",
+  "o": [
+    "Bolus: 6240 Units; Drip: 35.1 mL/hr",
+    "Bolus: 4400 Units; Drip: 28.4 mL/hr",
+    "Bolus: 5200 Units; Drip: 23.4 mL/hr",
+    "Bolus: 5700 Units; Drip: 21.4 mL/hr"
+  ],
+  "a": 2,
+  "t": "Heparin Protocol",
+  "e": "1. Convert weight: 143 lbs / 2.2 = 65.0 kg. 2. Bolus = 65.0 kg x 80 U/kg = 5200 Units. 3. Drip dose = 65.0 kg x 18 U/kg/hr = 1170.0 Units/hr. 4. Concentration = 25000 U / 500 mL = 50.0 U/mL. 5. Rate = 1170.0 U/hr / 50.0 U/mL = 23.4 mL/hr."
+},
+{
+  "q": "Calculate the 24-hour maintenance fluid requirement AND the hourly IV rate for a child weighing 15 kg using the Holliday-Segar method.",
+  "o": [
+    "1450 mL/day at 62.1 mL/hr",
+    "1875.0 mL/day at 78.1 mL/hr",
+    "1250 mL/day at 52.1 mL/hr",
+    "1150 mL/day at 47.1 mL/hr"
+  ],
+  "a": 2,
+  "t": "Pediatric - Fluid Maintenance",
+  "e": "Holliday-Segar Rule: 100 mL/kg for first 10 kg, 50 mL/kg for next 10 kg, 20 mL/kg for remaining kg. Weight = 15 kg. Total = 1250 mL/day. Hourly rate = 1250 / 24 = 52.1 mL/hr."
+},
+{
+  "q": "Calculate the 24-hour maintenance fluid requirement AND the hourly IV rate for a child weighing 24 kg using the Holliday-Segar method.",
+  "o": [
+    "2370.0 mL/day at 98.8 mL/hr",
+    "1480 mL/day at 60.8 mL/hr",
+    "1580 mL/day at 65.8 mL/hr",
+    "1780 mL/day at 75.8 mL/hr"
+  ],
+  "a": 2,
+  "t": "Pediatric - Fluid Maintenance",
+  "e": "Holliday-Segar Rule: 100 mL/kg for first 10 kg, 50 mL/kg for next 10 kg, 20 mL/kg for remaining kg. Weight = 24 kg. Total = 1580 mL/day. Hourly rate = 1580 / 24 = 65.8 mL/hr."
+},
+{
+  "q": "Calculate the 24-hour maintenance fluid requirement AND the hourly IV rate for a child weighing 32 kg using the Holliday-Segar method.",
+  "o": [
+    "1740 mL/day at 72.5 mL/hr",
+    "2610.0 mL/day at 108.8 mL/hr",
+    "1640 mL/day at 67.5 mL/hr",
+    "1940 mL/day at 82.5 mL/hr"
+  ],
+  "a": 0,
+  "t": "Pediatric - Fluid Maintenance",
+  "e": "Holliday-Segar Rule: 100 mL/kg for first 10 kg, 50 mL/kg for next 10 kg, 20 mL/kg for remaining kg. Weight = 32 kg. Total = 1740 mL/day. Hourly rate = 1740 / 24 = 72.5 mL/hr."
+},
+{
+  "q": "Calculate the 24-hour maintenance fluid requirement AND the hourly IV rate for a child weighing 8 kg using the Holliday-Segar method.",
+  "o": [
+    "700 mL/day at 28.3 mL/hr",
+    "1000 mL/day at 43.3 mL/hr",
+    "800 mL/day at 33.3 mL/hr",
+    "1200.0 mL/day at 50.0 mL/hr"
+  ],
+  "a": 2,
+  "t": "Pediatric - Fluid Maintenance",
+  "e": "Holliday-Segar Rule: 100 mL/kg for first 10 kg, 50 mL/kg for next 10 kg, 20 mL/kg for remaining kg. Weight = 8 kg. Total = 800 mL/day. Hourly rate = 800 / 24 = 33.3 mL/hr."
+},
+{
+  "q": "Calculate the 24-hour maintenance fluid requirement AND the hourly IV rate for a child weighing 45 kg using the Holliday-Segar method.",
+  "o": [
+    "3000.0 mL/day at 125.0 mL/hr",
+    "2000 mL/day at 83.3 mL/hr",
+    "1900 mL/day at 78.3 mL/hr",
+    "2200 mL/day at 93.3 mL/hr"
+  ],
+  "a": 1,
+  "t": "Pediatric - Fluid Maintenance",
+  "e": "Holliday-Segar Rule: 100 mL/kg for first 10 kg, 50 mL/kg for next 10 kg, 20 mL/kg for remaining kg. Weight = 45 kg. Total = 2000 mL/day. Hourly rate = 2000 / 24 = 83.3 mL/hr."
+},
+{
+  "q": "A 65 kg patient sustains deep partial-thickness burns over 42% of their Total Body Surface Area (TBSA). Using the Parkland formula (4 mL/kg/%TBSA), calculate the total fluid requirement for the first 24 hours, AND the IV pump rate for the FIRST 8 hours.",
+  "o": [
+    "10920 mL total; rate 682.5 mL/hr",
+    "5460.0 mL total; rate 341.2 mL/hr",
+    "10920 mL total; rate 455.0 mL/hr",
+    "11920 mL total; rate 807.5 mL/hr"
+  ],
+  "a": 0,
+  "t": "Burns - Parkland Formula",
+  "e": "1. Total 24h Fluid = 4 mL x 65 kg x 42% TBSA = 10920 mL. 2. The Parkland protocol requires HALF the total volume (5460.0 mL) to be infused in the first 8 hours post-burn. 3. Rate = 5460.0 mL / 8 hours = 682.5 mL/hr."
+},
+{
+  "q": "A 75 kg patient sustains deep partial-thickness burns over 42% of their Total Body Surface Area (TBSA). Using the Parkland formula (4 mL/kg/%TBSA), calculate the total fluid requirement for the first 24 hours, AND the IV pump rate for the FIRST 8 hours.",
+  "o": [
+    "13600 mL total; rate 912.5 mL/hr",
+    "12600 mL total; rate 525.0 mL/hr",
+    "6300.0 mL total; rate 393.8 mL/hr",
+    "12600 mL total; rate 787.5 mL/hr"
+  ],
+  "a": 3,
+  "t": "Burns - Parkland Formula",
+  "e": "1. Total 24h Fluid = 4 mL x 75 kg x 42% TBSA = 12600 mL. 2. The Parkland protocol requires HALF the total volume (6300.0 mL) to be infused in the first 8 hours post-burn. 3. Rate = 6300.0 mL / 8 hours = 787.5 mL/hr."
+},
+{
+  "q": "A 82 kg patient sustains deep partial-thickness burns over 35% of their Total Body Surface Area (TBSA). Using the Parkland formula (4 mL/kg/%TBSA), calculate the total fluid requirement for the first 24 hours, AND the IV pump rate for the FIRST 8 hours.",
+  "o": [
+    "5740.0 mL total; rate 358.8 mL/hr",
+    "11480 mL total; rate 478.3 mL/hr",
+    "12480 mL total; rate 842.5 mL/hr",
+    "11480 mL total; rate 717.5 mL/hr"
+  ],
+  "a": 3,
+  "t": "Burns - Parkland Formula",
+  "e": "1. Total 24h Fluid = 4 mL x 82 kg x 35% TBSA = 11480 mL. 2. The Parkland protocol requires HALF the total volume (5740.0 mL) to be infused in the first 8 hours post-burn. 3. Rate = 5740.0 mL / 8 hours = 717.5 mL/hr."
+},
+{
+  "q": "A 90 kg patient sustains deep partial-thickness burns over 65% of their Total Body Surface Area (TBSA). Using the Parkland formula (4 mL/kg/%TBSA), calculate the total fluid requirement for the first 24 hours, AND the IV pump rate for the FIRST 8 hours.",
+  "o": [
+    "23400 mL total; rate 975.0 mL/hr",
+    "24400 mL total; rate 1587.5 mL/hr",
+    "23400 mL total; rate 1462.5 mL/hr",
+    "11700.0 mL total; rate 731.2 mL/hr"
+  ],
+  "a": 2,
+  "t": "Burns - Parkland Formula",
+  "e": "1. Total 24h Fluid = 4 mL x 90 kg x 65% TBSA = 23400 mL. 2. The Parkland protocol requires HALF the total volume (11700.0 mL) to be infused in the first 8 hours post-burn. 3. Rate = 11700.0 mL / 8 hours = 1462.5 mL/hr."
+},
+{
+  "q": "A 100 kg patient sustains deep partial-thickness burns over 35% of their Total Body Surface Area (TBSA). Using the Parkland formula (4 mL/kg/%TBSA), calculate the total fluid requirement for the first 24 hours, AND the IV pump rate for the FIRST 8 hours.",
+  "o": [
+    "15000 mL total; rate 1000.0 mL/hr",
+    "14000 mL total; rate 875.0 mL/hr",
+    "7000.0 mL total; rate 437.5 mL/hr",
+    "14000 mL total; rate 583.3 mL/hr"
+  ],
+  "a": 1,
+  "t": "Burns - Parkland Formula",
+  "e": "1. Total 24h Fluid = 4 mL x 100 kg x 35% TBSA = 14000 mL. 2. The Parkland protocol requires HALF the total volume (7000.0 mL) to be infused in the first 8 hours post-burn. 3. Rate = 7000.0 mL / 8 hours = 875.0 mL/hr."
+},
+{
+  "q": "A patient in DKA weighs 90 kg. The protocol dictates an IV Regular Insulin continuous infusion at 0.1 Units/kg/hr for a blood glucose of 250 mg/dL. The pharmacy sends 100 Units of Regular Insulin in 100 mL of 0.9% NS. Calculate the infusion pump rate in mL/hr.",
+  "o": [
+    "4.5 mL/hr",
+    "18.0 mL/hr",
+    "9.0 mL/hr",
+    "10.5 mL/hr"
+  ],
+  "a": 2,
+  "t": "Endocrine - Insulin Protocol",
+  "e": "1. Dose = 90 kg x 0.1 Units/kg/hr = 9.0 Units/hr. 2. Concentration = 100 Units / 100 mL = 1.0 Units/mL. 3. Rate = 9.0 U/hr / 1.0 U/mL = 9.0 mL/hr."
+},
+{
+  "q": "A patient in DKA weighs 80 kg. The protocol dictates an IV Regular Insulin continuous infusion at 0.1 Units/kg/hr for a blood glucose of 310 mg/dL. The pharmacy sends 100 Units of Regular Insulin in 100 mL of 0.9% NS. Calculate the infusion pump rate in mL/hr.",
+  "o": [
+    "9.5 mL/hr",
+    "8.0 mL/hr",
+    "4.0 mL/hr",
+    "16.0 mL/hr"
+  ],
+  "a": 1,
+  "t": "Endocrine - Insulin Protocol",
+  "e": "1. Dose = 80 kg x 0.1 Units/kg/hr = 8.0 Units/hr. 2. Concentration = 100 Units / 100 mL = 1.0 Units/mL. 3. Rate = 8.0 U/hr / 1.0 U/mL = 8.0 mL/hr."
+},
+{
+  "q": "A patient in DKA weighs 60 kg. The protocol dictates an IV Regular Insulin continuous infusion at 0.1 Units/kg/hr for a blood glucose of 420 mg/dL. The pharmacy sends 100 Units of Regular Insulin in 100 mL of 0.9% NS. Calculate the infusion pump rate in mL/hr.",
+  "o": [
+    "3.0 mL/hr",
+    "7.5 mL/hr",
+    "12.0 mL/hr",
+    "6.0 mL/hr"
+  ],
+  "a": 3,
+  "t": "Endocrine - Insulin Protocol",
+  "e": "1. Dose = 60 kg x 0.1 Units/kg/hr = 6.0 Units/hr. 2. Concentration = 100 Units / 100 mL = 1.0 Units/mL. 3. Rate = 6.0 U/hr / 1.0 U/mL = 6.0 mL/hr."
+},
+{
+  "q": "A patient in DKA weighs 80 kg. The protocol dictates an IV Regular Insulin continuous infusion at 0.1 Units/kg/hr for a blood glucose of 500 mg/dL. The pharmacy sends 100 Units of Regular Insulin in 100 mL of 0.9% NS. Calculate the infusion pump rate in mL/hr.",
+  "o": [
+    "4.0 mL/hr",
+    "8.0 mL/hr",
+    "9.5 mL/hr",
+    "16.0 mL/hr"
+  ],
+  "a": 1,
+  "t": "Endocrine - Insulin Protocol",
+  "e": "1. Dose = 80 kg x 0.1 Units/kg/hr = 8.0 Units/hr. 2. Concentration = 100 Units / 100 mL = 1.0 Units/mL. 3. Rate = 8.0 U/hr / 1.0 U/mL = 8.0 mL/hr."
+},
+{
+  "q": "A patient in DKA weighs 70 kg. The protocol dictates an IV Regular Insulin continuous infusion at 0.05 Units/kg/hr for a blood glucose of 180 mg/dL. The pharmacy sends 100 Units of Regular Insulin in 100 mL of 0.9% NS. Calculate the infusion pump rate in mL/hr.",
+  "o": [
+    "3.5 mL/hr",
+    "1.8 mL/hr",
+    "5.0 mL/hr",
+    "7.0 mL/hr"
+  ],
+  "a": 0,
+  "t": "Endocrine - Insulin Protocol",
+  "e": "1. Dose = 70 kg x 0.05 Units/kg/hr = 3.5 Units/hr. 2. Concentration = 100 Units / 100 mL = 1.0 Units/mL. 3. Rate = 3.5 U/hr / 1.0 U/mL = 3.5 mL/hr."
+},
+{
+  "q": "A patient weighs 60 kg and is 160 cm tall. They are prescribed a chemotherapy agent at 50 mg/m\u00b2. Using the Mosteller formula, calculate the patient's BSA and the total dose required.",
+  "o": [
+    "BSA: 1.79 m\u00b2, Dose: 89.6 mg",
+    "BSA: 1.48 m\u00b2, Dose: 66.6 mg",
+    "BSA: 1.83 m\u00b2, Dose: 101.6 mg",
+    "BSA: 1.63 m\u00b2, Dose: 81.6 mg"
+  ],
+  "a": 3,
+  "t": "Chemotherapy / BSA",
+  "e": "1. Mosteller Formula: BSA = square root of [(Height(cm) x Weight(kg)) / 3600]. 2. BSA = sqrt((160 x 60) / 3600) = sqrt(2.6666666666666665) = 1.63 m\u00b2. 3. Dose = 1.63 m\u00b2 x 50 mg/m\u00b2 = 81.6 mg."
+}
+];
+// Structure into 5 sections of 20 questions each
+let sections = [];
+for (let i = 0; i < 5; i++) {
+sections.push(rawQuestions.slice(i * 20, (i + 1) * 20));
+}
+let currentSection = 0;
+let currentQ = 0;
+let score = 0;
+let answersData = Array.from({length: 5}, () => new Array(20).fill(null));
+// Timers (in seconds)
+let sectionTimeLeft = 18 * 60; // 18 mins per section
+let totalTimeLeft = 90 * 60; // 90 mins total
+let timerInterval;
+const quizBody = document.getElementById('quiz-body');
+const scoreEl = document.getElementById('score');
+const qCounterEl = document.getElementById('q-counter');
+const secDisplayEl = document.getElementById('section-display');
+const secTimerEl = document.getElementById('section-timer');
+const totTimerEl = document.getElementById('total-timer');
+const progressEl = document.getElementById('progress');
+function formatTime(seconds) {
+const m = Math.floor(seconds / 60);
+const s = seconds % 60;
+return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+}
+function updateTimers() {
+if (totalTimeLeft <= 0) {
+clearInterval(timerInterval);
+finishExam();
+return;
+}
+sectionTimeLeft--;
+totalTimeLeft--;
+secTimerEl.innerText = `Section Time: ${formatTime(sectionTimeLeft)}`;
+totTimerEl.innerText = `Total Time: ${formatTime(totalTimeLeft)}`;
+if (sectionTimeLeft <= 0) {
+advanceSection();
+}
+}
+function advanceSection() {
+if (currentSection < 4) {
+alert(`Time's up for Section ${currentSection + 1}. Auto-advancing to Section ${currentSection + 2}.`);
+currentSection++;
+currentQ = 0;
+sectionTimeLeft = 18 * 60; // Reset for next section
+renderQuestion();
+} else {
+clearInterval(timerInterval);
+finishExam();
+}
+}
+function renderQuestion() {
+quizBody.innerHTML = '';
+const q = sections[currentSection][currentQ];
+const globalQNum = (currentSection * 20) + currentQ + 1;
+const qDiv = document.createElement('div');
+qDiv.className = 'question-container active';
+// Check if already answered in this section
+const isAnswered = answersData[currentSection][currentQ] !== null;
+const selectedIdx = answersData[currentSection][currentQ];
+let optionsHtml = '';
+q.o.forEach((opt, optIndex) => {
+let btnClass = 'option-btn';
+if (isAnswered) {
+btnClass += ' disabled';
+if (optIndex === q.a) btnClass += ' correct';
+else if (optIndex === selectedIdx) btnClass += ' incorrect';
+}
+optionsHtml += `
+<button class="${btnClass}" onclick="checkAnswer(${optIndex}, this)">
+${String.fromCharCode(65 + optIndex)}. ${opt}
+</button>
+`;
+});
+let navHtml = '';
+if (currentQ > 0) {
+navHtml += `<button class="nav-btn" onclick="navigate(-1)">Previous</button>`;
+} else {
+navHtml += `<button class="nav-btn" disabled>Previous</button>`;
+}
+if (currentQ < 19) {
+navHtml += `<button class="nav-btn" onclick="navigate(1)">Next</button>`;
+} else {
+if (currentSection < 4) {
+navHtml += `<button class="nav-btn" onclick="submitSection()">Submit Section ${currentSection + 1}</button>`;
+} else {
+navHtml += `<button class="nav-btn" onclick="finishExam()">Final Submit</button>`;
+}
+}
+qDiv.innerHTML = `
+<div class="subject-tag">${q.t}</div>
+<div class="q-text">Q${globalQNum}: ${q.q}</div>
+<div class="options" id="opts-container">${optionsHtml}</div>
+<div class="rationale" id="rationale-box" style="display: ${isAnswered ? 'block' : 'none'};">
+<strong>Clinical Rationale:</strong> ${q.e}
+</div>
+<div class="navigation">${navHtml}</div>
+`;
+quizBody.appendChild(qDiv);
+secDisplayEl.innerText = `Section: ${currentSection + 1} / 5`;
+qCounterEl.innerText = `Q: ${currentQ + 1} / 20`;
+const globalProgress = (globalQNum / 100) * 100;
+progressEl.style.width = `${globalProgress}%`;
+}
+window.checkAnswer = function(selectedOptIndex, btnElement) {
+if (answersData[currentSection][currentQ] !== null) return; 
+const q = sections[currentSection][currentQ];
+answersData[currentSection][currentQ] = selectedOptIndex;
+const container = document.getElementById('opts-container');
+const buttons = container.querySelectorAll('.option-btn');
+buttons.forEach(b => b.classList.add('disabled'));
+if (selectedOptIndex === q.a) {
+btnElement.classList.add('correct');
+score += 1;
+} else {
+btnElement.classList.add('incorrect');
+buttons[q.a].classList.add('correct');
+score -= 0.3333; // 1/3 negative marking
+}
+document.getElementById('rationale-box').style.display = 'block';
+scoreEl.innerText = score.toFixed(2);
+}
+window.navigate = function(dir) {
+currentQ += dir;
+renderQuestion();
+}
+window.submitSection = function() {
+let unans = 0;
+for(let i=0; i<20; i++) {
+if(answersData[currentSection][i] === null) unans++;
+}
+if(unans > 0) {
+if(!confirm(`You have ${unans} unattempted questions in this section. Submit and move to next section? You CANNOT return.`)) return;
+} else {
+if(!confirm(`Are you sure you want to submit Section ${currentSection + 1}? You CANNOT return.`)) return;
+}
+currentSection++;
+currentQ = 0;
+sectionTimeLeft = 18 * 60; 
+renderQuestion();
+}
+window.finishExam = function() {
+clearInterval(timerInterval);
+quizBody.style.display = 'none';
+document.querySelector('.dashboard').style.display = 'none';
+document.querySelector('.progress-bar').style.display = 'none';
+document.getElementById('results-screen').style.display = 'block';
+let finalScoreFormatted = score < 0 ? "0.00" : score.toFixed(2);
+document.getElementById('final-score-display').innerText = `${finalScoreFormatted} / 100`;
+}
+window.onload = function() {
+renderQuestion();
+timerInterval = setInterval(updateTimers, 1000);
+};
+</script>
+</body>
+</html>
+,
+{
+  "q": "A patient is prescribed sublingual Nitroglycerin for angina. Which instruction is absolutely vital for the nurse to teach the patient regarding the administration route?",
+  "o": [
+    "\"Chew the tablet thoroughly before swallowing.\"",
+    "\"Swallow the tablet whole with a large glass of water.\"",
+    "\"Place the tablet under your tongue and let it dissolve completely without swallowing it.\"",
+    "\"Crush the tablet and mix it in applesauce.\""
+  ],
+  "a": 2,
+  "t": "Medication Administration",
+  "e": "Sublingual medications must be placed under the tongue and allowed to dissolve and absorb directly through the highly vascular oral mucosa into the systemic bloodstream. If swallowed, chewed, or crushed, the drug goes to the stomach and is destroyed by the liver's 'first-pass metabolism', rendering it completely useless."
+},
+{
+  "q": "The nurse evaluates an IV site and scores it a '3' on the Phlebitis Scale. What clinical findings define a grade 3 phlebitis?",
+  "o": [
+    "Pain at the site, erythema, and no palpable cord",
+    "Pain at the site, erythema, edema, and a palpable venous cord",
+    "Pain, erythema, and purulent drainage (pus)",
+    "Coolness, pallor, and massive swelling"
+  ],
+  "a": 1,
+  "t": "IV Therapy",
+  "e": "The Infusion Nurses Society (INS) Phlebitis Scale: Grade 1 = Erythema with or without pain. Grade 2 = Pain, erythema, and/or edema. Grade 3 = Pain, erythema, edema, AND a palpable hard venous cord (streak formation). Grade 4 = All of the above PLUS a palpable cord > 1 inch long and purulent drainage."
+},
+{
+  "q": "A physician orders Phenytoin (Dilantin) 100 mg IV push. The nurse knows that Phenytoin is highly incompatible with many fluids. Which IV fluid MUST be used to flush the line before and after giving IV Phenytoin?",
+  "o": [
+    "5% Dextrose in Water (D5W)",
+    "0.9% Normal Saline (NS)",
+    "Lactated Ringer's (LR)",
+    "Sterile Water for Injection"
+  ],
+  "a": 1,
+  "t": "Medication Safety",
+  "e": "Phenytoin (Dilantin) will instantly precipitate (turn into solid, deadly white crystals) if it comes into contact with any solution containing Dextrose. It must ONLY be mixed or flushed with 0.9% Normal Saline."
+},
+{
+  "q": "When instilling eye drops (ophthalmic medication) to a patient with glaucoma, the nurse presses a finger tightly against the patient's nasolacrimal duct (inner canthus) for 1-2 minutes after administration. What is the specific purpose of this action?",
+  "o": [
+    "To decrease the pain associated with the drops",
+    "To prevent the medication from leaking out of the eye onto the cheek",
+    "To prevent systemic absorption of the drug into the bloodstream, which could cause severe cardiovascular side effects",
+    "To push the medication deeper into the pupil"
+  ],
+  "a": 2,
+  "t": "Medication Administration",
+  "e": "Glaucoma medications (like beta-blockers e.g., Timolol) are highly potent. If they wash down the tear duct (nasolacrimal duct) into the nasal mucosa, they are absorbed instantly into the systemic bloodstream, causing massive systemic side effects like profound bradycardia and hypotension. Pressing the inner canthus occludes the duct, keeping the drug locally in the eye."
+},
+{
+  "q": "A patient requires a trough level to be drawn for IV Vancomycin. The next dose is scheduled for 09:00. At what precise time should the nurse draw the blood sample for the trough level?",
+  "o": [
+    "08:00 (1 hour before)",
+    "08:30 (30 minutes before the next dose)",
+    "09:30 (30 minutes after the infusion finishes)",
+    "10:30 (1.5 hours after the dose)"
+  ],
+  "a": 1,
+  "t": "Pharmacokinetics",
+  "e": "A 'trough' level measures the lowest concentration of a drug in the patient's bloodstream to ensure it doesn't drop below the therapeutic threshold or build up to toxic levels. It MUST be drawn immediately (usually 15 to 30 minutes) BEFORE the next scheduled dose is administered. A 'peak' is drawn after the infusion finishes."
+},
+{
+  "q": "The physician orders 15 mg of Morphine Sulfate. The pharmacy supplies a vial labeled 10 mg/mL. How many mL will the nurse administer?",
+  "o": [
+    "1.0 mL",
+    "1.5 mL",
+    "2.0 mL",
+    "0.66 mL"
+  ],
+  "a": 1,
+  "t": "Medication Calculation",
+  "e": "Formula: (Desired Dose / Available Concentration) × Volume. \n(15 mg / 10 mg) × 1 mL = 1.5 mL."
+},
+{
+  "q": "A patient on Total Parenteral Nutrition (TPN) via a central line develops a fever of 102°F, chills, and hypotension. The insertion site is red and oozing purulent drainage. What is the nurse's priority action?",
+  "o": [
+    "Administer an antipyretic and document the finding",
+    "Slow the TPN infusion rate to half",
+    "Stop the TPN, pull the central line, culture the tip, and notify the physician",
+    "Administer IV antibiotics directly through the infected central line"
+  ],
+  "a": 2,
+  "t": "Central Line Emergencies",
+  "e": "The patient has a Central Line-Associated Bloodstream Infection (CLABSI) progressing to septic shock. The TPN solution is highly concentrated glucose, making it a perfect breeding ground for bacteria. The absolute priority is source control: stop the infusion, remove the infected catheter, cut the tip off with sterile scissors to send for culture, and notify the provider for systemic antibiotics."
+},
+{
+  "q": "A nurse is teaching a student how to administer a subcutaneous injection of Low Molecular Weight Heparin (Enoxaparin/Lovenox). Which action by the student requires IMMEDIATE correction by the nurse?",
+  "o": [
+    "Injecting the medication into the anterolateral abdomen, 2 inches away from the umbilicus",
+    "Pinching the skin fold before inserting the needle at a 90-degree angle",
+    "Massaging the injection site vigorously after withdrawing the needle",
+    "Leaving the small air bubble in the prefilled syringe prior to injection"
+  ],
+  "a": 2,
+  "t": "Medication Administration",
+  "e": "Massaging the site after a Heparin or Enoxaparin injection is strictly prohibited. Massaging damages the tiny capillaries in the subcutaneous tissue and disperses the anticoagulant, causing massive, painful bruising and hematoma formation. The air bubble in the Lovenox syringe is intentional (to seal the medication in) and should not be expelled."
+},
+{
+  "q": "What is the maximum volume of medication that can safely be injected into the deltoid muscle of an average adult?",
+  "o": [
+    "0.5 mL",
+    "1 mL",
+    "3 mL",
+    "5 mL"
+  ],
+  "a": 1,
+  "t": "Medication Administration",
+  "e": "The deltoid is a relatively small muscle with close proximity to the radial nerve. The absolute maximum safe volume for a deltoid IM injection in an adult is 1 mL. Volumes larger than 1 mL (up to 3 mL) must be injected into larger muscles like the ventrogluteal or vastus lateralis."
+},
+{
+  "q": "A patient is scheduled for surgery and has an order to be 'NPO after midnight'. The patient normally takes a daily oral dose of Metoprolol (a beta-blocker) for hypertension and heart rate control. What is the nurse's best action at 06:00 on the morning of surgery?",
+  "o": [
+    "Crush the pill and give it via an NG tube",
+    "Hold the medication because the patient is strictly NPO",
+    "Contact the surgeon or anesthesiologist for specific orders regarding the beta-blocker",
+    "Give the pill with a full glass of water"
+  ],
+  "a": 2,
+  "t": "Perioperative Medication",
+  "e": "While patients are NPO for surgery, critical cardiovascular medications (especially Beta-Blockers) are often required to be given with a tiny sip of water to prevent catastrophic rebound tachycardia, hypertension, or myocardial ischemia under anesthesia. The nurse MUST clarify with the anesthesiologist which specific cardiac/BP meds to give or hold."
+},
+{
+  "q": "The nurse has just inserted a blind Nasogastric (NG) tube for enteral feeding. What is the ONLY definitive, gold-standard method to verify the tube's tip is in the stomach before initiating the first feeding?",
+  "o": [
+    "Auscultating a 'swoosh' of air injected over the epigastrium",
+    "Testing the pH of aspirated gastric contents",
+    "Obtaining an abdominal X-ray (Radiograph)",
+    "Placing the end of the tube in a glass of water to check for bubbling"
+  ],
+  "a": 2,
+  "t": "Enteral Tubes",
+  "e": "While pH testing is useful for ongoing checks, the absolute ONLY definitive, gold-standard method to confirm initial placement of a blindly inserted NG tube is an X-ray. Auscultating air is notoriously unreliable and can be heard even if the tube is in the lungs. Feeding into the lungs causes fatal aspiration pneumonia."
+},
+{
+  "q": "A nurse is assessing a bedbound patient's sacrum and notes an area of intact skin that is deep purple/maroon in color and feels 'boggy' (mushy) to the touch. The skin is NOT broken. How should the nurse accurately stage this pressure injury?",
+  "o": [
+    "Stage 1 Pressure Injury",
+    "Stage 2 Pressure Injury",
+    "Unstageable Pressure Injury",
+    "Deep Tissue Pressure Injury (DTPI)"
+  ],
+  "a": 3,
+  "t": "Wound Care",
+  "e": "A Deep Tissue Pressure Injury (DTPI) is characterized by intact or non-intact skin with localized non-blanchable deep red, maroon, or purple discoloration, or an epidermal blood-filled blister. It feels boggy/mushy because the muscle tissue deep beneath the skin has died from pressure ischemia, even though the top layer of skin hasn't broken open yet."
+},
+{
+  "q": "A patient with a urinary retention issue has an order for a Foley catheter insertion. During insertion in a MALE patient, the nurse meets significant resistance at the prostatic urethra. What is the correct nursing action?",
+  "o": [
+    "Force the catheter through the resistance using steady, hard pressure",
+    "Remove the catheter, ask the patient to bear down, and insert a larger French size",
+    "Pause, ask the patient to take a deep breath to relax the sphincter, and apply gentle, steady pressure",
+    "Immediately inflate the balloon to dilate the urethra"
+  ],
+  "a": 2,
+  "t": "Catheterization",
+  "e": "Never force a catheter against strong resistance; doing so will tear the urethra, causing massive bleeding and a false passage. The nurse should pause, instruct the patient to take deep slow breaths or bear down slightly (to relax the external sphincter), and apply only gentle, steady forward pressure. If it still won't pass, stop and notify a urologist (a coudé tip may be needed)."
+},
+{
+  "q": "A nurse is staging a pressure ulcer on a patient's heel. The wound bed is completely covered by thick, black, dry, leathery eschar. The true depth of the wound cannot be seen. How is this ulcer staged?",
+  "o": [
+    "Stage 3",
+    "Stage 4",
+    "Deep Tissue Injury",
+    "Unstageable Pressure Injury"
+  ],
+  "a": 3,
+  "t": "Wound Care",
+  "e": "If the base (wound bed) of the ulcer is completely obscured by slough (yellow, tan, green) or eschar (brown, black), the true depth of tissue destruction cannot be evaluated visually. Therefore, it is clinically classified as an 'Unstageable' pressure injury until the eschar is surgically or enzymatically debrided."
+},
+{
+  "q": "The nurse is administering a large-volume cleansing enema to an adult patient. The patient suddenly complains of severe abdominal cramping. What is the most appropriate initial nursing action?",
+  "o": [
+    "Stop the enema immediately and remove the tube",
+    "Lower the enema bag to decrease the flow rate and pressure",
+    "Instruct the patient to bear down and push the fluid out",
+    "Raise the enema bag to get the fluid in faster so the procedure is over quicker"
+  ],
+  "a": 1,
+  "t": "GI Procedures",
+  "e": "Abdominal cramping during an enema is usually caused by the fluid infusing too quickly, creating high pressure in the colon. The simplest and first intervention is to simply lower the height of the enema bag/container. This decreases the gravity gradient, slowing the flow rate until the cramping subsides."
+},
+{
+  "q": "To prevent Catheter-Associated Urinary Tract Infections (CAUTI), which of the following practices is mandated by evidence-based bundles?",
+  "o": [
+    "Routinely changing the Foley catheter every 7 days",
+    "Maintaining the urinary drainage bag above the level of the patient's bladder",
+    "Disconnecting the catheter from the drainage tubing daily to flush it with sterile saline",
+    "Securing the catheter to the patient's leg and keeping the drainage bag below the level of the bladder at all times"
+  ],
+  "a": 3,
+  "t": "Infection Control / CAUTI",
+  "e": "The CAUTI bundle mandates maintaining a closed, sterile drainage system (never disconnecting the tube from the bag), keeping the bag strictly below the level of the bladder to prevent backflow of stagnant urine, securing it to the leg to prevent urethral trauma, and removing the catheter as soon as medically possible. Routine changes are not recommended."
+},
+{
+  "q": "Before administering an intermittent enteral tube feeding, the nurse checks the Gastric Residual Volume (GRV). The nurse aspirates 350 mL of formula. The hospital policy sets the threshold for holding feeds at 500 mL. What MUST the nurse do with the 350 mL of aspirated fluid?",
+  "o": [
+    "Discard the fluid in a biohazard container to prevent feeding them old formula",
+    "Return the entire 350 mL back into the stomach, flush the tube, and proceed with the feeding",
+    "Discard half of it and return the other half",
+    "Send the fluid to the lab for pH and culture testing"
+  ],
+  "a": 1,
+  "t": "Enteral Feeding",
+  "e": "Gastric residual fluid contains massive amounts of hydrochloric acid, pepsin, and essential electrolytes (potassium). Discarding it will rapidly induce profound metabolic alkalosis and severe electrolyte imbalances. Because 350 mL is below the 500 mL threshold, the nurse MUST return the entire volume to the stomach and continue the feeding."
+},
+{
+  "q": "A patient with a new colostomy is incredibly anxious about the stoma. The nurse assesses the stoma on postoperative day 1. Which specific stoma appearance requires IMMEDIATE emergency intervention by the surgeon?",
+  "o": [
+    "The stoma is bright, beefy red, and moist",
+    "The stoma is slightly edematous (swollen) and oozes a few drops of blood when gently wiped",
+    "The stoma is dark purple, dusky, and dry",
+    "The stoma is pink and produces a small amount of liquid stool"
+  ],
+  "a": 2,
+  "t": "Ostomy Care",
+  "e": "A healthy stoma is highly vascular, so it should look bright beefy red or pink, moist, and may ooze slightly when touched. A stoma that is pale, dusky, dark purple, or black indicates profound ischemia and tissue necrosis (the blood supply has been cut off). This is a surgical emergency."
+},
+{
+  "q": "A patient requires a female Foley catheterization. The nurse misses the urethra and inadvertently inserts the sterile catheter tip into the vagina. What is the correct corrective action?",
+  "o": [
+    "Remove the catheter from the vagina, wipe it with a sterile alcohol swab, and insert it into the urethra",
+    "Leave the catheter in the vagina as a landmark, obtain a brand new sterile catheter, and insert the new one into the urethra",
+    "Remove the catheter from the vagina and immediately insert it into the urethra",
+    "Flush the catheter with sterile water while it is in the vagina to clean it, then move it to the urethra"
+  ],
+  "a": 1,
+  "t": "Catheterization",
+  "e": "The vagina is highly colonized with bacteria. Once the sterile catheter touches the vaginal mucosa, it is hopelessly contaminated. If it is then moved to the urethra, it will cause a massive UTI. The nurse must leave the contaminated catheter in the vagina to serve as a visual landmark (so they don't hit the wrong hole twice) and use a completely new, sterile catheter kit to catheterize the urethra."
+},
+{
+  "q": "The nurse is assessing a patient using the Braden Scale. What specific risk does the Braden Scale measure, and what does a score of 9 indicate?",
+  "o": [
+    "Fall risk; a score of 9 indicates a low risk for falls",
+    "Pressure injury risk; a score of 9 indicates a very HIGH risk for developing pressure ulcers",
+    "Pain intensity; a score of 9 indicates severe, intractable pain",
+    "Sedation level; a score of 9 indicates the patient is in a coma"
+  ],
+  "a": 1,
+  "t": "Risk Assessment",
+  "e": "The Braden Scale is the universal tool used to predict a patient's risk of developing pressure injuries. It measures sensory perception, moisture, activity, mobility, nutrition, and friction/shear. The lower the score, the HIGHER the risk. A score of ≤ 9 indicates a severe, critically high risk for pressure ulcers."
+},
+{
+  "q": "When collecting a 'clean-catch' midstream urine specimen from a female patient, which instruction is critical for obtaining an uncontaminated sample?",
+  "o": [
+    "Collect the very first few drops of urine that come out, as they contain the highest concentration of bacteria",
+    "Wipe the perineal area from back to front before urinating",
+    "Begin urinating into the toilet, stop, place the sterile cup in the stream, collect the sample, and finish urinating in the toilet",
+    "Catheterize the patient to obtain the sample"
+  ],
+  "a": 2,
+  "t": "Specimen Collection",
+  "e": "To get a clean-catch midstream sample, the urethra is first cleansed (front to back). The patient begins to void into the toilet to flush out the bacteria naturally residing at the very tip of the urethra. The 'midstream' portion of the urine is then caught in the sterile cup, as it best represents the actual urine residing in the bladder."
+},
+{
+  "q": "A bedbound patient has a Stage 2 pressure injury on the coccyx. Which clinical description matches a Stage 2 ulcer?",
+  "o": [
+    "Intact skin with non-blanchable redness",
+    "Full-thickness skin loss with visible subcutaneous fat, but no bone or muscle visible",
+    "Partial-thickness skin loss involving the epidermis and dermis, presenting as a shallow open ulcer with a red-pink wound bed, without slough, or an intact serum-filled blister",
+    "Full-thickness tissue loss with exposed bone, tendon, or muscle"
+  ],
+  "a": 2,
+  "t": "Wound Care",
+  "e": "Stage 1 is non-blanchable erythema (intact skin). Stage 2 is partial-thickness skin loss involving the epidermis and dermis; it looks like a shallow crater, abrasion, or an intact/ruptured serum-filled blister. Stage 3 involves subcutaneous fat. Stage 4 involves exposed bone/muscle."
+},
+{
+  "q": "A nurse is preparing to administer a soap suds enema. In which anatomical position MUST the nurse place the adult patient to facilitate the natural flow of gravity into the sigmoid colon?",
+  "o": [
+    "Prone position",
+    "Right lateral decubitus with the left knee flexed",
+    "Left lateral (Sims') position with the right knee flexed",
+    "Lithotomy position"
+  ],
+  "a": 2,
+  "t": "GI Procedures",
+  "e": "The descending colon and sigmoid colon are located on the left side of the abdomen. Placing the patient in the Left Lateral (Sims') position with the right leg flexed utilizes gravity to allow the enema fluid to flow smoothly down the natural anatomical curve of the descending colon."
+},
+{
+  "q": "A postoperative patient has a Jackson-Pratt (JP) drain. To ensure the drain continuously functions by pulling fluid out of the surgical wound, what MUST the nurse do after emptying it?",
+  "o": [
+    "Connect the drain to high continuous wall suction",
+    "Squeeze the bulb completely flat (compress it) and replace the plug while it is compressed to re-establish negative pressure",
+    "Leave the plug open to air so fluid can freely drain out",
+    "Flush the drain with 30 mL of sterile saline to clear clots"
+  ],
+  "a": 1,
+  "t": "Post-op Care",
+  "e": "A Jackson-Pratt drain is a closed-suction device. It relies entirely on a gentle, continuous vacuum to pull fluid from the wound. To create this vacuum, the nurse must empty the fluid, physically squeeze all the air out of the bulb so it is completely flat, and seal the cap while maintaining the squeeze."
+},
+{
+  "q": "A patient receiving continuous enteral tube feedings is placed supine, flat in bed, while the nurse turns them to change the sheets. The patient vomits and aspirates the feeding into their lungs. What was the critical nursing error?",
+  "o": [
+    "Using the wrong type of feeding formula",
+    "Failing to check the gastric residual volume before turning",
+    "Failing to pause (turn off) the continuous feeding pump BEFORE laying the patient flat",
+    "Turning the patient on their left side instead of their right side"
+  ],
+  "a": 2,
+  "t": "Enteral Safety",
+  "e": "Patients receiving continuous enteral feedings must ALWAYS have the Head of the Bed elevated to at least 30-45 degrees to prevent massive aspiration. If a nursing procedure requires laying the patient completely flat (like turning, boosting, or changing linens), the feeding pump MUST be paused/turned off before the bed is lowered."
+},
+{
+  "q": "During wound healing, the nurse observes bright, 'beefy' red, moist, cobblestone-like tissue filling the wound bed. This tissue bleeds very easily when touched. The nurse documents this healthy, healing tissue as:",
+  "o": [
+    "Slough",
+    "Eschar",
+    "Granulation tissue",
+    "Exudate"
+  ],
+  "a": 2,
+  "t": "Wound Healing",
+  "e": "Granulation tissue is the hallmark of the proliferative phase of wound healing. It is highly vascular, bright beefy red, moist, and slightly bumpy (cobblestone). Because it consists of newly forming, fragile capillary beds, it bleeds very easily with minimal trauma."
+},
+{
+  "q": "A patient with a severe impaction requires digital removal of stool. During the procedure, the patient suddenly becomes pale, diaphoretic, and the heart rate drops to 35 bpm. What physiological emergency has the nurse triggered?",
+  "o": [
+    "A massive pulmonary embolism",
+    "A vasovagal response (Vagus nerve stimulation) causing severe parasympathetic bradycardia",
+    "A sudden bowel perforation",
+    "Anaphylactic shock from the lubricant gel"
+  ],
+  "a": 1,
+  "t": "GI Emergencies",
+  "e": "The rectum is heavily innervated by the Vagus nerve (Parasympathetic nervous system). Aggressive digital stimulation of the rectum can violently overstimulate the vagus nerve. This triggers a massive vagal response, resulting in a sudden, profound, life-threatening drop in heart rate (bradycardia) and blood pressure (syncope)."
+},
+{
+  "q": "A patient is diagnosed with an evisceration after abdominal surgery. The nurse sees loops of bowel protruding through the open surgical incision. What is the absolute FIRST nursing intervention?",
+  "o": [
+    "Attempt to gently push the intestines back into the abdominal cavity using sterile gloves",
+    "Cover the protruding bowel with sterile towels/gauze heavily soaked in sterile normal saline",
+    "Apply a tight abdominal binder over the bowel to stop the bleeding",
+    "Leave the wound open to air and run to call the surgeon"
+  ],
+  "a": 1,
+  "t": "Surgical Emergencies",
+  "e": "Evisceration is a catastrophic surgical emergency. The nurse must NEVER attempt to push the bowel back in (this causes massive trauma and necrosis). The absolute priority is to keep the exposed bowel from drying out and dying. Immediately cover the bowel with sterile gauze or towels heavily saturated with sterile warm Normal Saline, place the patient supine with knees bent, and call the surgeon."
+},
+{
+  "q": "A patient's indwelling Foley catheter is to be removed. To prevent urethral trauma, what MUST the nurse do before pulling the catheter out?",
+  "o": [
+    "Cut the balloon port with scissors to let the water drain out quickly",
+    "Attach a syringe to the balloon port and actively withdraw all the sterile water to completely deflate the balloon",
+    "Pull the catheter swiftly while the patient takes a deep breath",
+    "Clamp the catheter for 2 hours to train the bladder"
+  ],
+  "a": 1,
+  "t": "Catheterization",
+  "e": "The Foley balloon anchors the catheter in the bladder. Pulling the catheter out with an inflated balloon will violently shred the urethra, causing massive bleeding and permanent strictures. The nurse must attach a syringe and verify that the exact volume of water originally instilled (usually 10 mL) has been completely aspirated out before gently removing the tube. NEVER cut the port, as it can trap water in the balloon."
+},
+{
+  "q": "A male patient requires the application of a condom catheter. To prevent skin breakdown and penile ischemia, how much space should the nurse leave between the tip of the penis and the end of the condom catheter?",
+  "o": [
+    "No space; it should fit skin-tight",
+    "1 to 2 inches (2.5 to 5 cm)",
+    "4 to 5 inches",
+    "It depends on the size of the drainage bag"
+  ],
+  "a": 1,
+  "t": "Catheterization",
+  "e": "When applying a condom catheter, exactly 1 to 2 inches (2.5 to 5 cm) of space must be left between the glans of the penis and the end of the catheter. This prevents friction, excoriation, and allows urine to pool briefly before draining down the tube, preventing it from backing up and macerating the skin."
+},
+{
+  "q": "A competent adult patient with terminal cancer signs a Do Not Resuscitate (DNR) order. The patient suddenly goes into cardiac arrest. The patient's daughter is at the bedside screaming, 'Save him! Do CPR! I revoke the DNR!' What is the nurse's legal and ethical obligation?",
+  "o": [
+    "Initiate CPR immediately because the family member revoked the order",
+    "Call the hospital ethics committee for an emergency consult while withholding CPR",
+    "Respect the patient's autonomous, legal DNR order and withhold CPR, calmly explaining the situation to the daughter",
+    "Administer Epinephrine but do not perform chest compressions"
+  ],
+  "a": 2,
+  "t": "Legal and Ethics",
+  "e": "A valid DNR executed by a competent patient is a legally binding medical order reflecting the ethical principle of Autonomy. Family members ABSOLUTELY CANNOT override or revoke a competent patient's prior advanced directive or DNR. The nurse's legal duty is to follow the patient's wishes and withhold resuscitation."
+},
+{
+  "q": "The nurse tells a patient, 'If you don't stay in your bed, I am going to tie you down with restraints.' What specific intentional tort has the nurse committed?",
+  "o": [
+    "Battery",
+    "Assault",
+    "False Imprisonment",
+    "Negligence"
+  ],
+  "a": 1,
+  "t": "Legal - Torts",
+  "e": "Assault is the intentional THREAT or attempt to cause physical harm or offensive contact, creating a genuine fear or apprehension in the patient. Battery is the actual physical, unauthorized touching/harming. Because the nurse only *threatened* to tie them down, it is Assault."
+},
+{
+  "q": "A patient is scheduled for a cholecystectomy. The surgeon explains the procedure, and the patient agrees. The nurse brings the consent form for the patient to sign. What is the explicit legal role of the nurse signing as a 'Witness' on the informed consent form?",
+  "o": [
+    "The nurse guarantees that the surgeon perfectly explained all risks and alternatives",
+    "The nurse confirms that the patient fully understands the medical procedure",
+    "The nurse attests only that the signature is authentic, the patient appears competent, and the signing was voluntary",
+    "The nurse takes legal liability if the surgery goes wrong"
+  ],
+  "a": 2,
+  "t": "Informed Consent",
+  "e": "It is the strictly the SURGEON'S legal duty to obtain informed consent by explaining the procedure, risks, and benefits. The nurse acts ONLY as a witness to the physical act of signing. The nurse's signature means: 1) It was actually the patient who signed, 2) The patient wasn't coerced, and 3) The patient wasn't visibly intoxicated or incompetent at the exact moment of signing."
+},
+{
+  "q": "A patient's morning potassium level is 2.2 mEq/L. The nurse expects to see which classic manifestation on the patient's Electrocardiogram (ECG)?",
+  "o": [
+    "Tall, peaked, tented T waves",
+    "A flattened T wave and the presence of a prominent U wave",
+    "Massive ST segment elevation",
+    "A massively widened QRS complex blending into the T wave (sine wave)"
+  ],
+  "a": 1,
+  "t": "Fluid & Electrolytes",
+  "e": "Severe hypokalemia (K+ < 3.5) prolongs repolarization of the ventricles. This manifests on an ECG as ST-segment depression, a flattened or inverted T wave, and classically, the appearance of a prominent U wave right after the T wave. Peaked T waves and widened QRS complexes indicate Hyperkalemia."
+},
+{
+  "q": "A patient with a severe head injury is admitted to the neuro ICU. To promote cerebral venous drainage and prevent spikes in Intracranial Pressure (ICP), what is the optimal positioning for this patient?",
+  "o": [
+    "Supine, completely flat without a pillow",
+    "Trendelenburg position",
+    "Head of the bed elevated 30 to 45 degrees, with the neck kept in a neutral, midline alignment",
+    "Prone position"
+  ],
+  "a": 2,
+  "t": "Patient Positioning",
+  "e": "To aggressively lower ICP, gravity must be used to drain blood out of the brain via the jugular veins. The HOB must be elevated 30-45 degrees. Crucially, the neck MUST be kept perfectly straight (neutral midline). If the neck is bent or twisted to the side, the jugular veins are physically kinked, blood backs up into the brain, and ICP skyrockets."
+},
+{
+  "q": "A patient just had a percutaneous Liver Biopsy. Because the liver is a highly vascular organ prone to massive hemorrhage, how MUST the nurse position the patient immediately after the procedure?",
+  "o": [
+    "Lying flat on their back (supine) for 12 hours",
+    "Strictly on their RIGHT side (Right lateral decubitus) with a towel or pillow placed under the puncture site",
+    "On their LEFT side to prevent aspiration",
+    "Sitting upright in high-Fowler's position"
+  ],
+  "a": 1,
+  "t": "Patient Positioning",
+  "e": "The liver is located on the right side of the abdomen. After a biopsy, the patient is at extreme risk of internal bleeding. Placing the patient on their RIGHT side, laying their own body weight directly on top of the puncture site, acts as a massive natural pressure dressing (tamponade) to physically stop the liver from bleeding."
+},
+{
+  "q": "A patient has just undergone a Lumbar Puncture (Spinal Tap). To prevent the most common, debilitating complication of this procedure, what post-procedure instruction is mandatory?",
+  "o": [
+    "'You must walk around the unit for 30 minutes immediately.'",
+    "'Lie completely flat (supine) in bed for 4 to 8 hours.'",
+    "'Sit upright at a 90-degree angle to drain the fluid.'",
+    "'You must be NPO for 24 hours.'"
+  ],
+  "a": 1,
+  "t": "Patient Positioning",
+  "e": "A lumbar puncture punches a hole in the dura mater. If cerebrospinal fluid (CSF) leaks out of this hole, the brain loses its fluid cushion, sags downward, and pulls on the meninges, causing an agonizing, excruciating 'Spinal Headache'. Lying strictly flat (supine) for several hours prevents gravity from pulling the CSF out of the puncture site until it clots/heals."
+},
+{
+  "q": "The ethical principle of 'Beneficence' in nursing practice is best defined as:",
+  "o": [
+    "The obligation to tell the truth at all times",
+    "The duty to do no harm",
+    "The active obligation to do good, promote the patient's welfare, and act in their best interest",
+    "The obligation to distribute healthcare resources fairly and equally"
+  ],
+  "a": 2,
+  "t": "Legal and Ethics",
+  "e": "Beneficence is the core ethical principle requiring nurses to actively take positive actions to help others and promote good (e.g., administering pain medication, providing comfort). Nonmaleficence is the duty to do no harm. Veracity is telling the truth. Justice is fairness."
+},
+{
+  "q": "A patient is exhibiting Trousseau's sign (carpal spasm when a blood pressure cuff is inflated above systolic pressure for 3 minutes) and Chvostek's sign (facial twitching when the facial nerve is tapped). These are classic pathognomonic signs of which severe electrolyte imbalance?",
+  "o": [
+    "Hypernatremia",
+    "Hypocalcemia",
+    "Hypercalcemia",
+    "Hypokalemia"
+  ],
+  "a": 1,
+  "t": "Fluid & Electrolytes",
+  "e": "Calcium acts as a stabilizer for nerve and muscle membranes. In Hypocalcemia (low calcium), the nerves lose this stabilizer and become wildly hyper-excitable. This causes severe, uncontrollable muscle spasms, tetany, and the classic Trousseau's and Chvostek's signs. It is a medical emergency requiring IV Calcium Gluconate."
+},
+{
+  "q": "During a surgical procedure, the circulating nurse counts the surgical sponges. At the end of the case, the count is off by one sponge. The surgeon ignores the nurse and begins suturing the patient closed. If the nurse says nothing and the sponge is left inside, the nurse can be sued for:",
+  "o": [
+    "Assault",
+    "Defamation of Character",
+    "Malpractice (Professional Negligence)",
+    "False Imprisonment"
+  ],
+  "a": 2,
+  "t": "Legal / Perioperative",
+  "e": "Malpractice is a specific type of negligence applied to professionals. It occurs when a nurse fails to meet the standard of care (verifying counts and advocating for the patient by stopping the closure), and that failure causes actual harm to the patient (a retained foreign body). It is an unintentional tort."
+},
+{
+  "q": "A patient undergoes a Subtotal Thyroidectomy. 12 hours post-op, the patient complains of a 'tight, choking' feeling in the neck, and the nurse hears high-pitched inspiratory stridor. What is the absolute FIRST, life-saving action?",
+  "o": [
+    "Administer IV Calcium Gluconate for suspected hypocalcemia",
+    "Call a code blue and start chest compressions",
+    "Open the emergency tracheostomy tray, remove the surgical clips/sutures from the incision to release the expanding hematoma, and call the rapid response team",
+    "Elevate the HOB and apply an ice pack"
+  ],
+  "a": 2,
+  "t": "Perioperative Emergencies",
+  "e": "Stridor and a tight neck post-thyroidectomy indicate a rapidly expanding hematoma under the incision that is physically crushing the trachea shut. The patient will suffocate in minutes. The immediate, life-saving action is to manually pop open the surgical incision to release the blood pressure, saving the airway, while preparing for an emergency airway/trach."
+},
+{
+  "q": "When providing post-mortem care to a deceased patient prior to allowing the family to view the body, which nursing action is appropriate?",
+  "o": [
+    "Remove the patient's dentures and place them in a cup next to the bed",
+    "Leave all IV lines, endotracheal tubes, and Foley catheters completely intact and taped in place if an autopsy is NOT scheduled",
+    "Close the patient's eyes gently, place the body in a supine position with the head slightly elevated on a pillow, and insert the dentures",
+    "Tape the patient's mouth shut tightly"
+  ],
+  "a": 2,
+  "t": "Post-Mortem Care",
+  "e": "Post-mortem care aims to maintain the body's dignity and natural appearance. The head is elevated slightly on a pillow immediately to prevent blood from pooling and staining the face (livor mortis). Eyes are gently closed. Dentures must be INSERTED immediately before rigor mortis sets in, to maintain the natural shape of the face. Tubes are removed ONLY if no autopsy/medical examiner case is pending."
+},
+{
+  "q": "A nurse is caring for a patient with severe Hypernatremia (Sodium 160 mEq/L). The primary physiological consequence of massive hypernatremia involves fluid shifting. What happens to the cells?",
+  "o": [
+    "Water shifts from the extracellular fluid INTO the cells, causing them to swell and burst",
+    "Water shifts from the intracellular fluid OUT into the hypertonic blood, causing massive cellular dehydration and brain cell shrinkage",
+    "Potassium aggressively enters the cell to replace the sodium",
+    "The cells become completely immune to insulin"
+  ],
+  "a": 1,
+  "t": "Fluid & Electrolytes",
+  "e": "Hypernatremia means the blood is extremely salty (hypertonic). Osmosis dictates that water moves from areas of low concentration to high concentration. The salty blood violently sucks water OUT of the body's cells, causing severe cellular dehydration. In the brain, these shrinking cells pull on the meninges, causing fatal seizures and coma."
+},
+{
+  "q": "A patient is scheduled for a Total Hip Arthroplasty (replacement). In the operating room, before the anesthesia is induced and the incision is made, the entire surgical team pauses. The surgeon, anesthesiologist, and nurse verbally confirm the patient's identity, the exact procedure, and the correct surgical site. What is this mandatory protocol called?",
+  "o": [
+    "The Surgical Scrub",
+    "The Universal Protocol 'Time-Out'",
+    "Informed Consent Verification",
+    "The Post-Anesthesia Care Unit (PACU) Handoff"
+  ],
+  "a": 1,
+  "t": "Perioperative Safety",
+  "e": "The Universal Protocol 'Time-Out' is a mandatory safety check instituted by The Joint Commission. Just before the scalpel cuts the skin, the entire room stops all activity to collectively verify the right patient, right surgery, and right anatomical site, definitively preventing wrong-site surgery."
+},
+{
+  "q": "A patient refuses to take their prescribed morning dose of antihypertensive medication. The nurse crushes the pill and hides it in the patient's applesauce without their knowledge. The patient eats it. Legally, the nurse has committed:",
+  "o": [
+    "Beneficence, because the nurse controlled the patient's blood pressure",
+    "Battery",
+    "Slander",
+    "Negligence"
+  ],
+  "a": 1,
+  "t": "Legal - Torts",
+  "e": "Battery is the intentional, unauthorized physical contact or administration of treatment against a patient's will. Even if the drug helps the patient, tricking a competent patient into taking a medication they explicitly refused is an extreme violation of autonomy and constitutes the intentional tort of Battery."
+},
+{
+  "q": "To evaluate a patient's acid-base balance, an Arterial Blood Gas (ABG) is ordered. The nurse must draw the blood from the radial artery. What specific test MUST the nurse perform before puncturing the radial artery?",
+  "o": [
+    "The Phalen's Test",
+    "The Homan's Sign",
+    "The Allen Test",
+    "The Romberg Test"
+  ],
+  "a": 2,
+  "t": "Clinical Procedures",
+  "e": "The Allen Test ensures that the ulnar artery provides adequate collateral blood flow to the hand. If the nurse accidentally damages/clots the radial artery during the ABG puncture, the hand will suffer severe ischemia and gangrene unless the ulnar artery can compensate. A positive (normal) Allen test is mandatory before a radial ABG."
+},
+{
+  "q": "A patient is diagnosed with Respiratory Acidosis. Which set of Arterial Blood Gas (ABG) values confirms this specific diagnosis?",
+  "o": [
+    "pH 7.30, PaCO2 55 mmHg, HCO3 24 mEq/L",
+    "pH 7.50, PaCO2 30 mmHg, HCO3 24 mEq/L",
+    "pH 7.28, PaCO2 35 mmHg, HCO3 16 mEq/L",
+    "pH 7.48, PaCO2 40 mmHg, HCO3 32 mEq/L"
+  ],
+  "a": 0,
+  "t": "Acid-Base Balance",
+  "e": "Normal values: pH (7.35-7.45), PaCO2 (35-45), HCO3 (22-26). A pH of 7.30 indicates Acidosis. A high PaCO2 of 55 indicates the lungs are trapping carbon dioxide (an acid). Because the CO2 matches the acidotic pH, the primary cause is respiratory. Therefore, it is Uncompensated Respiratory Acidosis."
+},
+{
+  "q": "A nurse on the surgical floor receives a patient immediately post-op from a Right Pneumonectomy (entire right lung removed). How should the nurse position this patient in bed?",
+  "o": [
+    "Strictly on the non-operative (LEFT) side",
+    "On the operative (RIGHT) side or supine",
+    "In the prone position",
+    "In the Trendelenburg position"
+  ],
+  "a": 1,
+  "t": "Patient Positioning",
+  "e": "After a pneumonectomy, the empty pleural space must fill with fluid to consolidate and prevent a mediastinal shift. If the patient lies on the good lung (left side), fluid from the surgical stump could drown the single remaining lung, and the mediastinum could shift and crush the good lung. Therefore, position them on the OPERATIVE side (right) or supine."
+},
+{
+  "q": "Which ethical principle dictates that a nurse must always tell the truth and not deceive the patient regarding their diagnosis or treatment plan?",
+  "o": [
+    "Fidelity",
+    "Veracity",
+    "Justice",
+    "Nonmaleficence"
+  ],
+  "a": 1,
+  "t": "Ethics",
+  "e": "Veracity is the ethical principle of truth-telling. It requires healthcare providers to be honest and not intentionally deceive or mislead patients. Fidelity is keeping promises. Nonmaleficence is doing no harm. Justice is fairness in resource distribution."
+},
+{
+  "q": "A patient has a critically low serum Magnesium level of 0.8 mg/dL (Hypomagnesemia). Because magnesium and calcium are intimately related, the patient is at extreme risk for developing which life-threatening cardiac arrhythmia?",
+  "o": [
+    "Sinus Bradycardia",
+    "Atrial Fibrillation",
+    "Torsades de Pointes (Polymorphic Ventricular Tachycardia)",
+    "First-Degree AV Block"
+  ],
+  "a": 2,
+  "t": "Fluid & Electrolytes",
+  "e": "Severe hypomagnesemia prolongs the QT interval on the electrocardiogram. A prolonged QT interval is the exact trigger for a deadly, chaotic ventricular arrhythmia called Torsades de Pointes, which rapidly deteriorates into Ventricular Fibrillation and cardiac arrest. IV Magnesium Sulfate is the antidote."
+}
+];
+]; // Closes the rawQuestions array
+
+// Structure into 5 sections of 20 questions each
+let sections = [];
+for (let i = 0; i < 5; i++) {
+    sections.push(rawQuestions.slice(i * 20, (i + 1) * 20));
+}
+
+let currentSection = 0;
+let currentQ = 0;
+let score = 0;
+let answersData = Array.from({length: 5}, () => new Array(20).fill(null));
+
+// Timers (in seconds)
+let sectionTimeLeft = 18 * 60; // 18 mins per section
+let totalTimeLeft = 90 * 60; // 90 mins total
+let timerInterval;
+
+const quizBody = document.getElementById('quiz-body');
+const scoreEl = document.getElementById('score');
+const qCounterEl = document.getElementById('q-counter');
+const secDisplayEl = document.getElementById('section-display');
+const secTimerEl = document.getElementById('section-timer');
+const totTimerEl = document.getElementById('total-timer');
+const progressEl = document.getElementById('progress');
+
+function formatTime(seconds) {
+    const m = Math.floor(seconds / 60);
+    const s = seconds % 60;
+    return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+}
+
+function updateTimers() {
+    if (totalTimeLeft <= 0) {
+        clearInterval(timerInterval);
+        finishExam();
+        return;
+    }
+    
+    sectionTimeLeft--;
+    totalTimeLeft--;
+    
+    secTimerEl.innerText = `Section Time: ${formatTime(sectionTimeLeft)}`;
+    totTimerEl.innerText = `Total Time: ${formatTime(totalTimeLeft)}`;
+    
+    if (sectionTimeLeft <= 0) {
+        advanceSection();
+    }
+}
+
+function advanceSection() {
+    if (currentSection < 4) {
+        alert(`Time's up for Section ${currentSection + 1}. Auto-advancing to Section ${currentSection + 2}.`);
+        currentSection++;
+        currentQ = 0;
+        sectionTimeLeft = 18 * 60; // Reset for next section
+        renderQuestion();
+    } else {
+        clearInterval(timerInterval);
+        finishExam();
+    }
+}
+
+function renderQuestion() {
+    quizBody.innerHTML = '';
+    const q = sections[currentSection][currentQ];
+    const globalQNum = (currentSection * 20) + currentQ + 1;
+    
+    const qDiv = document.createElement('div');
+    qDiv.className = 'question-container active';
+    
+    // Check if already answered in this section
+    const isAnswered = answersData[currentSection][currentQ] !== null;
+    const selectedIdx = answersData[currentSection][currentQ];
+    
+    let optionsHtml = '';
+    q.o.forEach((opt, optIndex) => {
+        let btnClass = 'option-btn';
+        if (isAnswered) {
+            btnClass += ' disabled';
+            if (optIndex === q.a) btnClass += ' correct';
+            else if (optIndex === selectedIdx) btnClass += ' incorrect';
+        }
+        optionsHtml += `
+            <button class="${btnClass}" onclick="checkAnswer(${optIndex}, this)">
+                ${String.fromCharCode(65 + optIndex)}. ${opt}
+            </button>
+        `;
+    });
+
+    let navHtml = '';
+    if (currentQ > 0) {
+        navHtml += `<button class="nav-btn" onclick="navigate(-1)">Previous</button>`;
+    } else {
+        navHtml += `<button class="nav-btn" disabled>Previous</button>`;
+    }
+    
+    if (currentQ < 19) {
+        navHtml += `<button class="nav-btn" onclick="navigate(1)">Next</button>`;
+    } else {
+        if (currentSection < 4) {
+            navHtml += `<button class="nav-btn" onclick="submitSection()">Submit Section ${currentSection + 1}</button>`;
+        } else {
+            navHtml += `<button class="nav-btn" onclick="finishExam()">Final Submit</button>`;
+        }
+    }
+
+    qDiv.innerHTML = `
+        <div class="subject-tag">${q.t}</div>
+        <div class="q-text">Q${globalQNum}: ${q.q}</div>
+        <div class="options" id="opts-container">${optionsHtml}</div>
+        <div class="rationale" id="rationale-box" style="display: ${isAnswered ? 'block' : 'none'};">
+            <strong>Calculation Rationale:</strong> ${q.e}
+        </div>
+        <div class="navigation">${navHtml}</div>
+    `;
+    quizBody.appendChild(qDiv);
+    
+    secDisplayEl.innerText = `Section: ${currentSection + 1} / 5`;
+    qCounterEl.innerText = `Q: ${currentQ + 1} / 20`;
+    
+    const globalProgress = (globalQNum / 100) * 100;
+    progressEl.style.width = `${globalProgress}%`;
+}
+
+window.checkAnswer = function(selectedOptIndex, btnElement) {
+    if (answersData[currentSection][currentQ] !== null) return; 
+    
+    const q = sections[currentSection][currentQ];
+    answersData[currentSection][currentQ] = selectedOptIndex;
+    
+    const container = document.getElementById('opts-container');
+    const buttons = container.querySelectorAll('.option-btn');
+    
+    buttons.forEach(b => b.classList.add('disabled'));
+    
+    if (selectedOptIndex === q.a) {
+        btnElement.classList.add('correct');
+        score += 1;
+    } else {
+        btnElement.classList.add('incorrect');
+        buttons[q.a].classList.add('correct');
+        score -= 0.3333; // 1/3 negative marking
+    }
+    
+    document.getElementById('rationale-box').style.display = 'block';
+    scoreEl.innerText = score.toFixed(2);
+}
+
+window.navigate = function(dir) {
+    currentQ += dir;
+    renderQuestion();
+}
+
+window.submitSection = function() {
+    let unans = 0;
+    for(let i=0; i<20; i++) {
+        if(answersData[currentSection][i] === null) unans++;
+    }
+    if(unans > 0) {
+        if(!confirm(`You have ${unans} unattempted questions in this section. Submit and move to next section? You CANNOT return.`)) return;
+    } else {
+        if(!confirm(`Are you sure you want to submit Section ${currentSection + 1}? You CANNOT return.`)) return;
+    }
+    
+    currentSection++;
+    currentQ = 0;
+    sectionTimeLeft = 18 * 60; 
+    renderQuestion();
+}
+
+window.finishExam = function() {
+    clearInterval(timerInterval);
+    quizBody.style.display = 'none';
+    document.querySelector('.dashboard').style.display = 'none';
+    document.querySelector('.progress-bar').style.display = 'none';
+    document.getElementById('results-screen').style.display = 'block';
+    
+    let finalScoreFormatted = score < 0 ? "0.00" : score.toFixed(2);
+    document.getElementById('final-score-display').innerText = `${finalScoreFormatted} / 100`;
+}
+
+window.onload = function() {
+    renderQuestion();
+    timerInterval = setInterval(updateTimers, 1000);
+};
+</script>
+
+</body>
+</html>
