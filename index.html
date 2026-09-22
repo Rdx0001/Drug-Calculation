@@ -149,1109 +149,721 @@
 
 <script>
 const rawQuestions = [
-{
-  "q": "A 70 kg patient in cardiogenic shock is ordered Dopamine at 5 mcg/kg/min. The pharmacy sends Dopamine 400 mg in 250 mL D5W. At what rate in mL/hr should the infusion pump be programmed?",
-  "o": [
-    "10.5 mL/hr",
-    "13.1 mL/hr",
-    "15.8 mL/hr",
-    "21.0 mL/hr"
-  ],
-  "a": 1,
-  "t": "Critical Care Drips",
-  "e": "Formula: Rate (mL/hr) = [Dose (mcg/kg/min) x Weight (kg) x 60 min/hr] / Concentration (mcg/mL). Concentration = 400,000 mcg / 250 mL = 1,600 mcg/mL. Dose/hr = 5 x 70 x 60 = 21,000 mcg/hr. Rate = 21,000 / 1,600 = 13.125 mL/hr ≈ 13.1 mL/hr."
-},
-{
-  "q": "A patient in septic shock is prescribed Norepinephrine at 12 mcg/min. The solution prepared contains 8 mg of Norepinephrine in 250 mL D5W. Calculate the infusion rate in mL/hr.",
-  "o": [
-    "18.0 mL/hr",
-    "22.5 mL/hr",
-    "25.0 mL/hr",
-    "30.5 mL/hr"
-  ],
-  "a": 1,
-  "t": "Critical Care Drips",
-  "e": "Concentration = 8 mg / 250 mL = 8,000 mcg / 250 mL = 32 mcg/mL. Desired dose/hr = 12 mcg/min x 60 min = 720 mcg/hr. Rate = 720 mcg/hr / 32 mcg/mL = 22.5 mL/hr."
-},
-{
-  "q": "A 50 kg patient is prescribed an infusion at 8 mcg/kg/min. The IV bag contains 500 mg of the drug in 500 mL of D5W. Calculate the IV pump rate in mL/hr.",
-  "o": [
-    "29.2 mL/hr",
-    "21.5 mL/hr",
-    "24.0 mL/hr",
-    "36.0 mL/hr"
-  ],
-  "a": 2,
-  "t": "Critical Care - Titration",
-  "e": "1. Concentration = (500 mg * 1000) / 500 mL = 1000.0 mcg/mL. 2. Dose/min = 8 mcg/kg/min * 50 kg = 400 mcg/min. 3. Dose/hr = 400 * 60 = 24000 mcg/hr. 4. Rate = 24000 / 1000.0 = 24.0 mL/hr."
-},
-{
-  "q": "A 65 kg patient is prescribed an infusion at 10 mcg/kg/min. The IV bag contains 200 mg of the drug in 250 mL of D5W. Calculate the IV pump rate in mL/hr.",
-  "o": [
-    "46.2 mL/hr",
-    "54.0 mL/hr",
-    "73.1 mL/hr",
-    "48.8 mL/hr"
-  ],
-  "a": 3,
-  "t": "Critical Care - Titration",
-  "e": "1. Concentration = (200 mg * 1000) / 250 mL = 800.0 mcg/mL. 2. Dose/min = 10 mcg/kg/min * 65 kg = 650 mcg/min. 3. Dose/hr = 650 * 60 = 39000 mcg/hr. 4. Rate = 39000 / 800.0 = 48.8 mL/hr."
-},
-{
-  "q": "A 75 kg patient is prescribed an infusion at 2 mcg/kg/min. The IV bag contains 400 mg of the drug in 500 mL of D5W. Calculate the IV pump rate in mL/hr.",
-  "o": [
-    "16.4 mL/hr",
-    "16.9 mL/hr",
-    "11.2 mL/hr",
-    "8.8 mL/hr"
-  ],
-  "a": 2,
-  "t": "Critical Care - Titration",
-  "e": "1. Concentration = (400 mg * 1000) / 500 mL = 800.0 mcg/mL. 2. Dose/min = 2 mcg/kg/min * 75 kg = 150 mcg/min. 3. Dose/hr = 150 * 60 = 9000 mcg/hr. 4. Rate = 9000 / 800.0 = 11.2 mL/hr."
-},
-{
-  "q": "A 80 kg patient is prescribed an infusion at 5 mcg/kg/min. The IV bag contains 800 mg of the drug in 250 mL of D5W. Calculate the IV pump rate in mL/hr.",
-  "o": [
-    "11.2 mL/hr",
-    "12.7 mL/hr",
-    "5.0 mL/hr",
-    "7.5 mL/hr"
-  ],
-  "a": 3,
-  "t": "Critical Care - Titration",
-  "e": "1. Concentration = (800 mg * 1000) / 250 mL = 3200.0 mcg/mL. 2. Dose/min = 5 mcg/kg/min * 80 kg = 400 mcg/min. 3. Dose/hr = 400 * 60 = 24000 mcg/hr. 4. Rate = 24000 / 3200.0 = 7.5 mL/hr."
-},
-{
-  "q": "A 95 kg patient is prescribed an infusion at 3 mcg/kg/min. The IV bag contains 500 mg of the drug in 250 mL of D5W. Calculate the IV pump rate in mL/hr.",
-  "o": [
-    "13.7 mL/hr",
-    "8.6 mL/hr",
-    "12.8 mL/hr",
-    "6.1 mL/hr"
-  ],
-  "a": 1,
-  "t": "Critical Care - Titration",
-  "e": "1. Concentration = (500 mg * 1000) / 250 mL = 2000.0 mcg/mL. 2. Dose/min = 3 mcg/kg/min * 95 kg = 285 mcg/min. 3. Dose/hr = 285 * 60 = 17100 mcg/hr. 4. Rate = 17100 / 2000.0 = 8.6 mL/hr."
-},
-{
-  "q": "A patient weighing 154 lbs is diagnosed with a DVT. The Heparin protocol orders a bolus of 80 Units/kg followed by a continuous infusion of 18 Units/kg/hr. The pharmacy supplies Heparin 25000 Units in 500 mL D5W. Calculate the exact bolus dose and the initial infusion rate in mL/hr.",
-  "o": [
-    "Bolus: 4800 Units; Drip: 20.2 mL/hr",
-    "Bolus: 5600 Units; Drip: 25.2 mL/hr",
-    "Bolus: 5760 Units; Drip: 37.8 mL/hr",
-    "Bolus: 6100 Units; Drip: 23.2 mL/hr"
-  ],
-  "a": 1,
-  "t": "Heparin Protocol",
-  "e": "1. Convert weight: 154 lbs / 2.2 = 70.0 kg. 2. Bolus = 70.0 kg x 80 U/kg = 5600 Units. 3. Drip dose = 70.0 kg x 18 U/kg/hr = 1260.0 Units/hr. 4. Concentration = 25000 U / 500 mL = 50.0 U/mL. 5. Rate = 1260.0 U/hr / 50.0 U/mL = 25.2 mL/hr."
-},
-{
-  "q": "A patient weighing 176 lbs is diagnosed with a DVT. The Heparin protocol orders a bolus of 80 Units/kg followed by a continuous infusion of 18 Units/kg/hr. The pharmacy supplies Heparin 25000 Units in 500 mL D5W. Calculate the exact bolus dose and the initial infusion rate in mL/hr.",
-  "o": [
-    "Bolus: 6400 Units; Drip: 28.8 mL/hr",
-    "Bolus: 6900 Units; Drip: 26.8 mL/hr",
-    "Bolus: 5600 Units; Drip: 33.8 mL/hr",
-    "Bolus: 7680 Units; Drip: 43.2 mL/hr"
-  ],
-  "a": 0,
-  "t": "Heparin Protocol",
-  "e": "1. Convert weight: 176 lbs / 2.2 = 80.0 kg. 2. Bolus = 80.0 kg x 80 U/kg = 6400 Units. 3. Drip dose = 80.0 kg x 18 U/kg/hr = 1440.0 Units/hr. 4. Concentration = 25000 U / 500 mL = 50.0 U/mL. 5. Rate = 1440.0 U/hr / 50.0 U/mL = 28.8 mL/hr."
-},
-{
-  "q": "A patient weighing 198 lbs is diagnosed with a DVT. The Heparin protocol orders a bolus of 80 Units/kg followed by a continuous infusion of 18 Units/kg/hr. The pharmacy supplies Heparin 25000 Units in 500 mL D5W. Calculate the exact bolus dose and the initial infusion rate in mL/hr.",
-  "o": [
-    "Bolus: 6400 Units; Drip: 37.4 mL/hr",
-    "Bolus: 8640 Units; Drip: 48.6 mL/hr",
-    "Bolus: 7200 Units; Drip: 32.4 mL/hr",
-    "Bolus: 7700 Units; Drip: 30.4 mL/hr"
-  ],
-  "a": 2,
-  "t": "Heparin Protocol",
-  "e": "1. Convert weight: 198 lbs / 2.2 = 90.0 kg. 2. Bolus = 90.0 kg x 80 U/kg = 7200 Units. 3. Drip dose = 90.0 kg x 18 U/kg/hr = 1620.0 Units/hr. 4. Concentration = 25000 U / 500 mL = 50.0 U/mL. 5. Rate = 1620.0 U/hr / 50.0 U/mL = 32.4 mL/hr."
-},
-{
-  "q": "A patient weighing 220 lbs is diagnosed with a DVT. The Heparin protocol orders a bolus of 80 Units/kg followed by a continuous infusion of 18 Units/kg/hr. The pharmacy supplies Heparin 25000 Units in 500 mL D5W. Calculate the exact bolus dose and the initial infusion rate in mL/hr.",
-  "o": [
-    "Bolus: 8000 Units; Drip: 36.0 mL/hr",
-    "Bolus: 9600 Units; Drip: 54.0 mL/hr",
-    "Bolus: 8500 Units; Drip: 34.0 mL/hr",
-    "Bolus: 7200 Units; Drip: 41.0 mL/hr"
-  ],
-  "a": 0,
-  "t": "Heparin Protocol",
-  "e": "1. Convert weight: 220 lbs / 2.2 = 100.0 kg. 2. Bolus = 100.0 kg x 80 U/kg = 8000 Units. 3. Drip dose = 100.0 kg x 18 U/kg/hr = 1800.0 Units/hr. 4. Concentration = 25000 U / 500 mL = 50.0 U/mL. 5. Rate = 1800.0 U/hr / 50.0 U/mL = 36.0 mL/hr."
-},
-{
-  "q": "A patient weighing 143 lbs is diagnosed with a DVT. The Heparin protocol orders a bolus of 80 Units/kg followed by a continuous infusion of 18 Units/kg/hr. The pharmacy supplies Heparin 25000 Units in 500 mL D5W. Calculate the exact bolus dose and the initial infusion rate in mL/hr.",
-  "o": [
-    "Bolus: 6240 Units; Drip: 35.1 mL/hr",
-    "Bolus: 4400 Units; Drip: 28.4 mL/hr",
-    "Bolus: 5200 Units; Drip: 23.4 mL/hr",
-    "Bolus: 5700 Units; Drip: 21.4 mL/hr"
-  ],
-  "a": 2,
-  "t": "Heparin Protocol",
-  "e": "1. Convert weight: 143 lbs / 2.2 = 65.0 kg. 2. Bolus = 65.0 kg x 80 U/kg = 5200 Units. 3. Drip dose = 65.0 kg x 18 U/kg/hr = 1170.0 Units/hr. 4. Concentration = 25000 U / 500 mL = 50.0 U/mL. 5. Rate = 1170.0 U/hr / 50.0 U/mL = 23.4 mL/hr."
-},
-{
-  "q": "Calculate the 24-hour maintenance fluid requirement AND the hourly IV rate for a child weighing 15 kg using the Holliday-Segar method.",
-  "o": [
-    "1450 mL/day at 62.1 mL/hr",
-    "1875.0 mL/day at 78.1 mL/hr",
-    "1250 mL/day at 52.1 mL/hr",
-    "1150 mL/day at 47.1 mL/hr"
-  ],
-  "a": 2,
-  "t": "Pediatric - Fluid Maintenance",
-  "e": "Holliday-Segar Rule: 100 mL/kg for first 10 kg, 50 mL/kg for next 10 kg, 20 mL/kg for remaining kg. Weight = 15 kg. Total = 1250 mL/day. Hourly rate = 1250 / 24 = 52.1 mL/hr."
-},
-{
-  "q": "Calculate the 24-hour maintenance fluid requirement AND the hourly IV rate for a child weighing 24 kg using the Holliday-Segar method.",
-  "o": [
-    "2370.0 mL/day at 98.8 mL/hr",
-    "1480 mL/day at 60.8 mL/hr",
-    "1580 mL/day at 65.8 mL/hr",
-    "1780 mL/day at 75.8 mL/hr"
-  ],
-  "a": 2,
-  "t": "Pediatric - Fluid Maintenance",
-  "e": "Holliday-Segar Rule: 100 mL/kg for first 10 kg, 50 mL/kg for next 10 kg, 20 mL/kg for remaining kg. Weight = 24 kg. Total = 1580 mL/day. Hourly rate = 1580 / 24 = 65.8 mL/hr."
-},
-{
-  "q": "Calculate the 24-hour maintenance fluid requirement AND the hourly IV rate for a child weighing 32 kg using the Holliday-Segar method.",
-  "o": [
-    "1740 mL/day at 72.5 mL/hr",
-    "2610.0 mL/day at 108.8 mL/hr",
-    "1640 mL/day at 67.5 mL/hr",
-    "1940 mL/day at 82.5 mL/hr"
-  ],
-  "a": 0,
-  "t": "Pediatric - Fluid Maintenance",
-  "e": "Holliday-Segar Rule: 100 mL/kg for first 10 kg, 50 mL/kg for next 10 kg, 20 mL/kg for remaining kg. Weight = 32 kg. Total = 1740 mL/day. Hourly rate = 1740 / 24 = 72.5 mL/hr."
-},
-{
-  "q": "Calculate the 24-hour maintenance fluid requirement AND the hourly IV rate for a child weighing 8 kg using the Holliday-Segar method.",
-  "o": [
-    "700 mL/day at 28.3 mL/hr",
-    "1000 mL/day at 43.3 mL/hr",
-    "800 mL/day at 33.3 mL/hr",
-    "1200.0 mL/day at 50.0 mL/hr"
-  ],
-  "a": 2,
-  "t": "Pediatric - Fluid Maintenance",
-  "e": "Holliday-Segar Rule: 100 mL/kg for first 10 kg, 50 mL/kg for next 10 kg, 20 mL/kg for remaining kg. Weight = 8 kg. Total = 800 mL/day. Hourly rate = 800 / 24 = 33.3 mL/hr."
-},
-{
-  "q": "Calculate the 24-hour maintenance fluid requirement AND the hourly IV rate for a child weighing 45 kg using the Holliday-Segar method.",
-  "o": [
-    "3000.0 mL/day at 125.0 mL/hr",
-    "2000 mL/day at 83.3 mL/hr",
-    "1900 mL/day at 78.3 mL/hr",
-    "2200 mL/day at 93.3 mL/hr"
-  ],
-  "a": 1,
-  "t": "Pediatric - Fluid Maintenance",
-  "e": "Holliday-Segar Rule: 100 mL/kg for first 10 kg, 50 mL/kg for next 10 kg, 20 mL/kg for remaining kg. Weight = 45 kg. Total = 2000 mL/day. Hourly rate = 2000 / 24 = 83.3 mL/hr."
-},
-{
-  "q": "A 65 kg patient sustains deep partial-thickness burns over 42% of their Total Body Surface Area (TBSA). Using the Parkland formula (4 mL/kg/%TBSA), calculate the total fluid requirement for the first 24 hours, AND the IV pump rate for the FIRST 8 hours.",
-  "o": [
-    "10920 mL total; rate 682.5 mL/hr",
-    "5460.0 mL total; rate 341.2 mL/hr",
-    "10920 mL total; rate 455.0 mL/hr",
-    "11920 mL total; rate 807.5 mL/hr"
-  ],
-  "a": 0,
-  "t": "Burns - Parkland Formula",
-  "e": "1. Total 24h Fluid = 4 mL x 65 kg x 42% TBSA = 10920 mL. 2. The Parkland protocol requires HALF the total volume (5460.0 mL) to be infused in the first 8 hours post-burn. 3. Rate = 5460.0 mL / 8 hours = 682.5 mL/hr."
-},
-{
-  "q": "A 75 kg patient sustains deep partial-thickness burns over 42% of their Total Body Surface Area (TBSA). Using the Parkland formula (4 mL/kg/%TBSA), calculate the total fluid requirement for the first 24 hours, AND the IV pump rate for the FIRST 8 hours.",
-  "o": [
-    "13600 mL total; rate 912.5 mL/hr",
-    "12600 mL total; rate 525.0 mL/hr",
-    "6300.0 mL total; rate 393.8 mL/hr",
-    "12600 mL total; rate 787.5 mL/hr"
-  ],
-  "a": 3,
-  "t": "Burns - Parkland Formula",
-  "e": "1. Total 24h Fluid = 4 mL x 75 kg x 42% TBSA = 12600 mL. 2. The Parkland protocol requires HALF the total volume (6300.0 mL) to be infused in the first 8 hours post-burn. 3. Rate = 6300.0 mL / 8 hours = 787.5 mL/hr."
-},
-{
-  "q": "A 82 kg patient sustains deep partial-thickness burns over 35% of their Total Body Surface Area (TBSA). Using the Parkland formula (4 mL/kg/%TBSA), calculate the total fluid requirement for the first 24 hours, AND the IV pump rate for the FIRST 8 hours.",
-  "o": [
-    "5740.0 mL total; rate 358.8 mL/hr",
-    "11480 mL total; rate 478.3 mL/hr",
-    "12480 mL total; rate 842.5 mL/hr",
-    "11480 mL total; rate 717.5 mL/hr"
-  ],
-  "a": 3,
-  "t": "Burns - Parkland Formula",
-  "e": "1. Total 24h Fluid = 4 mL x 82 kg x 35% TBSA = 11480 mL. 2. The Parkland protocol requires HALF the total volume (5740.0 mL) to be infused in the first 8 hours post-burn. 3. Rate = 5740.0 mL / 8 hours = 717.5 mL/hr."
-},
-{
-  "q": "A 90 kg patient sustains deep partial-thickness burns over 65% of their Total Body Surface Area (TBSA). Using the Parkland formula (4 mL/kg/%TBSA), calculate the total fluid requirement for the first 24 hours, AND the IV pump rate for the FIRST 8 hours.",
-  "o": [
-    "23400 mL total; rate 975.0 mL/hr",
-    "24400 mL total; rate 1587.5 mL/hr",
-    "23400 mL total; rate 1462.5 mL/hr",
-    "11700.0 mL total; rate 731.2 mL/hr"
-  ],
-  "a": 2,
-  "t": "Burns - Parkland Formula",
-  "e": "1. Total 24h Fluid = 4 mL x 90 kg x 65% TBSA = 23400 mL. 2. The Parkland protocol requires HALF the total volume (11700.0 mL) to be infused in the first 8 hours post-burn. 3. Rate = 11700.0 mL / 8 hours = 1462.5 mL/hr."
-},
-{
-  "q": "A 100 kg patient sustains deep partial-thickness burns over 35% of their Total Body Surface Area (TBSA). Using the Parkland formula (4 mL/kg/%TBSA), calculate the total fluid requirement for the first 24 hours, AND the IV pump rate for the FIRST 8 hours.",
-  "o": [
-    "15000 mL total; rate 1000.0 mL/hr",
-    "14000 mL total; rate 875.0 mL/hr",
-    "7000.0 mL total; rate 437.5 mL/hr",
-    "14000 mL total; rate 583.3 mL/hr"
-  ],
-  "a": 1,
-  "t": "Burns - Parkland Formula",
-  "e": "1. Total 24h Fluid = 4 mL x 100 kg x 35% TBSA = 14000 mL. 2. The Parkland protocol requires HALF the total volume (7000.0 mL) to be infused in the first 8 hours post-burn. 3. Rate = 7000.0 mL / 8 hours = 875.0 mL/hr."
-},
-{
-  "q": "A patient in DKA weighs 90 kg. The protocol dictates an IV Regular Insulin continuous infusion at 0.1 Units/kg/hr for a blood glucose of 250 mg/dL. The pharmacy sends 100 Units of Regular Insulin in 100 mL of 0.9% NS. Calculate the infusion pump rate in mL/hr.",
-  "o": [
-    "4.5 mL/hr",
-    "18.0 mL/hr",
-    "9.0 mL/hr",
-    "10.5 mL/hr"
-  ],
-  "a": 2,
-  "t": "Endocrine - Insulin Protocol",
-  "e": "1. Dose = 90 kg x 0.1 Units/kg/hr = 9.0 Units/hr. 2. Concentration = 100 Units / 100 mL = 1.0 Units/mL. 3. Rate = 9.0 U/hr / 1.0 U/mL = 9.0 mL/hr."
-},
-{
-  "q": "A patient in DKA weighs 80 kg. The protocol dictates an IV Regular Insulin continuous infusion at 0.1 Units/kg/hr for a blood glucose of 310 mg/dL. The pharmacy sends 100 Units of Regular Insulin in 100 mL of 0.9% NS. Calculate the infusion pump rate in mL/hr.",
-  "o": [
-    "9.5 mL/hr",
-    "8.0 mL/hr",
-    "4.0 mL/hr",
-    "16.0 mL/hr"
-  ],
-  "a": 1,
-  "t": "Endocrine - Insulin Protocol",
-  "e": "1. Dose = 80 kg x 0.1 Units/kg/hr = 8.0 Units/hr. 2. Concentration = 100 Units / 100 mL = 1.0 Units/mL. 3. Rate = 8.0 U/hr / 1.0 U/mL = 8.0 mL/hr."
-},
-{
-  "q": "A patient in DKA weighs 60 kg. The protocol dictates an IV Regular Insulin continuous infusion at 0.1 Units/kg/hr for a blood glucose of 420 mg/dL. The pharmacy sends 100 Units of Regular Insulin in 100 mL of 0.9% NS. Calculate the infusion pump rate in mL/hr.",
-  "o": [
-    "3.0 mL/hr",
-    "7.5 mL/hr",
-    "12.0 mL/hr",
-    "6.0 mL/hr"
-  ],
-  "a": 3,
-  "t": "Endocrine - Insulin Protocol",
-  "e": "1. Dose = 60 kg x 0.1 Units/kg/hr = 6.0 Units/hr. 2. Concentration = 100 Units / 100 mL = 1.0 Units/mL. 3. Rate = 6.0 U/hr / 1.0 U/mL = 6.0 mL/hr."
-},
-{
-  "q": "A patient in DKA weighs 80 kg. The protocol dictates an IV Regular Insulin continuous infusion at 0.1 Units/kg/hr for a blood glucose of 500 mg/dL. The pharmacy sends 100 Units of Regular Insulin in 100 mL of 0.9% NS. Calculate the infusion pump rate in mL/hr.",
-  "o": [
-    "4.0 mL/hr",
-    "8.0 mL/hr",
-    "9.5 mL/hr",
-    "16.0 mL/hr"
-  ],
-  "a": 1,
-  "t": "Endocrine - Insulin Protocol",
-  "e": "1. Dose = 80 kg x 0.1 Units/kg/hr = 8.0 Units/hr. 2. Concentration = 100 Units / 100 mL = 1.0 Units/mL. 3. Rate = 8.0 U/hr / 1.0 U/mL = 8.0 mL/hr."
-},
-{
-  "q": "A patient in DKA weighs 70 kg. The protocol dictates an IV Regular Insulin continuous infusion at 0.05 Units/kg/hr for a blood glucose of 180 mg/dL. The pharmacy sends 100 Units of Regular Insulin in 100 mL of 0.9% NS. Calculate the infusion pump rate in mL/hr.",
-  "o": [
-    "3.5 mL/hr",
-    "1.8 mL/hr",
-    "5.0 mL/hr",
-    "7.0 mL/hr"
-  ],
-  "a": 0,
-  "t": "Endocrine - Insulin Protocol",
-  "e": "1. Dose = 70 kg x 0.05 Units/kg/hr = 3.5 Units/hr. 2. Concentration = 100 Units / 100 mL = 1.0 Units/mL. 3. Rate = 3.5 U/hr / 1.0 U/mL = 3.5 mL/hr."
-},
-{
-  "q": "A patient weighs 60 kg and is 160 cm tall. They are prescribed a chemotherapy agent at 50 mg/m\u00b2. Using the Mosteller formula, calculate the patient's BSA and the total dose required.",
-  "o": [
-    "BSA: 1.79 m\u00b2, Dose: 89.6 mg",
-    "BSA: 1.48 m\u00b2, Dose: 66.6 mg",
-    "BSA: 1.83 m\u00b2, Dose: 101.6 mg",
-    "BSA: 1.63 m\u00b2, Dose: 81.6 mg"
-  ],
-  "a": 3,
-  "t": "Chemotherapy / BSA",
-  "e": "1. Mosteller Formula: BSA = square root of [(Height(cm) x Weight(kg)) / 3600]. 2. BSA = sqrt((160 x 60) / 3600) = sqrt(2.6666666666666665) = 1.63 m\u00b2. 3. Dose = 1.63 m\u00b2 x 50 mg/m\u00b2 = 81.6 mg."
-}
+    {
+        "q": "A 70 kg patient in cardiogenic shock is ordered Dopamine at 5 mcg/kg/min. The pharmacy sends Dopamine 400 mg in 250 mL D5W. At what rate in mL/hr should the infusion pump be programmed?",
+        "o": ["10.5 mL/hr", "13.1 mL/hr", "15.8 mL/hr", "21.0 mL/hr"],
+        "a": 1,
+        "t": "Critical Care Drips",
+        "e": "Formula: Rate (mL/hr) = [Dose (mcg/kg/min) x Weight (kg) x 60 min/hr] / Concentration (mcg/mL). Concentration = 400,000 mcg / 250 mL = 1,600 mcg/mL. Dose/hr = 5 x 70 x 60 = 21,000 mcg/hr. Rate = 21,000 / 1,600 = 13.125 mL/hr ≈ 13.1 mL/hr."
+    },
+    {
+        "q": "A patient in septic shock is prescribed Norepinephrine at 12 mcg/min. The solution prepared contains 8 mg of Norepinephrine in 250 mL D5W. Calculate the infusion rate in mL/hr.",
+        "o": ["18.0 mL/hr", "22.5 mL/hr", "25.0 mL/hr", "30.5 mL/hr"],
+        "a": 1,
+        "t": "Critical Care Drips",
+        "e": "Concentration = 8 mg / 250 mL = 8,000 mcg / 250 mL = 32 mcg/mL. Desired dose/hr = 12 mcg/min x 60 min = 720 mcg/hr. Rate = 720 mcg/hr / 32 mcg/mL = 22.5 mL/hr."
+    },
+    {
+        "q": "A 50 kg patient is prescribed an infusion at 8 mcg/kg/min. The IV bag contains 500 mg of the drug in 500 mL of D5W. Calculate the IV pump rate in mL/hr.",
+        "o": ["29.2 mL/hr", "21.5 mL/hr", "24.0 mL/hr", "36.0 mL/hr"],
+        "a": 2,
+        "t": "Critical Care - Titration",
+        "e": "1. Concentration = (500 mg * 1000) / 500 mL = 1000.0 mcg/mL. 2. Dose/min = 8 mcg/kg/min * 50 kg = 400 mcg/min. 3. Dose/hr = 400 * 60 = 24000 mcg/hr. 4. Rate = 24000 / 1000.0 = 24.0 mL/hr."
+    },
+    {
+        "q": "A 65 kg patient is prescribed an infusion at 10 mcg/kg/min. The IV bag contains 200 mg of the drug in 250 mL of D5W. Calculate the IV pump rate in mL/hr.",
+        "o": ["46.2 mL/hr", "54.0 mL/hr", "73.1 mL/hr", "48.8 mL/hr"],
+        "a": 3,
+        "t": "Critical Care - Titration",
+        "e": "1. Concentration = (200 mg * 1000) / 250 mL = 800.0 mcg/mL. 2. Dose/min = 10 mcg/kg/min * 65 kg = 650 mcg/min. 3. Dose/hr = 650 * 60 = 39000 mcg/hr. 4. Rate = 39000 / 800.0 = 48.8 mL/hr."
+    },
+    {
+        "q": "A 75 kg patient is prescribed an infusion at 2 mcg/kg/min. The IV bag contains 400 mg of the drug in 500 mL of D5W. Calculate the IV pump rate in mL/hr.",
+        "o": ["16.4 mL/hr", "16.9 mL/hr", "11.2 mL/hr", "8.8 mL/hr"],
+        "a": 2,
+        "t": "Critical Care - Titration",
+        "e": "1. Concentration = (400 mg * 1000) / 500 mL = 800.0 mcg/mL. 2. Dose/min = 2 mcg/kg/min * 75 kg = 150 mcg/min. 3. Dose/hr = 150 * 60 = 9000 mcg/hr. 4. Rate = 9000 / 800.0 = 11.2 mL/hr."
+    },
+    {
+        "q": "A 80 kg patient is prescribed an infusion at 5 mcg/kg/min. The IV bag contains 800 mg of the drug in 250 mL of D5W. Calculate the IV pump rate in mL/hr.",
+        "o": ["11.2 mL/hr", "12.7 mL/hr", "5.0 mL/hr", "7.5 mL/hr"],
+        "a": 3,
+        "t": "Critical Care - Titration",
+        "e": "1. Concentration = (800 mg * 1000) / 250 mL = 3200.0 mcg/mL. 2. Dose/min = 5 mcg/kg/min * 80 kg = 400 mcg/min. 3. Dose/hr = 400 * 60 = 24000 mcg/hr. 4. Rate = 24000 / 3200.0 = 7.5 mL/hr."
+    },
+    {
+        "q": "A 95 kg patient is prescribed an infusion at 3 mcg/kg/min. The IV bag contains 500 mg of the drug in 250 mL of D5W. Calculate the IV pump rate in mL/hr.",
+        "o": ["13.7 mL/hr", "8.6 mL/hr", "12.8 mL/hr", "6.1 mL/hr"],
+        "a": 1,
+        "t": "Critical Care - Titration",
+        "e": "1. Concentration = (500 mg * 1000) / 250 mL = 2000.0 mcg/mL. 2. Dose/min = 3 mcg/kg/min * 95 kg = 285 mcg/min. 3. Dose/hr = 285 * 60 = 17100 mcg/hr. 4. Rate = 17100 / 2000.0 = 8.6 mL/hr."
+    },
+    {
+        "q": "A patient weighing 154 lbs is diagnosed with a DVT. The Heparin protocol orders a bolus of 80 Units/kg followed by a continuous infusion of 18 Units/kg/hr. The pharmacy supplies Heparin 25000 Units in 500 mL D5W. Calculate the exact bolus dose and the initial infusion rate in mL/hr.",
+        "o": ["Bolus: 4800 Units; Drip: 20.2 mL/hr", "Bolus: 5600 Units; Drip: 25.2 mL/hr", "Bolus: 5760 Units; Drip: 37.8 mL/hr", "Bolus: 6100 Units; Drip: 23.2 mL/hr"],
+        "a": 1,
+        "t": "Heparin Protocol",
+        "e": "1. Convert weight: 154 lbs / 2.2 = 70.0 kg. 2. Bolus = 70.0 kg x 80 U/kg = 5600 Units. 3. Drip dose = 70.0 kg x 18 U/kg/hr = 1260.0 Units/hr. 4. Concentration = 25000 U / 500 mL = 50.0 U/mL. 5. Rate = 1260.0 U/hr / 50.0 U/mL = 25.2 mL/hr."
+    },
+    {
+        "q": "A patient weighing 176 lbs is diagnosed with a DVT. The Heparin protocol orders a bolus of 80 Units/kg followed by a continuous infusion of 18 Units/kg/hr. The pharmacy supplies Heparin 25000 Units in 500 mL D5W. Calculate the exact bolus dose and the initial infusion rate in mL/hr.",
+        "o": ["Bolus: 6400 Units; Drip: 28.8 mL/hr", "Bolus: 6900 Units; Drip: 26.8 mL/hr", "Bolus: 5600 Units; Drip: 33.8 mL/hr", "Bolus: 7680 Units; Drip: 43.2 mL/hr"],
+        "a": 0,
+        "t": "Heparin Protocol",
+        "e": "1. Convert weight: 176 lbs / 2.2 = 80.0 kg. 2. Bolus = 80.0 kg x 80 U/kg = 6400 Units. 3. Drip dose = 80.0 kg x 18 U/kg/hr = 1440.0 Units/hr. 4. Concentration = 25000 U / 500 mL = 50.0 U/mL. 5. Rate = 1440.0 U/hr / 50.0 U/mL = 28.8 mL/hr."
+    },
+    {
+        "q": "A patient weighing 198 lbs is diagnosed with a DVT. The Heparin protocol orders a bolus of 80 Units/kg followed by a continuous infusion of 18 Units/kg/hr. The pharmacy supplies Heparin 25000 Units in 500 mL D5W. Calculate the exact bolus dose and the initial infusion rate in mL/hr.",
+        "o": ["Bolus: 6400 Units; Drip: 37.4 mL/hr", "Bolus: 8640 Units; Drip: 48.6 mL/hr", "Bolus: 7200 Units; Drip: 32.4 mL/hr", "Bolus: 7700 Units; Drip: 30.4 mL/hr"],
+        "a": 2,
+        "t": "Heparin Protocol",
+        "e": "1. Convert weight: 198 lbs / 2.2 = 90.0 kg. 2. Bolus = 90.0 kg x 80 U/kg = 7200 Units. 3. Drip dose = 90.0 kg x 18 U/kg/hr = 1620.0 Units/hr. 4. Concentration = 25000 U / 500 mL = 50.0 U/mL. 5. Rate = 1620.0 U/hr / 50.0 U/mL = 32.4 mL/hr."
+    },
+    {
+        "q": "A patient weighing 220 lbs is diagnosed with a DVT. The Heparin protocol orders a bolus of 80 Units/kg followed by a continuous infusion of 18 Units/kg/hr. The pharmacy supplies Heparin 25000 Units in 500 mL D5W. Calculate the exact bolus dose and the initial infusion rate in mL/hr.",
+        "o": ["Bolus: 8000 Units; Drip: 36.0 mL/hr", "Bolus: 9600 Units; Drip: 54.0 mL/hr", "Bolus: 8500 Units; Drip: 34.0 mL/hr", "Bolus: 7200 Units; Drip: 41.0 mL/hr"],
+        "a": 0,
+        "t": "Heparin Protocol",
+        "e": "1. Convert weight: 220 lbs / 2.2 = 100.0 kg. 2. Bolus = 100.0 kg x 80 U/kg = 8000 Units. 3. Drip dose = 100.0 kg x 18 U/kg/hr = 1800.0 Units/hr. 4. Concentration = 25000 U / 500 mL = 50.0 U/mL. 5. Rate = 1800.0 U/hr / 50.0 U/mL = 36.0 mL/hr."
+    },
+    {
+        "q": "A patient weighing 143 lbs is diagnosed with a DVT. The Heparin protocol orders a bolus of 80 Units/kg followed by a continuous infusion of 18 Units/kg/hr. The pharmacy supplies Heparin 25000 Units in 500 mL D5W. Calculate the exact bolus dose and the initial infusion rate in mL/hr.",
+        "o": ["Bolus: 6240 Units; Drip: 35.1 mL/hr", "Bolus: 4400 Units; Drip: 28.4 mL/hr", "Bolus: 5200 Units; Drip: 23.4 mL/hr", "Bolus: 5700 Units; Drip: 21.4 mL/hr"],
+        "a": 2,
+        "t": "Heparin Protocol",
+        "e": "1. Convert weight: 143 lbs / 2.2 = 65.0 kg. 2. Bolus = 65.0 kg x 80 U/kg = 5200 Units. 3. Drip dose = 65.0 kg x 18 U/kg/hr = 1170.0 Units/hr. 4. Concentration = 25000 U / 500 mL = 50.0 U/mL. 5. Rate = 1170.0 U/hr / 50.0 U/mL = 23.4 mL/hr."
+    },
+    {
+        "q": "Calculate the 24-hour maintenance fluid requirement AND the hourly IV rate for a child weighing 15 kg using the Holliday-Segar method.",
+        "o": ["1450 mL/day at 62.1 mL/hr", "1875.0 mL/day at 78.1 mL/hr", "1250 mL/day at 52.1 mL/hr", "1150 mL/day at 47.1 mL/hr"],
+        "a": 2,
+        "t": "Pediatric - Fluid Maintenance",
+        "e": "Holliday-Segar Rule: 100 mL/kg for first 10 kg, 50 mL/kg for next 10 kg, 20 mL/kg for remaining kg. Weight = 15 kg. Total = 1250 mL/day. Hourly rate = 1250 / 24 = 52.1 mL/hr."
+    },
+    {
+        "q": "Calculate the 24-hour maintenance fluid requirement AND the hourly IV rate for a child weighing 24 kg using the Holliday-Segar method.",
+        "o": ["2370.0 mL/day at 98.8 mL/hr", "1480 mL/day at 60.8 mL/hr", "1580 mL/day at 65.8 mL/hr", "1780 mL/day at 75.8 mL/hr"],
+        "a": 2,
+        "t": "Pediatric - Fluid Maintenance",
+        "e": "Holliday-Segar Rule: 100 mL/kg for first 10 kg, 50 mL/kg for next 10 kg, 20 mL/kg for remaining kg. Weight = 24 kg. Total = 1580 mL/day. Hourly rate = 1580 / 24 = 65.8 mL/hr."
+    },
+    {
+        "q": "Calculate the 24-hour maintenance fluid requirement AND the hourly IV rate for a child weighing 32 kg using the Holliday-Segar method.",
+        "o": ["1740 mL/day at 72.5 mL/hr", "2610.0 mL/day at 108.8 mL/hr", "1640 mL/day at 67.5 mL/hr", "1940 mL/day at 82.5 mL/hr"],
+        "a": 0,
+        "t": "Pediatric - Fluid Maintenance",
+        "e": "Holliday-Segar Rule: 100 mL/kg for first 10 kg, 50 mL/kg for next 10 kg, 20 mL/kg for remaining kg. Weight = 32 kg. Total = 1740 mL/day. Hourly rate = 1740 / 24 = 72.5 mL/hr."
+    },
+    {
+        "q": "Calculate the 24-hour maintenance fluid requirement AND the hourly IV rate for a child weighing 8 kg using the Holliday-Segar method.",
+        "o": ["700 mL/day at 28.3 mL/hr", "1000 mL/day at 43.3 mL/hr", "800 mL/day at 33.3 mL/hr", "1200.0 mL/day at 50.0 mL/hr"],
+        "a": 2,
+        "t": "Pediatric - Fluid Maintenance",
+        "e": "Holliday-Segar Rule: 100 mL/kg for first 10 kg, 50 mL/kg for next 10 kg, 20 mL/kg for remaining kg. Weight = 8 kg. Total = 800 mL/day. Hourly rate = 800 / 24 = 33.3 mL/hr."
+    },
+    {
+        "q": "Calculate the 24-hour maintenance fluid requirement AND the hourly IV rate for a child weighing 45 kg using the Holliday-Segar method.",
+        "o": ["3000.0 mL/day at 125.0 mL/hr", "2000 mL/day at 83.3 mL/hr", "1900 mL/day at 78.3 mL/hr", "2200 mL/day at 93.3 mL/hr"],
+        "a": 1,
+        "t": "Pediatric - Fluid Maintenance",
+        "e": "Holliday-Segar Rule: 100 mL/kg for first 10 kg, 50 mL/kg for next 10 kg, 20 mL/kg for remaining kg. Weight = 45 kg. Total = 2000 mL/day. Hourly rate = 2000 / 24 = 83.3 mL/hr."
+    },
+    {
+        "q": "A 65 kg patient sustains deep partial-thickness burns over 42% of their Total Body Surface Area (TBSA). Using the Parkland formula (4 mL/kg/%TBSA), calculate the total fluid requirement for the first 24 hours, AND the IV pump rate for the FIRST 8 hours.",
+        "o": ["10920 mL total; rate 682.5 mL/hr", "5460.0 mL total; rate 341.2 mL/hr", "10920 mL total; rate 455.0 mL/hr", "11920 mL total; rate 807.5 mL/hr"],
+        "a": 0,
+        "t": "Burns - Parkland Formula",
+        "e": "1. Total 24h Fluid = 4 mL x 65 kg x 42% TBSA = 10920 mL. 2. The Parkland protocol requires HALF the total volume (5460.0 mL) to be infused in the first 8 hours post-burn. 3. Rate = 5460.0 mL / 8 hours = 682.5 mL/hr."
+    },
+    {
+        "q": "A 75 kg patient sustains deep partial-thickness burns over 42% of their Total Body Surface Area (TBSA). Using the Parkland formula (4 mL/kg/%TBSA), calculate the total fluid requirement for the first 24 hours, AND the IV pump rate for the FIRST 8 hours.",
+        "o": ["13600 mL total; rate 912.5 mL/hr", "12600 mL total; rate 525.0 mL/hr", "6300.0 mL total; rate 393.8 mL/hr", "12600 mL total; rate 787.5 mL/hr"],
+        "a": 3,
+        "t": "Burns - Parkland Formula",
+        "e": "1. Total 24h Fluid = 4 mL x 75 kg x 42% TBSA = 12600 mL. 2. The Parkland protocol requires HALF the total volume (6300.0 mL) to be infused in the first 8 hours post-burn. 3. Rate = 6300.0 mL / 8 hours = 787.5 mL/hr."
+    },
+    {
+        "q": "A 82 kg patient sustains deep partial-thickness burns over 35% of their Total Body Surface Area (TBSA). Using the Parkland formula (4 mL/kg/%TBSA), calculate the total fluid requirement for the first 24 hours, AND the IV pump rate for the FIRST 8 hours.",
+        "o": ["5740.0 mL total; rate 358.8 mL/hr", "11480 mL total; rate 478.3 mL/hr", "12480 mL total; rate 842.5 mL/hr", "11480 mL total; rate 717.5 mL/hr"],
+        "a": 3,
+        "t": "Burns - Parkland Formula",
+        "e": "1. Total 24h Fluid = 4 mL x 82 kg x 35% TBSA = 11480 mL. 2. The Parkland protocol requires HALF the total volume (5740.0 mL) to be infused in the first 8 hours post-burn. 3. Rate = 5740.0 mL / 8 hours = 717.5 mL/hr."
+    },
+    {
+        "q": "A 90 kg patient sustains deep partial-thickness burns over 65% of their Total Body Surface Area (TBSA). Using the Parkland formula (4 mL/kg/%TBSA), calculate the total fluid requirement for the first 24 hours, AND the IV pump rate for the FIRST 8 hours.",
+        "o": ["23400 mL total; rate 975.0 mL/hr", "24400 mL total; rate 1587.5 mL/hr", "23400 mL total; rate 1462.5 mL/hr", "11700.0 mL total; rate 731.2 mL/hr"],
+        "a": 2,
+        "t": "Burns - Parkland Formula",
+        "e": "1. Total 24h Fluid = 4 mL x 90 kg x 65% TBSA = 23400 mL. 2. The Parkland protocol requires HALF the total volume (11700.0 mL) to be infused in the first 8 hours post-burn. 3. Rate = 11700.0 mL / 8 hours = 1462.5 mL/hr."
+    },
+    {
+        "q": "A 100 kg patient sustains deep partial-thickness burns over 35% of their Total Body Surface Area (TBSA). Using the Parkland formula (4 mL/kg/%TBSA), calculate the total fluid requirement for the first 24 hours, AND the IV pump rate for the FIRST 8 hours.",
+        "o": ["15000 mL total; rate 1000.0 mL/hr", "14000 mL total; rate 875.0 mL/hr", "7000.0 mL total; rate 437.5 mL/hr", "14000 mL total; rate 583.3 mL/hr"],
+        "a": 1,
+        "t": "Burns - Parkland Formula",
+        "e": "1. Total 24h Fluid = 4 mL x 100 kg x 35% TBSA = 14000 mL. 2. The Parkland protocol requires HALF the total volume (7000.0 mL) to be infused in the first 8 hours post-burn. 3. Rate = 7000.0 mL / 8 hours = 875.0 mL/hr."
+    },
+    {
+        "q": "A patient in DKA weighs 90 kg. The protocol dictates an IV Regular Insulin continuous infusion at 0.1 Units/kg/hr for a blood glucose of 250 mg/dL. The pharmacy sends 100 Units of Regular Insulin in 100 mL of 0.9% NS. Calculate the infusion pump rate in mL/hr.",
+        "o": ["4.5 mL/hr", "18.0 mL/hr", "9.0 mL/hr", "10.5 mL/hr"],
+        "a": 2,
+        "t": "Endocrine - Insulin Protocol",
+        "e": "1. Dose = 90 kg x 0.1 Units/kg/hr = 9.0 Units/hr. 2. Concentration = 100 Units / 100 mL = 1.0 Units/mL. 3. Rate = 9.0 U/hr / 1.0 U/mL = 9.0 mL/hr."
+    },
+    {
+        "q": "A patient in DKA weighs 80 kg. The protocol dictates an IV Regular Insulin continuous infusion at 0.1 Units/kg/hr for a blood glucose of 310 mg/dL. The pharmacy sends 100 Units of Regular Insulin in 100 mL of 0.9% NS. Calculate the infusion pump rate in mL/hr.",
+        "o": ["9.5 mL/hr", "8.0 mL/hr", "4.0 mL/hr", "16.0 mL/hr"],
+        "a": 1,
+        "t": "Endocrine - Insulin Protocol",
+        "e": "1. Dose = 80 kg x 0.1 Units/kg/hr = 8.0 Units/hr. 2. Concentration = 100 Units / 100 mL = 1.0 Units/mL. 3. Rate = 8.0 U/hr / 1.0 U/mL = 8.0 mL/hr."
+    },
+    {
+        "q": "A patient in DKA weighs 60 kg. The protocol dictates an IV Regular Insulin continuous infusion at 0.1 Units/kg/hr for a blood glucose of 420 mg/dL. The pharmacy sends 100 Units of Regular Insulin in 100 mL of 0.9% NS. Calculate the infusion pump rate in mL/hr.",
+        "o": ["3.0 mL/hr", "7.5 mL/hr", "12.0 mL/hr", "6.0 mL/hr"],
+        "a": 3,
+        "t": "Endocrine - Insulin Protocol",
+        "e": "1. Dose = 60 kg x 0.1 Units/kg/hr = 6.0 Units/hr. 2. Concentration = 100 Units / 100 mL = 1.0 Units/mL. 3. Rate = 6.0 U/hr / 1.0 U/mL = 6.0 mL/hr."
+    },
+    {
+        "q": "A patient in DKA weighs 80 kg. The protocol dictates an IV Regular Insulin continuous infusion at 0.1 Units/kg/hr for a blood glucose of 500 mg/dL. The pharmacy sends 100 Units of Regular Insulin in 100 mL of 0.9% NS. Calculate the infusion pump rate in mL/hr.",
+        "o": ["4.0 mL/hr", "8.0 mL/hr", "9.5 mL/hr", "16.0 mL/hr"],
+        "a": 1,
+        "t": "Endocrine - Insulin Protocol",
+        "e": "1. Dose = 80 kg x 0.1 Units/kg/hr = 8.0 Units/hr. 2. Concentration = 100 Units / 100 mL = 1.0 Units/mL. 3. Rate = 8.0 U/hr / 1.0 U/mL = 8.0 mL/hr."
+    },
+    {
+        "q": "A patient in DKA weighs 70 kg. The protocol dictates an IV Regular Insulin continuous infusion at 0.05 Units/kg/hr for a blood glucose of 180 mg/dL. The pharmacy sends 100 Units of Regular Insulin in 100 mL of 0.9% NS. Calculate the infusion pump rate in mL/hr.",
+        "o": ["3.5 mL/hr", "1.8 mL/hr", "5.0 mL/hr", "7.0 mL/hr"],
+        "a": 0,
+        "t": "Endocrine - Insulin Protocol",
+        "e": "1. Dose = 70 kg x 0.05 Units/kg/hr = 3.5 Units/hr. 2. Concentration = 100 Units / 100 mL = 1.0 Units/mL. 3. Rate = 3.5 U/hr / 1.0 U/mL = 3.5 mL/hr."
+    },
+    {
+        "q": "A patient weighs 60 kg and is 160 cm tall. They are prescribed a chemotherapy agent at 50 mg/m². Using the Mosteller formula, calculate the patient's BSA and the total dose required.",
+        "o": ["BSA: 1.79 m², Dose: 89.6 mg", "BSA: 1.48 m², Dose: 66.6 mg", "BSA: 1.83 m², Dose: 101.6 mg", "BSA: 1.63 m², Dose: 81.6 mg"],
+        "a": 3,
+        "t": "Chemotherapy / BSA",
+        "e": "1. Mosteller Formula: BSA = square root of [(Height(cm) x Weight(kg)) / 3600]. 2. BSA = sqrt((160 x 60) / 3600) = sqrt(2.6666666666666665) = 1.63 m². 3. Dose = 1.63 m² x 50 mg/m² = 81.6 mg."
+    },
+    {
+        "q": "A patient weighs 80 kg and is 175 cm tall. They are prescribed a chemotherapy agent at 100 mg/m². Using the Mosteller formula, calculate the patient's BSA and the total dose required.",
+        "o": ["BSA: 1.97 m², Dose: 197.2 mg", "BSA: 1.82 m², Dose: 182.2 mg", "BSA: 2.17 m², Dose: 216.9 mg", "BSA: 2.17 m², Dose: 217.2 mg"],
+        "a": 0,
+        "t": "Chemotherapy / BSA",
+        "e": "1. Mosteller Formula: BSA = square root of [(Height(cm) x Weight(kg)) / 3600]. 2. BSA = sqrt((175 x 80) / 3600) = sqrt(3.888888888888889) = 1.97 m². 3. Dose = 1.97 m² x 100 mg/m² = 197.2 mg."
+    },
+    {
+        "q": "A patient weighs 50 kg and is 150 cm tall. They are prescribed a chemotherapy agent at 150 mg/m². Using the Mosteller formula, calculate the patient's BSA and the total dose required.",
+        "o": ["BSA: 1.29 m², Dose: 193.5 mg", "BSA: 1.64 m², Dose: 236.5 mg", "BSA: 1.44 m², Dose: 216.5 mg", "BSA: 1.59 m², Dose: 238.2 mg"],
+        "a": 2,
+        "t": "Chemotherapy / BSA",
+        "e": "1. Mosteller Formula: BSA = square root of [(Height(cm) x Weight(kg)) / 3600]. 2. BSA = sqrt((150 x 50) / 3600) = sqrt(2.0833333333333335) = 1.44 m². 3. Dose = 1.44 m² x 150 mg/m² = 216.5 mg."
+    },
+    {
+        "q": "A patient weighs 95 kg and is 180 cm tall. They are prescribed a chemotherapy agent at 150 mg/m². Using the Mosteller formula, calculate the patient's BSA and the total dose required.",
+        "o": ["BSA: 2.18 m², Dose: 327.0 mg", "BSA: 2.38 m², Dose: 347.0 mg", "BSA: 2.4 m², Dose: 359.7 mg", "BSA: 2.03 m², Dose: 312.0 mg"],
+        "a": 0,
+        "t": "Chemotherapy / BSA",
+        "e": "1. Mosteller Formula: BSA = square root of [(Height(cm) x Weight(kg)) / 3600]. 2. BSA = sqrt((180 x 95) / 3600) = sqrt(4.75) = 2.18 m². 3. Dose = 2.18 m² x 150 mg/m² = 327.0 mg."
+    },
+    {
+        "q": "A patient weighs 70 kg and is 165 cm tall. They are prescribed a chemotherapy agent at 150 mg/m². Using the Mosteller formula, calculate the patient's BSA and the total dose required.",
+        "o": ["BSA: 1.64 m², Dose: 253.9 mg", "BSA: 1.97 m², Dose: 295.8 mg", "BSA: 1.79 m², Dose: 268.9 mg", "BSA: 1.99 m², Dose: 288.9 mg"],
+        "a": 2,
+        "t": "Chemotherapy / BSA",
+        "e": "1. Mosteller Formula: BSA = square root of [(Height(cm) x Weight(kg)) / 3600]. 2. BSA = sqrt((165 x 70) / 3600) = sqrt(3.2083333333333335) = 1.79 m². 3. Dose = 1.79 m² x 150 mg/m² = 268.9 mg."
+    },
+    {
+        "q": "The physician orders 1000 mL of 0.9% NS to be infused over 8 hours. The IV tubing has a drop factor of 15 gtt/mL. Calculate the required flow rate in drops per minute (gtt/min).",
+        "o": ["31 gtt/min", "27 gtt/min", "46 gtt/min", "36 gtt/min"],
+        "a": 0,
+        "t": "IV Drop Rates",
+        "e": "1. Formula: Rate (gtt/min) = [Total Volume (mL) x Drop Factor (gtt/mL)] / Time in minutes. 2. Time = 8 hrs x 60 = 480 mins. 3. Rate = (1000 x 15) / 480 = 31.25 -> 31 gtt/min."
+    },
+    {
+        "q": "The physician orders 500 mL of 0.9% NS to be infused over 4 hours. The IV tubing has a drop factor of 20 gtt/mL. Calculate the required flow rate in drops per minute (gtt/min).",
+        "o": ["42 gtt/min", "47 gtt/min", "63 gtt/min", "38 gtt/min"],
+        "a": 0,
+        "t": "IV Drop Rates",
+        "e": "1. Formula: Rate (gtt/min) = [Total Volume (mL) x Drop Factor (gtt/mL)] / Time in minutes. 2. Time = 4 hrs x 60 = 240 mins. 3. Rate = (500 x 20) / 240 = 41.666666666666664 -> 42 gtt/min."
+    },
+    {
+        "q": "The physician orders 250 mL of 0.9% NS to be infused over 2 hours. The IV tubing has a drop factor of 60 gtt/mL. Calculate the required flow rate in drops per minute (gtt/min).",
+        "o": ["121 gtt/min", "188 gtt/min", "125 gtt/min", "130 gtt/min"],
+        "a": 2,
+        "t": "IV Drop Rates",
+        "e": "1. Formula: Rate (gtt/min) = [Total Volume (mL) x Drop Factor (gtt/mL)] / Time in minutes. 2. Time = 2 hrs x 60 = 120 mins. 3. Rate = (250 x 60) / 120 = 125.0 -> 125 gtt/min."
+    },
+    {
+        "q": "The physician orders 1000 mL of 0.9% NS to be infused over 12 hours. The IV tubing has a drop factor of 10 gtt/mL. Calculate the required flow rate in drops per minute (gtt/min).",
+        "o": ["19 gtt/min", "21 gtt/min", "14 gtt/min", "10 gtt/min"],
+        "a": 2,
+        "t": "IV Drop Rates",
+        "e": "1. Formula: Rate (gtt/min) = [Total Volume (mL) x Drop Factor (gtt/mL)] / Time in minutes. 2. Time = 12 hrs x 60 = 720 mins. 3. Rate = (1000 x 10) / 720 = 13.88888888888889 -> 14 gtt/min."
+    },
+    {
+        "q": "The physician orders 100 mL of 0.9% NS to be infused over 0.5 hours. The IV tubing has a drop factor of 15 gtt/mL. Calculate the required flow rate in drops per minute (gtt/min).",
+        "o": ["55 gtt/min", "50 gtt/min", "75 gtt/min", "46 gtt/min"],
+        "a": 1,
+        "t": "IV Drop Rates",
+        "e": "1. Formula: Rate (gtt/min) = [Total Volume (mL) x Drop Factor (gtt/mL)] / Time in minutes. 2. Time = 0.5 hrs x 60 = 30.0 mins. 3. Rate = (100 x 15) / 30.0 = 50.0 -> 50 gtt/min."
+    },
+    {
+        "q": "You need to administer 500 mg of Ceftriaxone. You have a 1000 mg vial of powdered Ceftriaxone. The instructions state: 'Add 3.6 mL of sterile water. The powder accounts for 0.4 mL of volume.' How many mL will you draw up to administer the ordered dose?",
+        "o": ["2.0 mL", "1.7 mL", "1.8 mL", "2.5 mL"],
+        "a": 0,
+        "t": "Reconstitution",
+        "e": "1. Total volume after reconstitution = Diluent (3.6 mL) + Displacement volume (0.4 mL) = 4.0 mL. 2. Final Concentration = 1000 mg / 4.0 mL = 250.0 mg/mL. 3. Volume to draw up = Desired Dose / Concentration = 500 mg / 250.0 mg/mL = 2.0 mL."
+    },
+    {
+        "q": "You need to administer 250 mg of Ceftriaxone. You have a 500 mg vial of powdered Ceftriaxone. The instructions state: 'Add 1.8 mL of sterile water. The powder accounts for 0.2 mL of volume.' How many mL will you draw up to administer the ordered dose?",
+        "o": ["1.5 mL", "0.9 mL", "0.7 mL", "1.0 mL"],
+        "a": 3,
+        "t": "Reconstitution",
+        "e": "1. Total volume after reconstitution = Diluent (1.8 mL) + Displacement volume (0.2 mL) = 2.0 mL. 2. Final Concentration = 500 mg / 2.0 mL = 250.0 mg/mL. 3. Volume to draw up = Desired Dose / Concentration = 250 mg / 250.0 mg/mL = 1.0 mL."
+    },
+    {
+        "q": "You need to administer 750 mg of Ceftriaxone. You have a 1000 mg vial of powdered Ceftriaxone. The instructions state: 'Add 2.5 mL of sterile water. The powder accounts for 0.5 mL of volume.' How many mL will you draw up to administer the ordered dose?",
+        "o": ["2.25 mL", "2.75 mL", "1.88 mL", "1.95 mL"],
+        "a": 0,
+        "t": "Reconstitution",
+        "e": "1. Total volume after reconstitution = Diluent (2.5 mL) + Displacement volume (0.5 mL) = 3.0 mL. 2. Final Concentration = 1000 mg / 3.0 mL = 333.3333333333333 mg/mL. 3. Volume to draw up = Desired Dose / Concentration = 750 mg / 333.3333333333333 mg/mL = 2.25 mL."
+    },
+    {
+        "q": "You need to administer 300 mg of Ceftriaxone. You have a 600 mg vial of powdered Ceftriaxone. The instructions state: 'Add 2.8 mL of sterile water. The powder accounts for 0.2 mL of volume.' How many mL will you draw up to administer the ordered dose?",
+        "o": ["1.4 mL", "1.2 mL", "2.0 mL", "1.5 mL"],
+        "a": 3,
+        "t": "Reconstitution",
+        "e": "1. Total volume after reconstitution = Diluent (2.8 mL) + Displacement volume (0.2 mL) = 3.0 mL. 2. Final Concentration = 600 mg / 3.0 mL = 200.0 mg/mL. 3. Volume to draw up = Desired Dose / Concentration = 300 mg / 200.0 mg/mL = 1.5 mL."
+    },
+    {
+        "q": "You need to administer 150 mg of Ceftriaxone. You have a 300 mg vial of powdered Ceftriaxone. The instructions state: 'Add 1.4 mL of sterile water. The powder accounts for 0.1 mL of volume.' How many mL will you draw up to administer the ordered dose?",
+        "o": ["1.25 mL", "0.45 mL", "0.7 mL", "0.75 mL"],
+        "a": 3,
+        "t": "Reconstitution",
+        "e": "1. Total volume after reconstitution = Diluent (1.4 mL) + Displacement volume (0.1 mL) = 1.5 mL. 2. Final Concentration = 300 mg / 1.5 mL = 200.0 mg/mL. 3. Volume to draw up = Desired Dose / Concentration = 150 mg / 200.0 mg/mL = 0.75 mL."
+    },
+    {
+        "q": "A laboring patient is ordered an Oxytocin (Pitocin) infusion starting at 2 milliunits/min. The pharmacy sends a bag containing 10 Units of Oxytocin in 1000 mL Lactated Ringer's. What is the infusion pump rate in mL/hr?",
+        "o": ["15.0 mL/hr", "12.0 mL/hr", "6.0 mL/hr", "24.0 mL/hr"],
+        "a": 1,
+        "t": "Obstetrics / Oxytocin",
+        "e": "1. Convert Units to milliunits (mU): 10 Units = 10000 mU. 2. Calculate Concentration: 10000 mU / 1000 mL = 10.0 mU/mL. 3. Calculate dose per hour: 2 mU/min x 60 min/hr = 120 mU/hr. 4. Rate = 120 mU/hr / 10.0 mU/mL = 12.0 mL/hr."
+    },
+    {
+        "q": "A laboring patient is ordered an Oxytocin (Pitocin) infusion starting at 5 milliunits/min. The pharmacy sends a bag containing 20 Units of Oxytocin in 1000 mL Lactated Ringer's. What is the infusion pump rate in mL/hr?",
+        "o": ["7.5 mL/hr", "15.0 mL/hr", "30.0 mL/hr", "18.0 mL/hr"],
+        "a": 1,
+        "t": "Obstetrics / Oxytocin",
+        "e": "1. Convert Units to milliunits (mU): 20 Units = 20000 mU. 2. Calculate Concentration: 20000 mU / 1000 mL = 20.0 mU/mL. 3. Calculate dose per hour: 5 mU/min x 60 min/hr = 300 mU/hr. 4. Rate = 300 mU/hr / 20.0 mU/mL = 15.0 mL/hr."
+    },
+    {
+        "q": "A laboring patient is ordered an Oxytocin (Pitocin) infusion starting at 12 milliunits/min. The pharmacy sends a bag containing 30 Units of Oxytocin in 500 mL Lactated Ringer's. What is the infusion pump rate in mL/hr?",
+        "o": ["24.0 mL/hr", "6.0 mL/hr", "15.0 mL/hr", "12.0 mL/hr"],
+        "a": 3,
+        "t": "Obstetrics / Oxytocin",
+        "e": "1. Convert Units to milliunits (mU): 30 Units = 30000 mU. 2. Calculate Concentration: 30000 mU / 500 mL = 60.0 mU/mL. 3. Calculate dose per hour: 12 mU/min x 60 min/hr = 720 mU/hr. 4. Rate = 720 mU/hr / 60.0 mU/mL = 12.0 mL/hr."
+    },
+    {
+        "q": "A laboring patient is ordered an Oxytocin (Pitocin) infusion starting at 8 milliunits/min. The pharmacy sends a bag containing 20 Units of Oxytocin in 1000 mL Lactated Ringer's. What is the infusion pump rate in mL/hr?",
+        "o": ["24.0 mL/hr", "27.0 mL/hr", "12.0 mL/hr", "48.0 mL/hr"],
+        "a": 0,
+        "t": "Obstetrics / Oxytocin",
+        "e": "1. Convert Units to milliunits (mU): 20 Units = 20000 mU. 2. Calculate Concentration: 20000 mU / 1000 mL = 20.0 mU/mL. 3. Calculate dose per hour: 8 mU/min x 60 min/hr = 480 mU/hr. 4. Rate = 480 mU/hr / 20.0 mU/mL = 24.0 mL/hr."
+    },
+    {
+        "q": "A laboring patient is ordered an Oxytocin (Pitocin) infusion starting at 15 milliunits/min. The pharmacy sends a bag containing 10 Units of Oxytocin in 500 mL Lactated Ringer's. What is the infusion pump rate in mL/hr?",
+        "o": ["48.0 mL/hr", "22.5 mL/hr", "45.0 mL/hr", "90.0 mL/hr"],
+        "a": 2,
+        "t": "Obstetrics / Oxytocin",
+        "e": "1. Convert Units to milliunits (mU): 10 Units = 10000 mU. 2. Calculate Concentration: 10000 mU / 500 mL = 20.0 mU/mL. 3. Calculate dose per hour: 15 mU/min x 60 min/hr = 900 mU/hr. 4. Rate = 900 mU/hr / 20.0 mU/mL = 45.0 mL/hr."
+    },
+    {
+        "q": "A patient with severe preeclampsia is ordered a Magnesium Sulfate loading dose of 4 g over 20 minutes, followed by a maintenance infusion of 2 g/hr. The IV bag contains 40 g of Magnesium Sulfate in 1000 mL of Sterile Water. Calculate the pump rate for the LOADING DOSE (mL/hr) and the MAINTENANCE DOSE (mL/hr).",
+        "o": ["Load: 150 mL/hr; Maint: 60 mL/hr", "Load: 450 mL/hr; Maint: 100 mL/hr", "Load: 300 mL/hr; Maint: 50 mL/hr", "Load: 350 mL/hr; Maint: 100 mL/hr"],
+        "a": 2,
+        "t": "Obstetrics / Magnesium",
+        "e": "1. Concentration = 40 g / 1000 mL = 0.04 g/mL. 2. Loading Volume = 4 g / 0.04 g/mL = 100.0 mL. 3. Loading Rate (over 20 mins) = (100.0 mL / 20 min) x 60 min/hr = 300 mL/hr. 4. Maintenance Rate = 2 g/hr / 0.04 g/mL = 50 mL/hr."
+    },
+    {
+        "q": "A patient with severe preeclampsia is ordered a Magnesium Sulfate loading dose of 6 g over 30 minutes, followed by a maintenance infusion of 3 g/hr. The IV bag contains 20 g of Magnesium Sulfate in 500 mL of Sterile Water. Calculate the pump rate for the LOADING DOSE (mL/hr) and the MAINTENANCE DOSE (mL/hr).",
+        "o": ["Load: 350 mL/hr; Maint: 150 mL/hr", "Load: 150 mL/hr; Maint: 85 mL/hr", "Load: 300 mL/hr; Maint: 75 mL/hr", "Load: 450 mL/hr; Maint: 150 mL/hr"],
+        "a": 2,
+        "t": "Obstetrics / Magnesium",
+        "e": "1. Concentration = 20 g / 500 mL = 0.04 g/mL. 2. Loading Volume = 6 g / 0.04 g/mL = 150.0 mL. 3. Loading Rate (over 30 mins) = (150.0 mL / 30 min) x 60 min/hr = 300 mL/hr. 4. Maintenance Rate = 3 g/hr / 0.04 g/mL = 75 mL/hr."
+    },
+    {
+        "q": "A patient with severe preeclampsia is ordered a Magnesium Sulfate loading dose of 4 g over 15 minutes, followed by a maintenance infusion of 1 g/hr. The IV bag contains 40 g of Magnesium Sulfate in 1000 mL of Sterile Water. Calculate the pump rate for the LOADING DOSE (mL/hr) and the MAINTENANCE DOSE (mL/hr).",
+        "o": ["Load: 200 mL/hr; Maint: 35 mL/hr", "Load: 600 mL/hr; Maint: 12 mL/hr", "Load: 450 mL/hr; Maint: 50 mL/hr", "Load: 400 mL/hr; Maint: 25 mL/hr"],
+        "a": 3,
+        "t": "Obstetrics / Magnesium",
+        "e": "1. Concentration = 40 g / 1000 mL = 0.04 g/mL. 2. Loading Volume = 4 g / 0.04 g/mL = 100.0 mL. 3. Loading Rate (over 15 mins) = (100.0 mL / 15 min) x 60 min/hr = 400 mL/hr. 4. Maintenance Rate = 1 g/hr / 0.04 g/mL = 25 mL/hr."
+    },
+    {
+        "q": "A patient with severe preeclampsia is ordered a Magnesium Sulfate loading dose of 5 g over 20 minutes, followed by a maintenance infusion of 2 g/hr. The IV bag contains 20 g of Magnesium Sulfate in 500 mL of Sterile Water. Calculate the pump rate for the LOADING DOSE (mL/hr) and the MAINTENANCE DOSE (mL/hr).",
+        "o": ["Load: 375 mL/hr; Maint: 50 mL/hr", "Load: 562 mL/hr; Maint: 25 mL/hr", "Load: 425 mL/hr; Maint: 100 mL/hr", "Load: 188 mL/hr; Maint: 60 mL/hr"],
+        "a": 0,
+        "t": "Obstetrics / Magnesium",
+        "e": "1. Concentration = 20 g / 500 mL = 0.04 g/mL. 2. Loading Volume = 5 g / 0.04 g/mL = 125.0 mL. 3. Loading Rate (over 20 mins) = (125.0 mL / 20 min) x 60 min/hr = 375 mL/hr. 4. Maintenance Rate = 2 g/hr / 0.04 g/mL = 50 mL/hr."
+    },
+    {
+        "q": "A patient with severe preeclampsia is ordered a Magnesium Sulfate loading dose of 4 g over 30 minutes, followed by a maintenance infusion of 2 g/hr. The IV bag contains 40 g of Magnesium Sulfate in 500 mL of Sterile Water. Calculate the pump rate for the LOADING DOSE (mL/hr) and the MAINTENANCE DOSE (mL/hr).",
+        "o": ["Load: 50 mL/hr; Maint: 35 mL/hr", "Load: 150 mL/hr; Maint: 50 mL/hr", "Load: 100 mL/hr; Maint: 25 mL/hr", "Load: 150 mL/hr; Maint: 12 mL/hr"],
+        "a": 2,
+        "t": "Obstetrics / Magnesium",
+        "e": "1. Concentration = 40 g / 500 mL = 0.08 g/mL. 2. Loading Volume = 4 g / 0.08 g/mL = 50.0 mL. 3. Loading Rate (over 30 mins) = (50.0 mL / 30 min) x 60 min/hr = 100 mL/hr. 4. Maintenance Rate = 2 g/hr / 0.08 g/mL = 25 mL/hr."
+    },
+    {
+        "q": "A neonate weighing 3.2 kg requires an Epinephrine infusion at 0.1 mcg/kg/min. The syringe pump is prepared with 1 mg of Epinephrine in 50 mL of D10W. What is the precise infusion rate in mL/hr?",
+        "o": ["0.48 mL/hr", "0.96 mL/hr", "1.46 mL/hr", "9.6 mL/hr"],
+        "a": 1,
+        "t": "Neonatal / Micro-infusion",
+        "e": "1. Concentration = (1 mg x 1000) / 50 mL = 20.0 mcg/mL. 2. Dose/min = 0.1 mcg/kg/min x 3.2 kg = 0.32 mcg/min. 3. Dose/hr = 0.32 x 60 = 19.2 mcg/hr. 4. Rate = 19.2 mcg/hr / 20.0 mcg/mL = 0.96 mL/hr."
+    },
+    {
+        "q": "A neonate weighing 1.5 kg requires an Epinephrine infusion at 0.05 mcg/kg/min. The syringe pump is prepared with 0.5 mg of Epinephrine in 50 mL of D10W. What is the precise infusion rate in mL/hr?",
+        "o": ["4.5 mL/hr", "0.95 mL/hr", "0.45 mL/hr", "0.22 mL/hr"],
+        "a": 2,
+        "t": "Neonatal / Micro-infusion",
+        "e": "1. Concentration = (0.5 mg x 1000) / 50 mL = 10.0 mcg/mL. 2. Dose/min = 0.05 mcg/kg/min x 1.5 kg = 0.075 mcg/min. 3. Dose/hr = 0.075 x 60 = 4.5 mcg/hr. 4. Rate = 4.5 mcg/hr / 10.0 mcg/mL = 0.45 mL/hr."
+    },
+    {
+        "q": "A neonate weighing 4.5 kg requires an Epinephrine infusion at 0.2 mcg/kg/min. The syringe pump is prepared with 2 mg of Epinephrine in 50 mL of D10W. What is the precise infusion rate in mL/hr?",
+        "o": ["0.68 mL/hr", "13.5 mL/hr", "1.85 mL/hr", "1.35 mL/hr"],
+        "a": 3,
+        "t": "Neonatal / Micro-infusion",
+        "e": "1. Concentration = (2 mg x 1000) / 50 mL = 40.0 mcg/mL. 2. Dose/min = 0.2 mcg/kg/min x 4.5 kg = 0.9 mcg/min. 3. Dose/hr = 0.9 x 60 = 54.0 mcg/hr. 4. Rate = 54.0 mcg/hr / 40.0 mcg/mL = 1.35 mL/hr."
+    },
+    {
+        "q": "A neonate weighing 2.8 kg requires an Epinephrine infusion at 0.15 mcg/kg/min. The syringe pump is prepared with 1 mg of Epinephrine in 50 mL of D10W. What is the precise infusion rate in mL/hr?",
+        "o": ["1.26 mL/hr", "12.6 mL/hr", "0.63 mL/hr", "1.76 mL/hr"],
+        "a": 0,
+        "t": "Neonatal / Micro-infusion",
+        "e": "1. Concentration = (1 mg x 1000) / 50 mL = 20.0 mcg/mL. 2. Dose/min = 0.15 mcg/kg/min x 2.8 kg = 0.42 mcg/min. 3. Dose/hr = 0.42 x 60 = 25.2 mcg/hr. 4. Rate = 25.2 mcg/hr / 20.0 mcg/mL = 1.26 mL/hr."
+    },
+    {
+        "q": "A neonate weighing 5.0 kg requires an Epinephrine infusion at 0.3 mcg/kg/min. The syringe pump is prepared with 5 mg of Epinephrine in 50 mL of D10W. What is the precise infusion rate in mL/hr?",
+        "o": ["1.4 mL/hr", "0.45 mL/hr", "0.9 mL/hr", "9.0 mL/hr"],
+        "a": 2,
+        "t": "Neonatal / Micro-infusion",
+        "e": "1. Concentration = (5 mg x 1000) / 50 mL = 100.0 mcg/mL. 2. Dose/min = 0.3 mcg/kg/min x 5.0 kg = 1.5 mcg/min. 3. Dose/hr = 1.5 x 60 = 90.0 mcg/hr. 4. Rate = 90.0 mcg/hr / 100.0 mcg/mL = 0.9 mL/hr."
+    },
+    {
+        "q": "A pediatric patient weighing 44 lbs is prescribed a medication at 15 mg/kg/dose. The suspension available is 160 mg / 5 mL. How many mL will the nurse administer per dose?",
+        "o": ["9.4 mL", "4.7 mL", "11.9 mL", "18.8 mL"],
+        "a": 0,
+        "t": "Pediatric Oral Dosing",
+        "e": "1. Weight = 44 lbs / 2.2 = 20.0 kg. 2. Dose = 20.0 kg x 15 mg/kg = 300.0 mg. 3. Concentration = 160 mg / 5 mL = 32.0 mg/mL. 4. Volume = 300.0 mg / 32.0 mg/mL = 9.4 mL."
+    },
+    {
+        "q": "A pediatric patient weighing 33 lbs is prescribed a medication at 10 mg/kg/dose. The suspension available is 100 mg / 5 mL. How many mL will the nurse administer per dose?",
+        "o": ["3.8 mL", "15.0 mL", "7.5 mL", "10.0 mL"],
+        "a": 2,
+        "t": "Pediatric Oral Dosing",
+        "e": "1. Weight = 33 lbs / 2.2 = 15.0 kg. 2. Dose = 15.0 kg x 10 mg/kg = 150.0 mg. 3. Concentration = 100 mg / 5 mL = 20.0 mg/mL. 4. Volume = 150.0 mg / 20.0 mg/mL = 7.5 mL."
+    },
+    {
+        "q": "A pediatric patient weighing 22 lbs is prescribed a medication at 12 mg/kg/dose. The suspension available is 120 mg / 5 mL. How many mL will the nurse administer per dose?",
+        "o": ["2.5 mL", "5.0 mL", "10.0 mL", "7.5 mL"],
+        "a": 1,
+        "t": "Pediatric Oral Dosing",
+        "e": "1. Weight = 22 lbs / 2.2 = 10.0 kg. 2. Dose = 10.0 kg x 12 mg/kg = 120.0 mg. 3. Concentration = 120 mg / 5 mL = 24.0 mg/mL. 4. Volume = 120.0 mg / 24.0 mg/mL = 5.0 mL."
+    },
+    {
+        "q": "A pediatric patient weighing 55 lbs is prescribed a medication at 8 mg/kg/dose. The suspension available is 250 mg / 5 mL. How many mL will the nurse administer per dose?",
+        "o": ["4.0 mL", "8.0 mL", "6.5 mL", "2.0 mL"],
+        "a": 0,
+        "t": "Pediatric Oral Dosing",
+        "e": "1. Weight = 55 lbs / 2.2 = 25.0 kg. 2. Dose = 25.0 kg x 8 mg/kg = 200.0 mg. 3. Concentration = 250 mg / 5 mL = 50.0 mg/mL. 4. Volume = 200.0 mg / 50.0 mg/mL = 4.0 mL."
+    },
+    {
+        "q": "A pediatric patient weighing 66 lbs is prescribed a medication at 20 mg/kg/dose. The suspension available is 400 mg / 5 mL. How many mL will the nurse administer per dose?",
+        "o": ["7.5 mL", "3.8 mL", "15.0 mL", "10.0 mL"],
+        "a": 0,
+        "t": "Pediatric Oral Dosing",
+        "e": "1. Weight = 66 lbs / 2.2 = 30.0 kg. 2. Dose = 30.0 kg x 20 mg/kg = 600.0 mg. 3. Concentration = 400 mg / 5 mL = 80.0 mg/mL. 4. Volume = 600.0 mg / 80.0 mg/mL = 7.5 mL."
+    },
+    {
+        "q": "A patient with severe angina is ordered a Nitroglycerin infusion starting at 10 mcg/min. The pharmacy sends Nitroglycerin 50 mg in 250 mL D5W. Calculate the pump rate in mL/hr.",
+        "o": ["3.0 mL/hr", "4.5 mL/hr", "1.0 mL/hr", "8.0 mL/hr"],
+        "a": 0,
+        "t": "Critical Care - Nitroglycerin",
+        "e": "1. Concentration = (50 mg x 1000) / 250 mL = 200.0 mcg/mL. 2. Dose/hr = 10 mcg/min x 60 min/hr = 600 mcg/hr. 3. Rate = 600 mcg/hr / 200.0 mcg/mL = 3.0 mL/hr."
+    },
+    {
+        "q": "A patient with severe angina is ordered a Nitroglycerin infusion starting at 20 mcg/min. The pharmacy sends Nitroglycerin 50 mg in 250 mL D5W. Calculate the pump rate in mL/hr.",
+        "o": ["4.0 mL/hr", "6.0 mL/hr", "11.0 mL/hr", "9.0 mL/hr"],
+        "a": 1,
+        "t": "Critical Care - Nitroglycerin",
+        "e": "1. Concentration = (50 mg x 1000) / 250 mL = 200.0 mcg/mL. 2. Dose/hr = 20 mcg/min x 60 min/hr = 1200 mcg/hr. 3. Rate = 1200 mcg/hr / 200.0 mcg/mL = 6.0 mL/hr."
+    },
+    {
+        "q": "A patient with severe angina is ordered a Nitroglycerin infusion starting at 50 mcg/min. The pharmacy sends Nitroglycerin 100 mg in 250 mL D5W. Calculate the pump rate in mL/hr.",
+        "o": ["5.5 mL/hr", "11.2 mL/hr", "12.5 mL/hr", "7.5 mL/hr"],
+        "a": 3,
+        "t": "Critical Care - Nitroglycerin",
+        "e": "1. Concentration = (100 mg x 1000) / 250 mL = 400.0 mcg/mL. 2. Dose/hr = 50 mcg/min x 60 min/hr = 3000 mcg/hr. 3. Rate = 3000 mcg/hr / 400.0 mcg/mL = 7.5 mL/hr."
+    },
+    {
+        "q": "A patient with severe angina is ordered a Nitroglycerin infusion starting at 15 mcg/min. The pharmacy sends Nitroglycerin 25 mg in 250 mL D5W. Calculate the pump rate in mL/hr.",
+        "o": ["7.0 mL/hr", "14.0 mL/hr", "9.0 mL/hr", "13.5 mL/hr"],
+        "a": 2,
+        "t": "Critical Care - Nitroglycerin",
+        "e": "1. Concentration = (25 mg x 1000) / 250 mL = 100.0 mcg/mL. 2. Dose/hr = 15 mcg/min x 60 min/hr = 900 mcg/hr. 3. Rate = 900 mcg/hr / 100.0 mcg/mL = 9.0 mL/hr."
+    },
+    {
+        "q": "A patient with severe angina is ordered a Nitroglycerin infusion starting at 30 mcg/min. The pharmacy sends Nitroglycerin 50 mg in 500 mL D5W. Calculate the pump rate in mL/hr.",
+        "o": ["16.0 mL/hr", "18.0 mL/hr", "23.0 mL/hr", "27.0 mL/hr"],
+        "a": 1,
+        "t": "Critical Care - Nitroglycerin",
+        "e": "1. Concentration = (50 mg x 1000) / 500 mL = 100.0 mcg/mL. 2. Dose/hr = 30 mcg/min x 60 min/hr = 1800 mcg/hr. 3. Rate = 1800 mcg/hr / 100.0 mcg/mL = 18.0 mL/hr."
+    },
+    {
+        "q": "You need to prepare 500 mL of a 10% solution. You have a stock solution of 50%. How many mL of the stock solution and how many mL of sterile water will you mix?",
+        "o": ["100.0 mL stock, 400.0 mL water", "400.0 mL stock, 100.0 mL water", "200.0 mL stock, 300.0 mL water", "50.0 mL stock, 450.0 mL water"],
+        "a": 0,
+        "t": "Pharmacy / Dilutions",
+        "e": "Use C1V1 = C2V2. C1 = 50%, C2 = 10%, V2 = 500 mL. V1 = (10 x 500) / 50 = 100.0 mL of stock. Sterile water needed = Total Volume (500) - Stock (100.0) = 400.0 mL."
+    },
+    {
+        "q": "You need to prepare 1000 mL of a 5% solution. You have a stock solution of 20%. How many mL of the stock solution and how many mL of sterile water will you mix?",
+        "o": ["500.0 mL stock, 500.0 mL water", "250.0 mL stock, 750.0 mL water", "750.0 mL stock, 250.0 mL water", "125.0 mL stock, 875.0 mL water"],
+        "a": 1,
+        "t": "Pharmacy / Dilutions",
+        "e": "Use C1V1 = C2V2. C1 = 20%, C2 = 5%, V2 = 1000 mL. V1 = (5 x 1000) / 20 = 250.0 mL of stock. Sterile water needed = Total Volume (1000) - Stock (250.0) = 750.0 mL."
+    },
+    {
+        "q": "You need to prepare 100 mL of a 2% solution. You have a stock solution of 10%. How many mL of the stock solution and how many mL of sterile water will you mix?",
+        "o": ["20.0 mL stock, 80.0 mL water", "10.0 mL stock, 90.0 mL water", "80.0 mL stock, 20.0 mL water", "40.0 mL stock, 60.0 mL water"],
+        "a": 0,
+        "t": "Pharmacy / Dilutions",
+        "e": "Use C1V1 = C2V2. C1 = 10%, C2 = 2%, V2 = 100 mL. V1 = (2 x 100) / 10 = 20.0 mL of stock. Sterile water needed = Total Volume (100) - Stock (20.0) = 80.0 mL."
+    },
+    {
+        "q": "You need to prepare 250 mL of a 5% solution. You have a stock solution of 50%. How many mL of the stock solution and how many mL of sterile water will you mix?",
+        "o": ["12.5 mL stock, 237.5 mL water", "25.0 mL stock, 225.0 mL water", "225.0 mL stock, 25.0 mL water", "50.0 mL stock, 200.0 mL water"],
+        "a": 1,
+        "t": "Pharmacy / Dilutions",
+        "e": "Use C1V1 = C2V2. C1 = 50%, C2 = 5%, V2 = 250 mL. V1 = (5 x 250) / 50 = 25.0 mL of stock. Sterile water needed = Total Volume (250) - Stock (25.0) = 225.0 mL."
+    },
+    {
+        "q": "You need to prepare 1000 mL of a 10% solution. You have a stock solution of 100%. How many mL of the stock solution and how many mL of sterile water will you mix?",
+        "o": ["200.0 mL stock, 800.0 mL water", "100.0 mL stock, 900.0 mL water", "900.0 mL stock, 100.0 mL water", "50.0 mL stock, 950.0 mL water"],
+        "a": 1,
+        "t": "Pharmacy / Dilutions",
+        "e": "Use C1V1 = C2V2. C1 = 100%, C2 = 10%, V2 = 1000 mL. V1 = (10 x 1000) / 100 = 100.0 mL of stock. Sterile water needed = Total Volume (1000) - Stock (100.0) = 900.0 mL."
+    },
+    {
+        "q": "A 20 kg child is prescribed Amoxicillin 250 mg PO every 6 hours. The safe pediatric dosage range is 40 to 60 mg/kg/day in divided doses. Is this order safe?",
+        "o": ["Yes, safe. Ordered daily is 1000 mg, which is within the 800-1200 mg range.", "Cannot be determined without BSA", "No, too high. Ordered is 1000 mg.", "No, too low. Ordered is 1000 mg."],
+        "a": 0,
+        "t": "Pediatric - Safe Dose Range",
+        "e": "1. Ordered daily dose = 250 mg x 4 doses = 1000 mg/day. 2. Safe min = 20 kg x 40 mg/kg = 800 mg/day. 3. Safe max = 20 kg x 60 mg/kg = 1200 mg/day. 4. Yes, safe. Ordered daily is 1000 mg, which is within the 800-1200 mg range."
+    },
+    {
+        "q": "A 15 kg child is prescribed Amoxicillin 250 mg PO every 8 hours. The safe pediatric dosage range is 20 to 40 mg/kg/day in divided doses. Is this order safe?",
+        "o": ["No, too high. Ordered daily is 750 mg; safe range is 300-600 mg.", "Yes, safe. Ordered is 750 mg.", "No, too low. Ordered is 750 mg.", "Cannot be determined without BSA"],
+        "a": 0,
+        "t": "Pediatric - Safe Dose Range",
+        "e": "1. Ordered daily dose = 250 mg x 3 doses = 750 mg/day. 2. Safe min = 15 kg x 20 mg/kg = 300 mg/day. 3. Safe max = 15 kg x 40 mg/kg = 600 mg/day. 4. No, too high. Ordered daily is 750 mg; safe range is 300-600 mg."
+    },
+    {
+        "q": "A 10 kg child is prescribed Amoxicillin 200 mg PO every 6 hours. The safe pediatric dosage range is 50 to 100 mg/kg/day in divided doses. Is this order safe?",
+        "o": ["No, too high. Ordered is 800 mg.", "Cannot be determined without BSA", "Yes, safe. Ordered daily is 800 mg, which is within the 500-1000 mg range.", "No, too low. Ordered is 800 mg."],
+        "a": 2,
+        "t": "Pediatric - Safe Dose Range",
+        "e": "1. Ordered daily dose = 200 mg x 4 doses = 800 mg/day. 2. Safe min = 10 kg x 50 mg/kg = 500 mg/day. 3. Safe max = 10 kg x 100 mg/kg = 1000 mg/day. 4. Yes, safe. Ordered daily is 800 mg, which is within the 500-1000 mg range."
+    },
+    {
+        "q": "A 30 kg child is prescribed Amoxicillin 800 mg PO every 12 hours. The safe pediatric dosage range is 30 to 50 mg/kg/day in divided doses. Is this order safe?",
+        "o": ["Cannot be determined without BSA", "Yes, safe. Ordered is 1600 mg.", "No, too high. Ordered daily is 1600 mg; safe range is 900-1500 mg.", "No, too low. Ordered is 1600 mg."],
+        "a": 2,
+        "t": "Pediatric - Safe Dose Range",
+        "e": "1. Ordered daily dose = 800 mg x 2 doses = 1600 mg/day. 2. Safe min = 30 kg x 30 mg/kg = 900 mg/day. 3. Safe max = 30 kg x 50 mg/kg = 1500 mg/day. 4. No, too high. Ordered daily is 1600 mg; safe range is 900-1500 mg."
+    },
+    {
+        "q": "A 25 kg child is prescribed Amoxicillin 150 mg PO every 6 hours. The safe pediatric dosage range is 10 to 20 mg/kg/day in divided doses. Is this order safe?",
+        "o": ["Yes, safe. Ordered is 600 mg.", "No, too high. Ordered daily is 600 mg; safe range is 250-500 mg.", "Cannot be determined without BSA", "No, too low. Ordered is 600 mg."],
+        "a": 1,
+        "t": "Pediatric - Safe Dose Range",
+        "e": "1. Ordered daily dose = 150 mg x 4 doses = 600 mg/day. 2. Safe min = 25 kg x 10 mg/kg = 250 mg/day. 3. Safe max = 25 kg x 20 mg/kg = 500 mg/day. 4. No, too high. Ordered daily is 600 mg; safe range is 250-500 mg."
+    },
+    {
+        "q": "The physician orders 40 mEq of Potassium Chloride (KCl) in 100 mL of Normal Saline to infuse over 2 hours via a PERIPHERAL IV line. Standard policy dictates peripheral KCl max rate is 10 mEq/hr and max concentration is 10 mEq/100 mL. Is this order safe?",
+        "o": ["Safe to administer via peripheral line (Rate: 20.0 mEq/hr).", "Unsafe for peripheral line. Must use a central line or adjust order. (Rate: 20.0 mEq/hr, Conc: 40.0 mEq/100mL)", "Safe only if pushed rapidly", "Safe only if diluted in D5W instead of NS"],
+        "a": 1,
+        "t": "Electrolytes / Safety",
+        "e": "1. Rate of infusion = 40 mEq / 2 hr = 20.0 mEq/hr. 2. Concentration = (40 mEq / 100 mL) x 100 = 40.0 mEq/100mL. Peripheral limits are 10 mEq/hr and 10 mEq/100mL. Unsafe for peripheral line. Must use a central line or adjust order. (Rate: 20.0 mEq/hr, Conc: 40.0 mEq/100mL)"
+    },
+    {
+        "q": "The physician orders 20 mEq of Potassium Chloride (KCl) in 50 mL of Normal Saline to infuse over 1 hours via a PERIPHERAL IV line. Standard policy dictates peripheral KCl max rate is 10 mEq/hr and max concentration is 10 mEq/100 mL. Is this order safe?",
+        "o": ["Unsafe for peripheral line. Must use a central line or adjust order. (Rate: 20.0 mEq/hr, Conc: 40.0 mEq/100mL)", "Safe only if diluted in D5W instead of NS", "Safe to administer via peripheral line (Rate: 20.0 mEq/hr).", "Safe only if pushed rapidly"],
+        "a": 0,
+        "t": "Electrolytes / Safety",
+        "e": "1. Rate of infusion = 20 mEq / 1 hr = 20.0 mEq/hr. 2. Concentration = (20 mEq / 50 mL) x 100 = 40.0 mEq/100mL. Peripheral limits are 10 mEq/hr and 10 mEq/100mL. Unsafe for peripheral line. Must use a central line or adjust order. (Rate: 20.0 mEq/hr, Conc: 40.0 mEq/100mL)"
+    },
+    {
+        "q": "The physician orders 60 mEq of Potassium Chloride (KCl) in 250 mL of Normal Saline to infuse over 3 hours via a PERIPHERAL IV line. Standard policy dictates peripheral KCl max rate is 10 mEq/hr and max concentration is 10 mEq/100 mL. Is this order safe?",
+        "o": ["Safe to administer via peripheral line (Rate: 20.0 mEq/hr).", "Safe only if pushed rapidly", "Unsafe for peripheral line. Must use a central line or adjust order. (Rate: 20.0 mEq/hr, Conc: 24.0 mEq/100mL)", "Safe only if diluted in D5W instead of NS"],
+        "a": 2,
+        "t": "Electrolytes / Safety",
+        "e": "1. Rate of infusion = 60 mEq / 3 hr = 20.0 mEq/hr. 2. Concentration = (60 mEq / 250 mL) x 100 = 24.0 mEq/100mL. Peripheral limits are 10 mEq/hr and 10 mEq/100mL. Unsafe for peripheral line. Must use a central line or adjust order. (Rate: 20.0 mEq/hr, Conc: 24.0 mEq/100mL)"
+    },
+    {
+        "q": "The physician orders 10 mEq of Potassium Chloride (KCl) in 100 mL of Normal Saline to infuse over 0.5 hours via a PERIPHERAL IV line. Standard policy dictates peripheral KCl max rate is 10 mEq/hr and max concentration is 10 mEq/100 mL. Is this order safe?",
+        "o": ["Safe only if diluted in D5W instead of NS", "Unsafe for peripheral line. Must use a central line or adjust order. (Rate: 20.0 mEq/hr, Conc: 10.0 mEq/100mL)", "Safe only if pushed rapidly", "Safe to administer via peripheral line (Rate: 20.0 mEq/hr)."],
+        "a": 1,
+        "t": "Electrolytes / Safety",
+        "e": "1. Rate of infusion = 10 mEq / 0.5 hr = 20.0 mEq/hr. 2. Concentration = (10 mEq / 100 mL) x 100 = 10.0 mEq/100mL. Peripheral limits are 10 mEq/hr and 10 mEq/100mL. Unsafe for peripheral line. Must use a central line or adjust order. (Rate: 20.0 mEq/hr, Conc: 10.0 mEq/100mL)"
+    },
+    {
+        "q": "The physician orders 30 mEq of Potassium Chloride (KCl) in 100 mL of Normal Saline to infuse over 2 hours via a PERIPHERAL IV line. Standard policy dictates peripheral KCl max rate is 10 mEq/hr and max concentration is 10 mEq/100 mL. Is this order safe?",
+        "o": ["Safe only if pushed rapidly", "Safe only if diluted in D5W instead of NS", "Unsafe for peripheral line. Must use a central line or adjust order. (Rate: 15.0 mEq/hr, Conc: 30.0 mEq/100mL)", "Safe to administer via peripheral line (Rate: 15.0 mEq/hr)."],
+        "a": 2,
+        "t": "Electrolytes / Safety",
+        "e": "1. Rate of infusion = 30 mEq / 2 hr = 15.0 mEq/hr. 2. Concentration = (30 mEq / 100 mL) x 100 = 30.0 mEq/100mL. Peripheral limits are 10 mEq/hr and 10 mEq/100mL. Unsafe for peripheral line. Must use a central line or adjust order. (Rate: 15.0 mEq/hr, Conc: 30.0 mEq/100mL)"
+    },
+    {
+        "q": "A patient is prescribed intermittent enteral bolus feedings of 240 mL every 6 hours. The formula provides 1.5 kcal/mL. How many TOTAL kilocalories will the patient receive in 24 hours?",
+        "o": ["1440 kcal/day", "8640 kcal/day", "960 kcal/day", "1728 kcal/day"],
+        "a": 0,
+        "t": "Nutrition / Enteral",
+        "e": "1. Doses per day = 24 / 6 = 4 feeds. 2. Total volume = 4 x 240 mL = 960 mL/day. 3. Total calories = 960 mL x 1.5 kcal/mL = 1440 kcal/day."
+    },
+    {
+        "q": "A patient is prescribed intermittent enteral bolus feedings of 300 mL every 5 hours. The formula provides 1.2 kcal/mL. How many TOTAL kilocalories will the patient receive in 24 hours?",
+        "o": ["1800 kcal/day", "1152 kcal/day", "8640 kcal/day", "2160 kcal/day"],
+        "a": 0,
+        "t": "Nutrition / Enteral",
+        "e": "1. Doses per day = 24 / 5 = 5 feeds. 2. Total volume = 5 x 300 mL = 1500 mL/day. 3. Total calories = 1500 mL x 1.2 kcal/mL = 1800 kcal/day."
+    },
+    {
+        "q": "A patient is prescribed intermittent enteral bolus feedings of 500 mL every 8 hours. The formula provides 2.0 kcal/mL. How many TOTAL kilocalories will the patient receive in 24 hours?",
+        "o": ["2000 kcal/day", "3600 kcal/day", "24000 kcal/day", "3000 kcal/day"],
+        "a": 3,
+        "t": "Nutrition / Enteral",
+        "e": "1. Doses per day = 24 / 8 = 3 feeds. 2. Total volume = 3 x 500 mL = 1500 mL/day. 3. Total calories = 1500 mL x 2.0 kcal/mL = 3000 kcal/day."
+    },
+    {
+        "q": "A patient is prescribed intermittent enteral bolus feedings of 200 mL every 4 hours. The formula provides 1.5 kcal/mL. How many TOTAL kilocalories will the patient receive in 24 hours?",
+        "o": ["1800 kcal/day", "1200 kcal/day", "2160 kcal/day", "7200 kcal/day"],
+        "a": 0,
+        "t": "Nutrition / Enteral",
+        "e": "1. Doses per day = 24 / 4 = 6 feeds. 2. Total volume = 6 x 200 mL = 1200 mL/day. 3. Total calories = 1200 mL x 1.5 kcal/mL = 1800 kcal/day."
+    },
+    {
+        "q": "A patient is prescribed intermittent enteral bolus feedings of 400 mL every 6 hours. The formula provides 1.0 kcal/mL. How many TOTAL kilocalories will the patient receive in 24 hours?",
+        "o": ["1600 kcal/day", "1066 kcal/day", "9600 kcal/day", "1920 kcal/day"],
+        "a": 0,
+        "t": "Nutrition / Enteral",
+        "e": "1. Doses per day = 24 / 6 = 4 feeds. 2. Total volume = 4 x 400 mL = 1600 mL/day. 3. Total calories = 1600 mL x 1.0 kcal/mL = 1600 kcal/day."
+    },
+    {
+        "q": "A patient weighs 80 kg and is 1.75 meters tall. Calculate their Body Mass Index (BMI) and determine their classification.",
+        "o": ["45.7 (Normal)", "26.1 (Overweight)", "31.1 (Overweight)", "22.1 (Underweight)"],
+        "a": 1,
+        "t": "Clinical Math / BMI",
+        "e": "1. Formula: BMI = Weight (kg) / Height (m²). 2. BMI = 80 / (1.75 x 1.75) = 80 / 3.0625 = 26.1. 3. Classification: <18.5 Underweight, 18.5-24.9 Normal, 25-29.9 Overweight, >30 Obese."
+    },
+    {
+        "q": "A patient weighs 55 kg and is 1.6 meters tall. Calculate their Body Mass Index (BMI) and determine their classification.",
+        "o": ["17.5 (Underweight)", "26.5 (Overweight)", "34.4 (Normal)", "21.5 (Normal weight)"],
+        "a": 3,
+        "t": "Clinical Math / BMI",
+        "e": "1. Formula: BMI = Weight (kg) / Height (m²). 2. BMI = 55 / (1.6 x 1.6) = 55 / 2.56 = 21.5. 3. Classification: <18.5 Underweight, 18.5-24.9 Normal, 25-29.9 Overweight, >30 Obese."
+    },
+    {
+        "q": "A patient weighs 120 kg and is 1.8 meters tall. Calculate their Body Mass Index (BMI) and determine their classification.",
+        "o": ["66.7 (Normal)", "42.0 (Overweight)", "33.0 (Underweight)", "37.0 (Obese)"],
+        "a": 3,
+        "t": "Clinical Math / BMI",
+        "e": "1. Formula: BMI = Weight (kg) / Height (m²). 2. BMI = 120 / (1.8 x 1.8) = 120 / 3.24 = 37.0. 3. Classification: <18.5 Underweight, 18.5-24.9 Normal, 25-29.9 Overweight, >30 Obese."
+    },
+    {
+        "q": "A patient weighs 95 kg and is 1.65 meters tall. Calculate their Body Mass Index (BMI) and determine their classification.",
+        "o": ["57.6 (Normal)", "30.9 (Underweight)", "39.9 (Overweight)", "34.9 (Obese)"],
+        "a": 3,
+        "t": "Clinical Math / BMI",
+        "e": "1. Formula: BMI = Weight (kg) / Height (m²). 2. BMI = 95 / (1.65 x 1.65) = 95 / 2.7225 = 34.9. 3. Classification: <18.5 Underweight, 18.5-24.9 Normal, 25-29.9 Overweight, >30 Obese."
+    },
+    {
+        "q": "A patient weighs 40 kg and is 1.5 meters tall. Calculate their Body Mass Index (BMI) and determine their classification.",
+        "o": ["13.8 (Underweight)", "17.8 (Underweight)", "22.8 (Overweight)", "26.7 (Normal)"],
+        "a": 1,
+        "t": "Clinical Math / BMI",
+        "e": "1. Formula: BMI = Weight (kg) / Height (m²). 2. BMI = 40 / (1.5 x 1.5) = 40 / 2.25 = 17.8. 3. Classification: <18.5 Underweight, 18.5-24.9 Normal, 25-29.9 Overweight, >30 Obese."
+    },
+    {
+        "q": "Calculate the 24-hour net fluid balance for this patient: IV fluids infusing at 100 mL/hr for 12 hours, PO intake of 450 mL. Urine output: 800 mL, Emesis: 200 mL, Jackson-Pratt drain: 50 mL.",
+        "o": ["+1100 mL", "+600 mL", "+1650 mL", "-1050 mL"],
+        "a": 1,
+        "t": "Fluid Balance",
+        "e": "1. Total Intake = IV (100 x 12 = 1200 mL) + PO (450 mL) = 1650 mL. 2. Total Output = Urine (800) + Emesis (200) + Drain (50) = 1050 mL. 3. Net Balance = Intake - Output = 1650 - 1050 = +600 mL."
+    },
+    {
+        "q": "Calculate the 24-hour net fluid balance for this patient: IV fluids infusing at 125 mL/hr for 8 hours, PO intake of 300 mL. Urine output: 1200 mL, Emesis: 0 mL, Jackson-Pratt drain: 100 mL.",
+        "o": ["500 mL", "+1300 mL", "0 mL", "-1300 mL"],
+        "a": 2,
+        "t": "Fluid Balance",
+        "e": "1. Total Intake = IV (125 x 8 = 1000 mL) + PO (300 mL) = 1300 mL. 2. Total Output = Urine (1200) + Emesis (0) + Drain (100) = 1300 mL. 3. Net Balance = Intake - Output = 1300 - 1300 = 0 mL."
+    },
+    {
+        "q": "Calculate the 24-hour net fluid balance for this patient: IV fluids infusing at 75 mL/hr for 24 hours, PO intake of 600 mL. Urine output: 1500 mL, Emesis: 300 mL, Jackson-Pratt drain: 0 mL.",
+        "o": ["-1800 mL", "+1100 mL", "+2400 mL", "+600 mL"],
+        "a": 3,
+        "t": "Fluid Balance",
+        "e": "1. Total Intake = IV (75 x 24 = 1800 mL) + PO (600 mL) = 2400 mL. 2. Total Output = Urine (1500) + Emesis (300) + Drain (0) = 1800 mL. 3. Net Balance = Intake - Output = 2400 - 1800 = +600 mL."
+    },
+    {
+        "q": "Calculate the 24-hour net fluid balance for this patient: IV fluids infusing at 150 mL/hr for 10 hours, PO intake of 0 mL. Urine output: 1000 mL, Emesis: 500 mL, Jackson-Pratt drain: 250 mL.",
+        "o": ["-1750 mL", "+1500 mL", "250 mL", "-250 mL"],
+        "a": 3,
+        "t": "Fluid Balance",
+        "e": "1. Total Intake = IV (150 x 10 = 1500 mL) + PO (0 mL) = 1500 mL. 2. Total Output = Urine (1000) + Emesis (500) + Drain (250) = 1750 mL. 3. Net Balance = Intake - Output = 1500 - 1750 = -250 mL."
+    },
+    {
+        "q": "Calculate the 24-hour net fluid balance for this patient: IV fluids infusing at 50 mL/hr for 24 hours, PO intake of 1200 mL. Urine output: 1800 mL, Emesis: 0 mL, Jackson-Pratt drain: 150 mL.",
+        "o": ["-1950 mL", "+950 mL", "+2400 mL", "+450 mL"],
+        "a": 3,
+        "t": "Fluid Balance",
+        "e": "1. Total Intake = IV (50 x 24 = 1200 mL) + PO (1200 mL) = 2400 mL. 2. Total Output = Urine (1800) + Emesis (0) + Drain (150) = 1950 mL. 3. Net Balance = Intake - Output = 2400 - 1950 = +450 mL."
+    },
+    {
+        "q": "An IV bag contains 1000 mL of Normal Saline. The pump is set to deliver 125 mL/hr. The infusion starts at 08:00. How long will the infusion take to complete, and at what exact time will it finish?",
+        "o": ["9 hours 0 mins; Finishes at 17:00", "7 hours 0 mins; Finishes at 15:00", "8 hours 15 mins; Finishes at 16:15", "8 hours 0 mins; Finishes at 16:00"],
+        "a": 3,
+        "t": "IV Duration",
+        "e": "1. Time (hrs) = Total Volume / Rate = 1000 / 125 = 8.0 hours. 2. Convert decimal to minutes: 0.0 x 60 = 0 minutes. 3. Total time = 8 hrs 0 mins. 4. Add to 08:00 = 16:00."
+    },
+    {
+        "q": "An IV bag contains 500 mL of Normal Saline. The pump is set to deliver 75 mL/hr. The infusion starts at 08:00. How long will the infusion take to complete, and at what exact time will it finish?",
+        "o": ["7 hours 40 mins; Finishes at 15:40", "5 hours 40 mins; Finishes at 13:40", "6 hours 40 mins; Finishes at 14:40", "6 hours 55 mins; Finishes at 14:55"],
+        "a": 2,
+        "t": "IV Duration",
+        "e": "1. Time (hrs) = Total Volume / Rate = 500 / 75 = 6.666666666666667 hours. 2. Convert decimal to minutes: 0.666 x 60 = 40 minutes. 3. Total time = 6 hrs 40 mins. 4. Add to 08:00 = 14:40."
+    },
+    {
+        "q": "An IV bag contains 250 mL of Normal Saline. The pump is set to deliver 50 mL/hr. The infusion starts at 08:00. How long will the infusion take to complete, and at what exact time will it finish?",
+        "o": ["6 hours 0 mins; Finishes at 14:00", "5 hours 15 mins; Finishes at 13:15", "4 hours 0 mins; Finishes at 12:00", "5 hours 0 mins; Finishes at 13:00"],
+        "a": 2,
+        "t": "IV Duration",
+        "e": "1. Time (hrs) = Total Volume / Rate = 250 / 50 = 5.0 hours. 2. Convert decimal to minutes: 0.0 x 60 = 0 minutes. 3. Total time = 5 hrs 0 mins. 4. Add to 08:00 = 13:00."
+    },
+    {
+        "q": "An IV bag contains 1000 mL of Normal Saline. The pump is set to deliver 80 mL/hr. The infusion starts at 08:00. How long will the infusion take to complete, and at what exact time will it finish?",
+        "o": ["12 hours 30 mins; Finishes at 20:30", "11 hours 30 mins; Finishes at 19:30", "13 hours 30 mins; Finishes at 21:30", "12 hours 45 mins; Finishes at 20:45"],
+        "a": 0,
+        "t": "IV Duration",
+        "e": "1. Time (hrs) = Total Volume / Rate = 1000 / 80 = 12.5 hours. 2. Convert decimal to minutes: 0.5 x 60 = 30 minutes. 3. Total time = 12 hrs 30 mins. 4. Add to 08:00 = 20:30."
+    },
+    {
+        "q": "An IV bag contains 500 mL of Normal Saline. The pump is set to deliver 33 mL/hr. The infusion starts at 08:00. How long will the infusion take to complete, and at what exact time will it finish?",
+        "o": ["15 hours 9 mins; Finishes at 23:09", "16 hours 9 mins; Finishes at 24:09", "15 hours 24 mins; Finishes at 23:24", "14 hours 9 mins; Finishes at 22:09"],
+        "a": 0,
+        "t": "IV Duration",
+        "e": "1. Time (hrs) = Total Volume / Rate = 500 / 33 = 15.151515151515152 hours. 2. Convert decimal to minutes: 0.151 x 60 = 9 minutes. 3. Total time = 15 hrs 9 mins. 4. Add to 08:00 = 23:09."
+    }
 ];
-// Structure into 5 sections of 20 questions each
-let sections = [];
-for (let i = 0; i < 5; i++) {
-sections.push(rawQuestions.slice(i * 20, (i + 1) * 20));
-}
-let currentSection = 0;
-let currentQ = 0;
-let score = 0;
-let answersData = Array.from({length: 5}, () => new Array(20).fill(null));
-// Timers (in seconds)
-let sectionTimeLeft = 18 * 60; // 18 mins per section
-let totalTimeLeft = 90 * 60; // 90 mins total
-let timerInterval;
-const quizBody = document.getElementById('quiz-body');
-const scoreEl = document.getElementById('score');
-const qCounterEl = document.getElementById('q-counter');
-const secDisplayEl = document.getElementById('section-display');
-const secTimerEl = document.getElementById('section-timer');
-const totTimerEl = document.getElementById('total-timer');
-const progressEl = document.getElementById('progress');
-function formatTime(seconds) {
-const m = Math.floor(seconds / 60);
-const s = seconds % 60;
-return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
-}
-function updateTimers() {
-if (totalTimeLeft <= 0) {
-clearInterval(timerInterval);
-finishExam();
-return;
-}
-sectionTimeLeft--;
-totalTimeLeft--;
-secTimerEl.innerText = `Section Time: ${formatTime(sectionTimeLeft)}`;
-totTimerEl.innerText = `Total Time: ${formatTime(totalTimeLeft)}`;
-if (sectionTimeLeft <= 0) {
-advanceSection();
-}
-}
-function advanceSection() {
-if (currentSection < 4) {
-alert(`Time's up for Section ${currentSection + 1}. Auto-advancing to Section ${currentSection + 2}.`);
-currentSection++;
-currentQ = 0;
-sectionTimeLeft = 18 * 60; // Reset for next section
-renderQuestion();
-} else {
-clearInterval(timerInterval);
-finishExam();
-}
-}
-function renderQuestion() {
-quizBody.innerHTML = '';
-const q = sections[currentSection][currentQ];
-const globalQNum = (currentSection * 20) + currentQ + 1;
-const qDiv = document.createElement('div');
-qDiv.className = 'question-container active';
-// Check if already answered in this section
-const isAnswered = answersData[currentSection][currentQ] !== null;
-const selectedIdx = answersData[currentSection][currentQ];
-let optionsHtml = '';
-q.o.forEach((opt, optIndex) => {
-let btnClass = 'option-btn';
-if (isAnswered) {
-btnClass += ' disabled';
-if (optIndex === q.a) btnClass += ' correct';
-else if (optIndex === selectedIdx) btnClass += ' incorrect';
-}
-optionsHtml += `
-<button class="${btnClass}" onclick="checkAnswer(${optIndex}, this)">
-${String.fromCharCode(65 + optIndex)}. ${opt}
-</button>
-`;
-});
-let navHtml = '';
-if (currentQ > 0) {
-navHtml += `<button class="nav-btn" onclick="navigate(-1)">Previous</button>`;
-} else {
-navHtml += `<button class="nav-btn" disabled>Previous</button>`;
-}
-if (currentQ < 19) {
-navHtml += `<button class="nav-btn" onclick="navigate(1)">Next</button>`;
-} else {
-if (currentSection < 4) {
-navHtml += `<button class="nav-btn" onclick="submitSection()">Submit Section ${currentSection + 1}</button>`;
-} else {
-navHtml += `<button class="nav-btn" onclick="finishExam()">Final Submit</button>`;
-}
-}
-qDiv.innerHTML = `
-<div class="subject-tag">${q.t}</div>
-<div class="q-text">Q${globalQNum}: ${q.q}</div>
-<div class="options" id="opts-container">${optionsHtml}</div>
-<div class="rationale" id="rationale-box" style="display: ${isAnswered ? 'block' : 'none'};">
-<strong>Clinical Rationale:</strong> ${q.e}
-</div>
-<div class="navigation">${navHtml}</div>
-`;
-quizBody.appendChild(qDiv);
-secDisplayEl.innerText = `Section: ${currentSection + 1} / 5`;
-qCounterEl.innerText = `Q: ${currentQ + 1} / 20`;
-const globalProgress = (globalQNum / 100) * 100;
-progressEl.style.width = `${globalProgress}%`;
-}
-window.checkAnswer = function(selectedOptIndex, btnElement) {
-if (answersData[currentSection][currentQ] !== null) return; 
-const q = sections[currentSection][currentQ];
-answersData[currentSection][currentQ] = selectedOptIndex;
-const container = document.getElementById('opts-container');
-const buttons = container.querySelectorAll('.option-btn');
-buttons.forEach(b => b.classList.add('disabled'));
-if (selectedOptIndex === q.a) {
-btnElement.classList.add('correct');
-score += 1;
-} else {
-btnElement.classList.add('incorrect');
-buttons[q.a].classList.add('correct');
-score -= 0.3333; // 1/3 negative marking
-}
-document.getElementById('rationale-box').style.display = 'block';
-scoreEl.innerText = score.toFixed(2);
-}
-window.navigate = function(dir) {
-currentQ += dir;
-renderQuestion();
-}
-window.submitSection = function() {
-let unans = 0;
-for(let i=0; i<20; i++) {
-if(answersData[currentSection][i] === null) unans++;
-}
-if(unans > 0) {
-if(!confirm(`You have ${unans} unattempted questions in this section. Submit and move to next section? You CANNOT return.`)) return;
-} else {
-if(!confirm(`Are you sure you want to submit Section ${currentSection + 1}? You CANNOT return.`)) return;
-}
-currentSection++;
-currentQ = 0;
-sectionTimeLeft = 18 * 60; 
-renderQuestion();
-}
-window.finishExam = function() {
-clearInterval(timerInterval);
-quizBody.style.display = 'none';
-document.querySelector('.dashboard').style.display = 'none';
-document.querySelector('.progress-bar').style.display = 'none';
-document.getElementById('results-screen').style.display = 'block';
-let finalScoreFormatted = score < 0 ? "0.00" : score.toFixed(2);
-document.getElementById('final-score-display').innerText = `${finalScoreFormatted} / 100`;
-}
-window.onload = function() {
-renderQuestion();
-timerInterval = setInterval(updateTimers, 1000);
-};
-</script>
-</body>
-</html>
-,
-{
-  "q": "A patient is prescribed sublingual Nitroglycerin for angina. Which instruction is absolutely vital for the nurse to teach the patient regarding the administration route?",
-  "o": [
-    "\"Chew the tablet thoroughly before swallowing.\"",
-    "\"Swallow the tablet whole with a large glass of water.\"",
-    "\"Place the tablet under your tongue and let it dissolve completely without swallowing it.\"",
-    "\"Crush the tablet and mix it in applesauce.\""
-  ],
-  "a": 2,
-  "t": "Medication Administration",
-  "e": "Sublingual medications must be placed under the tongue and allowed to dissolve and absorb directly through the highly vascular oral mucosa into the systemic bloodstream. If swallowed, chewed, or crushed, the drug goes to the stomach and is destroyed by the liver's 'first-pass metabolism', rendering it completely useless."
-},
-{
-  "q": "The nurse evaluates an IV site and scores it a '3' on the Phlebitis Scale. What clinical findings define a grade 3 phlebitis?",
-  "o": [
-    "Pain at the site, erythema, and no palpable cord",
-    "Pain at the site, erythema, edema, and a palpable venous cord",
-    "Pain, erythema, and purulent drainage (pus)",
-    "Coolness, pallor, and massive swelling"
-  ],
-  "a": 1,
-  "t": "IV Therapy",
-  "e": "The Infusion Nurses Society (INS) Phlebitis Scale: Grade 1 = Erythema with or without pain. Grade 2 = Pain, erythema, and/or edema. Grade 3 = Pain, erythema, edema, AND a palpable hard venous cord (streak formation). Grade 4 = All of the above PLUS a palpable cord > 1 inch long and purulent drainage."
-},
-{
-  "q": "A physician orders Phenytoin (Dilantin) 100 mg IV push. The nurse knows that Phenytoin is highly incompatible with many fluids. Which IV fluid MUST be used to flush the line before and after giving IV Phenytoin?",
-  "o": [
-    "5% Dextrose in Water (D5W)",
-    "0.9% Normal Saline (NS)",
-    "Lactated Ringer's (LR)",
-    "Sterile Water for Injection"
-  ],
-  "a": 1,
-  "t": "Medication Safety",
-  "e": "Phenytoin (Dilantin) will instantly precipitate (turn into solid, deadly white crystals) if it comes into contact with any solution containing Dextrose. It must ONLY be mixed or flushed with 0.9% Normal Saline."
-},
-{
-  "q": "When instilling eye drops (ophthalmic medication) to a patient with glaucoma, the nurse presses a finger tightly against the patient's nasolacrimal duct (inner canthus) for 1-2 minutes after administration. What is the specific purpose of this action?",
-  "o": [
-    "To decrease the pain associated with the drops",
-    "To prevent the medication from leaking out of the eye onto the cheek",
-    "To prevent systemic absorption of the drug into the bloodstream, which could cause severe cardiovascular side effects",
-    "To push the medication deeper into the pupil"
-  ],
-  "a": 2,
-  "t": "Medication Administration",
-  "e": "Glaucoma medications (like beta-blockers e.g., Timolol) are highly potent. If they wash down the tear duct (nasolacrimal duct) into the nasal mucosa, they are absorbed instantly into the systemic bloodstream, causing massive systemic side effects like profound bradycardia and hypotension. Pressing the inner canthus occludes the duct, keeping the drug locally in the eye."
-},
-{
-  "q": "A patient requires a trough level to be drawn for IV Vancomycin. The next dose is scheduled for 09:00. At what precise time should the nurse draw the blood sample for the trough level?",
-  "o": [
-    "08:00 (1 hour before)",
-    "08:30 (30 minutes before the next dose)",
-    "09:30 (30 minutes after the infusion finishes)",
-    "10:30 (1.5 hours after the dose)"
-  ],
-  "a": 1,
-  "t": "Pharmacokinetics",
-  "e": "A 'trough' level measures the lowest concentration of a drug in the patient's bloodstream to ensure it doesn't drop below the therapeutic threshold or build up to toxic levels. It MUST be drawn immediately (usually 15 to 30 minutes) BEFORE the next scheduled dose is administered. A 'peak' is drawn after the infusion finishes."
-},
-{
-  "q": "The physician orders 15 mg of Morphine Sulfate. The pharmacy supplies a vial labeled 10 mg/mL. How many mL will the nurse administer?",
-  "o": [
-    "1.0 mL",
-    "1.5 mL",
-    "2.0 mL",
-    "0.66 mL"
-  ],
-  "a": 1,
-  "t": "Medication Calculation",
-  "e": "Formula: (Desired Dose / Available Concentration) × Volume. \n(15 mg / 10 mg) × 1 mL = 1.5 mL."
-},
-{
-  "q": "A patient on Total Parenteral Nutrition (TPN) via a central line develops a fever of 102°F, chills, and hypotension. The insertion site is red and oozing purulent drainage. What is the nurse's priority action?",
-  "o": [
-    "Administer an antipyretic and document the finding",
-    "Slow the TPN infusion rate to half",
-    "Stop the TPN, pull the central line, culture the tip, and notify the physician",
-    "Administer IV antibiotics directly through the infected central line"
-  ],
-  "a": 2,
-  "t": "Central Line Emergencies",
-  "e": "The patient has a Central Line-Associated Bloodstream Infection (CLABSI) progressing to septic shock. The TPN solution is highly concentrated glucose, making it a perfect breeding ground for bacteria. The absolute priority is source control: stop the infusion, remove the infected catheter, cut the tip off with sterile scissors to send for culture, and notify the provider for systemic antibiotics."
-},
-{
-  "q": "A nurse is teaching a student how to administer a subcutaneous injection of Low Molecular Weight Heparin (Enoxaparin/Lovenox). Which action by the student requires IMMEDIATE correction by the nurse?",
-  "o": [
-    "Injecting the medication into the anterolateral abdomen, 2 inches away from the umbilicus",
-    "Pinching the skin fold before inserting the needle at a 90-degree angle",
-    "Massaging the injection site vigorously after withdrawing the needle",
-    "Leaving the small air bubble in the prefilled syringe prior to injection"
-  ],
-  "a": 2,
-  "t": "Medication Administration",
-  "e": "Massaging the site after a Heparin or Enoxaparin injection is strictly prohibited. Massaging damages the tiny capillaries in the subcutaneous tissue and disperses the anticoagulant, causing massive, painful bruising and hematoma formation. The air bubble in the Lovenox syringe is intentional (to seal the medication in) and should not be expelled."
-},
-{
-  "q": "What is the maximum volume of medication that can safely be injected into the deltoid muscle of an average adult?",
-  "o": [
-    "0.5 mL",
-    "1 mL",
-    "3 mL",
-    "5 mL"
-  ],
-  "a": 1,
-  "t": "Medication Administration",
-  "e": "The deltoid is a relatively small muscle with close proximity to the radial nerve. The absolute maximum safe volume for a deltoid IM injection in an adult is 1 mL. Volumes larger than 1 mL (up to 3 mL) must be injected into larger muscles like the ventrogluteal or vastus lateralis."
-},
-{
-  "q": "A patient is scheduled for surgery and has an order to be 'NPO after midnight'. The patient normally takes a daily oral dose of Metoprolol (a beta-blocker) for hypertension and heart rate control. What is the nurse's best action at 06:00 on the morning of surgery?",
-  "o": [
-    "Crush the pill and give it via an NG tube",
-    "Hold the medication because the patient is strictly NPO",
-    "Contact the surgeon or anesthesiologist for specific orders regarding the beta-blocker",
-    "Give the pill with a full glass of water"
-  ],
-  "a": 2,
-  "t": "Perioperative Medication",
-  "e": "While patients are NPO for surgery, critical cardiovascular medications (especially Beta-Blockers) are often required to be given with a tiny sip of water to prevent catastrophic rebound tachycardia, hypertension, or myocardial ischemia under anesthesia. The nurse MUST clarify with the anesthesiologist which specific cardiac/BP meds to give or hold."
-},
-{
-  "q": "The nurse has just inserted a blind Nasogastric (NG) tube for enteral feeding. What is the ONLY definitive, gold-standard method to verify the tube's tip is in the stomach before initiating the first feeding?",
-  "o": [
-    "Auscultating a 'swoosh' of air injected over the epigastrium",
-    "Testing the pH of aspirated gastric contents",
-    "Obtaining an abdominal X-ray (Radiograph)",
-    "Placing the end of the tube in a glass of water to check for bubbling"
-  ],
-  "a": 2,
-  "t": "Enteral Tubes",
-  "e": "While pH testing is useful for ongoing checks, the absolute ONLY definitive, gold-standard method to confirm initial placement of a blindly inserted NG tube is an X-ray. Auscultating air is notoriously unreliable and can be heard even if the tube is in the lungs. Feeding into the lungs causes fatal aspiration pneumonia."
-},
-{
-  "q": "A nurse is assessing a bedbound patient's sacrum and notes an area of intact skin that is deep purple/maroon in color and feels 'boggy' (mushy) to the touch. The skin is NOT broken. How should the nurse accurately stage this pressure injury?",
-  "o": [
-    "Stage 1 Pressure Injury",
-    "Stage 2 Pressure Injury",
-    "Unstageable Pressure Injury",
-    "Deep Tissue Pressure Injury (DTPI)"
-  ],
-  "a": 3,
-  "t": "Wound Care",
-  "e": "A Deep Tissue Pressure Injury (DTPI) is characterized by intact or non-intact skin with localized non-blanchable deep red, maroon, or purple discoloration, or an epidermal blood-filled blister. It feels boggy/mushy because the muscle tissue deep beneath the skin has died from pressure ischemia, even though the top layer of skin hasn't broken open yet."
-},
-{
-  "q": "A patient with a urinary retention issue has an order for a Foley catheter insertion. During insertion in a MALE patient, the nurse meets significant resistance at the prostatic urethra. What is the correct nursing action?",
-  "o": [
-    "Force the catheter through the resistance using steady, hard pressure",
-    "Remove the catheter, ask the patient to bear down, and insert a larger French size",
-    "Pause, ask the patient to take a deep breath to relax the sphincter, and apply gentle, steady pressure",
-    "Immediately inflate the balloon to dilate the urethra"
-  ],
-  "a": 2,
-  "t": "Catheterization",
-  "e": "Never force a catheter against strong resistance; doing so will tear the urethra, causing massive bleeding and a false passage. The nurse should pause, instruct the patient to take deep slow breaths or bear down slightly (to relax the external sphincter), and apply only gentle, steady forward pressure. If it still won't pass, stop and notify a urologist (a coudé tip may be needed)."
-},
-{
-  "q": "A nurse is staging a pressure ulcer on a patient's heel. The wound bed is completely covered by thick, black, dry, leathery eschar. The true depth of the wound cannot be seen. How is this ulcer staged?",
-  "o": [
-    "Stage 3",
-    "Stage 4",
-    "Deep Tissue Injury",
-    "Unstageable Pressure Injury"
-  ],
-  "a": 3,
-  "t": "Wound Care",
-  "e": "If the base (wound bed) of the ulcer is completely obscured by slough (yellow, tan, green) or eschar (brown, black), the true depth of tissue destruction cannot be evaluated visually. Therefore, it is clinically classified as an 'Unstageable' pressure injury until the eschar is surgically or enzymatically debrided."
-},
-{
-  "q": "The nurse is administering a large-volume cleansing enema to an adult patient. The patient suddenly complains of severe abdominal cramping. What is the most appropriate initial nursing action?",
-  "o": [
-    "Stop the enema immediately and remove the tube",
-    "Lower the enema bag to decrease the flow rate and pressure",
-    "Instruct the patient to bear down and push the fluid out",
-    "Raise the enema bag to get the fluid in faster so the procedure is over quicker"
-  ],
-  "a": 1,
-  "t": "GI Procedures",
-  "e": "Abdominal cramping during an enema is usually caused by the fluid infusing too quickly, creating high pressure in the colon. The simplest and first intervention is to simply lower the height of the enema bag/container. This decreases the gravity gradient, slowing the flow rate until the cramping subsides."
-},
-{
-  "q": "To prevent Catheter-Associated Urinary Tract Infections (CAUTI), which of the following practices is mandated by evidence-based bundles?",
-  "o": [
-    "Routinely changing the Foley catheter every 7 days",
-    "Maintaining the urinary drainage bag above the level of the patient's bladder",
-    "Disconnecting the catheter from the drainage tubing daily to flush it with sterile saline",
-    "Securing the catheter to the patient's leg and keeping the drainage bag below the level of the bladder at all times"
-  ],
-  "a": 3,
-  "t": "Infection Control / CAUTI",
-  "e": "The CAUTI bundle mandates maintaining a closed, sterile drainage system (never disconnecting the tube from the bag), keeping the bag strictly below the level of the bladder to prevent backflow of stagnant urine, securing it to the leg to prevent urethral trauma, and removing the catheter as soon as medically possible. Routine changes are not recommended."
-},
-{
-  "q": "Before administering an intermittent enteral tube feeding, the nurse checks the Gastric Residual Volume (GRV). The nurse aspirates 350 mL of formula. The hospital policy sets the threshold for holding feeds at 500 mL. What MUST the nurse do with the 350 mL of aspirated fluid?",
-  "o": [
-    "Discard the fluid in a biohazard container to prevent feeding them old formula",
-    "Return the entire 350 mL back into the stomach, flush the tube, and proceed with the feeding",
-    "Discard half of it and return the other half",
-    "Send the fluid to the lab for pH and culture testing"
-  ],
-  "a": 1,
-  "t": "Enteral Feeding",
-  "e": "Gastric residual fluid contains massive amounts of hydrochloric acid, pepsin, and essential electrolytes (potassium). Discarding it will rapidly induce profound metabolic alkalosis and severe electrolyte imbalances. Because 350 mL is below the 500 mL threshold, the nurse MUST return the entire volume to the stomach and continue the feeding."
-},
-{
-  "q": "A patient with a new colostomy is incredibly anxious about the stoma. The nurse assesses the stoma on postoperative day 1. Which specific stoma appearance requires IMMEDIATE emergency intervention by the surgeon?",
-  "o": [
-    "The stoma is bright, beefy red, and moist",
-    "The stoma is slightly edematous (swollen) and oozes a few drops of blood when gently wiped",
-    "The stoma is dark purple, dusky, and dry",
-    "The stoma is pink and produces a small amount of liquid stool"
-  ],
-  "a": 2,
-  "t": "Ostomy Care",
-  "e": "A healthy stoma is highly vascular, so it should look bright beefy red or pink, moist, and may ooze slightly when touched. A stoma that is pale, dusky, dark purple, or black indicates profound ischemia and tissue necrosis (the blood supply has been cut off). This is a surgical emergency."
-},
-{
-  "q": "A patient requires a female Foley catheterization. The nurse misses the urethra and inadvertently inserts the sterile catheter tip into the vagina. What is the correct corrective action?",
-  "o": [
-    "Remove the catheter from the vagina, wipe it with a sterile alcohol swab, and insert it into the urethra",
-    "Leave the catheter in the vagina as a landmark, obtain a brand new sterile catheter, and insert the new one into the urethra",
-    "Remove the catheter from the vagina and immediately insert it into the urethra",
-    "Flush the catheter with sterile water while it is in the vagina to clean it, then move it to the urethra"
-  ],
-  "a": 1,
-  "t": "Catheterization",
-  "e": "The vagina is highly colonized with bacteria. Once the sterile catheter touches the vaginal mucosa, it is hopelessly contaminated. If it is then moved to the urethra, it will cause a massive UTI. The nurse must leave the contaminated catheter in the vagina to serve as a visual landmark (so they don't hit the wrong hole twice) and use a completely new, sterile catheter kit to catheterize the urethra."
-},
-{
-  "q": "The nurse is assessing a patient using the Braden Scale. What specific risk does the Braden Scale measure, and what does a score of 9 indicate?",
-  "o": [
-    "Fall risk; a score of 9 indicates a low risk for falls",
-    "Pressure injury risk; a score of 9 indicates a very HIGH risk for developing pressure ulcers",
-    "Pain intensity; a score of 9 indicates severe, intractable pain",
-    "Sedation level; a score of 9 indicates the patient is in a coma"
-  ],
-  "a": 1,
-  "t": "Risk Assessment",
-  "e": "The Braden Scale is the universal tool used to predict a patient's risk of developing pressure injuries. It measures sensory perception, moisture, activity, mobility, nutrition, and friction/shear. The lower the score, the HIGHER the risk. A score of ≤ 9 indicates a severe, critically high risk for pressure ulcers."
-},
-{
-  "q": "When collecting a 'clean-catch' midstream urine specimen from a female patient, which instruction is critical for obtaining an uncontaminated sample?",
-  "o": [
-    "Collect the very first few drops of urine that come out, as they contain the highest concentration of bacteria",
-    "Wipe the perineal area from back to front before urinating",
-    "Begin urinating into the toilet, stop, place the sterile cup in the stream, collect the sample, and finish urinating in the toilet",
-    "Catheterize the patient to obtain the sample"
-  ],
-  "a": 2,
-  "t": "Specimen Collection",
-  "e": "To get a clean-catch midstream sample, the urethra is first cleansed (front to back). The patient begins to void into the toilet to flush out the bacteria naturally residing at the very tip of the urethra. The 'midstream' portion of the urine is then caught in the sterile cup, as it best represents the actual urine residing in the bladder."
-},
-{
-  "q": "A bedbound patient has a Stage 2 pressure injury on the coccyx. Which clinical description matches a Stage 2 ulcer?",
-  "o": [
-    "Intact skin with non-blanchable redness",
-    "Full-thickness skin loss with visible subcutaneous fat, but no bone or muscle visible",
-    "Partial-thickness skin loss involving the epidermis and dermis, presenting as a shallow open ulcer with a red-pink wound bed, without slough, or an intact serum-filled blister",
-    "Full-thickness tissue loss with exposed bone, tendon, or muscle"
-  ],
-  "a": 2,
-  "t": "Wound Care",
-  "e": "Stage 1 is non-blanchable erythema (intact skin). Stage 2 is partial-thickness skin loss involving the epidermis and dermis; it looks like a shallow crater, abrasion, or an intact/ruptured serum-filled blister. Stage 3 involves subcutaneous fat. Stage 4 involves exposed bone/muscle."
-},
-{
-  "q": "A nurse is preparing to administer a soap suds enema. In which anatomical position MUST the nurse place the adult patient to facilitate the natural flow of gravity into the sigmoid colon?",
-  "o": [
-    "Prone position",
-    "Right lateral decubitus with the left knee flexed",
-    "Left lateral (Sims') position with the right knee flexed",
-    "Lithotomy position"
-  ],
-  "a": 2,
-  "t": "GI Procedures",
-  "e": "The descending colon and sigmoid colon are located on the left side of the abdomen. Placing the patient in the Left Lateral (Sims') position with the right leg flexed utilizes gravity to allow the enema fluid to flow smoothly down the natural anatomical curve of the descending colon."
-},
-{
-  "q": "A postoperative patient has a Jackson-Pratt (JP) drain. To ensure the drain continuously functions by pulling fluid out of the surgical wound, what MUST the nurse do after emptying it?",
-  "o": [
-    "Connect the drain to high continuous wall suction",
-    "Squeeze the bulb completely flat (compress it) and replace the plug while it is compressed to re-establish negative pressure",
-    "Leave the plug open to air so fluid can freely drain out",
-    "Flush the drain with 30 mL of sterile saline to clear clots"
-  ],
-  "a": 1,
-  "t": "Post-op Care",
-  "e": "A Jackson-Pratt drain is a closed-suction device. It relies entirely on a gentle, continuous vacuum to pull fluid from the wound. To create this vacuum, the nurse must empty the fluid, physically squeeze all the air out of the bulb so it is completely flat, and seal the cap while maintaining the squeeze."
-},
-{
-  "q": "A patient receiving continuous enteral tube feedings is placed supine, flat in bed, while the nurse turns them to change the sheets. The patient vomits and aspirates the feeding into their lungs. What was the critical nursing error?",
-  "o": [
-    "Using the wrong type of feeding formula",
-    "Failing to check the gastric residual volume before turning",
-    "Failing to pause (turn off) the continuous feeding pump BEFORE laying the patient flat",
-    "Turning the patient on their left side instead of their right side"
-  ],
-  "a": 2,
-  "t": "Enteral Safety",
-  "e": "Patients receiving continuous enteral feedings must ALWAYS have the Head of the Bed elevated to at least 30-45 degrees to prevent massive aspiration. If a nursing procedure requires laying the patient completely flat (like turning, boosting, or changing linens), the feeding pump MUST be paused/turned off before the bed is lowered."
-},
-{
-  "q": "During wound healing, the nurse observes bright, 'beefy' red, moist, cobblestone-like tissue filling the wound bed. This tissue bleeds very easily when touched. The nurse documents this healthy, healing tissue as:",
-  "o": [
-    "Slough",
-    "Eschar",
-    "Granulation tissue",
-    "Exudate"
-  ],
-  "a": 2,
-  "t": "Wound Healing",
-  "e": "Granulation tissue is the hallmark of the proliferative phase of wound healing. It is highly vascular, bright beefy red, moist, and slightly bumpy (cobblestone). Because it consists of newly forming, fragile capillary beds, it bleeds very easily with minimal trauma."
-},
-{
-  "q": "A patient with a severe impaction requires digital removal of stool. During the procedure, the patient suddenly becomes pale, diaphoretic, and the heart rate drops to 35 bpm. What physiological emergency has the nurse triggered?",
-  "o": [
-    "A massive pulmonary embolism",
-    "A vasovagal response (Vagus nerve stimulation) causing severe parasympathetic bradycardia",
-    "A sudden bowel perforation",
-    "Anaphylactic shock from the lubricant gel"
-  ],
-  "a": 1,
-  "t": "GI Emergencies",
-  "e": "The rectum is heavily innervated by the Vagus nerve (Parasympathetic nervous system). Aggressive digital stimulation of the rectum can violently overstimulate the vagus nerve. This triggers a massive vagal response, resulting in a sudden, profound, life-threatening drop in heart rate (bradycardia) and blood pressure (syncope)."
-},
-{
-  "q": "A patient is diagnosed with an evisceration after abdominal surgery. The nurse sees loops of bowel protruding through the open surgical incision. What is the absolute FIRST nursing intervention?",
-  "o": [
-    "Attempt to gently push the intestines back into the abdominal cavity using sterile gloves",
-    "Cover the protruding bowel with sterile towels/gauze heavily soaked in sterile normal saline",
-    "Apply a tight abdominal binder over the bowel to stop the bleeding",
-    "Leave the wound open to air and run to call the surgeon"
-  ],
-  "a": 1,
-  "t": "Surgical Emergencies",
-  "e": "Evisceration is a catastrophic surgical emergency. The nurse must NEVER attempt to push the bowel back in (this causes massive trauma and necrosis). The absolute priority is to keep the exposed bowel from drying out and dying. Immediately cover the bowel with sterile gauze or towels heavily saturated with sterile warm Normal Saline, place the patient supine with knees bent, and call the surgeon."
-},
-{
-  "q": "A patient's indwelling Foley catheter is to be removed. To prevent urethral trauma, what MUST the nurse do before pulling the catheter out?",
-  "o": [
-    "Cut the balloon port with scissors to let the water drain out quickly",
-    "Attach a syringe to the balloon port and actively withdraw all the sterile water to completely deflate the balloon",
-    "Pull the catheter swiftly while the patient takes a deep breath",
-    "Clamp the catheter for 2 hours to train the bladder"
-  ],
-  "a": 1,
-  "t": "Catheterization",
-  "e": "The Foley balloon anchors the catheter in the bladder. Pulling the catheter out with an inflated balloon will violently shred the urethra, causing massive bleeding and permanent strictures. The nurse must attach a syringe and verify that the exact volume of water originally instilled (usually 10 mL) has been completely aspirated out before gently removing the tube. NEVER cut the port, as it can trap water in the balloon."
-},
-{
-  "q": "A male patient requires the application of a condom catheter. To prevent skin breakdown and penile ischemia, how much space should the nurse leave between the tip of the penis and the end of the condom catheter?",
-  "o": [
-    "No space; it should fit skin-tight",
-    "1 to 2 inches (2.5 to 5 cm)",
-    "4 to 5 inches",
-    "It depends on the size of the drainage bag"
-  ],
-  "a": 1,
-  "t": "Catheterization",
-  "e": "When applying a condom catheter, exactly 1 to 2 inches (2.5 to 5 cm) of space must be left between the glans of the penis and the end of the catheter. This prevents friction, excoriation, and allows urine to pool briefly before draining down the tube, preventing it from backing up and macerating the skin."
-},
-{
-  "q": "A competent adult patient with terminal cancer signs a Do Not Resuscitate (DNR) order. The patient suddenly goes into cardiac arrest. The patient's daughter is at the bedside screaming, 'Save him! Do CPR! I revoke the DNR!' What is the nurse's legal and ethical obligation?",
-  "o": [
-    "Initiate CPR immediately because the family member revoked the order",
-    "Call the hospital ethics committee for an emergency consult while withholding CPR",
-    "Respect the patient's autonomous, legal DNR order and withhold CPR, calmly explaining the situation to the daughter",
-    "Administer Epinephrine but do not perform chest compressions"
-  ],
-  "a": 2,
-  "t": "Legal and Ethics",
-  "e": "A valid DNR executed by a competent patient is a legally binding medical order reflecting the ethical principle of Autonomy. Family members ABSOLUTELY CANNOT override or revoke a competent patient's prior advanced directive or DNR. The nurse's legal duty is to follow the patient's wishes and withhold resuscitation."
-},
-{
-  "q": "The nurse tells a patient, 'If you don't stay in your bed, I am going to tie you down with restraints.' What specific intentional tort has the nurse committed?",
-  "o": [
-    "Battery",
-    "Assault",
-    "False Imprisonment",
-    "Negligence"
-  ],
-  "a": 1,
-  "t": "Legal - Torts",
-  "e": "Assault is the intentional THREAT or attempt to cause physical harm or offensive contact, creating a genuine fear or apprehension in the patient. Battery is the actual physical, unauthorized touching/harming. Because the nurse only *threatened* to tie them down, it is Assault."
-},
-{
-  "q": "A patient is scheduled for a cholecystectomy. The surgeon explains the procedure, and the patient agrees. The nurse brings the consent form for the patient to sign. What is the explicit legal role of the nurse signing as a 'Witness' on the informed consent form?",
-  "o": [
-    "The nurse guarantees that the surgeon perfectly explained all risks and alternatives",
-    "The nurse confirms that the patient fully understands the medical procedure",
-    "The nurse attests only that the signature is authentic, the patient appears competent, and the signing was voluntary",
-    "The nurse takes legal liability if the surgery goes wrong"
-  ],
-  "a": 2,
-  "t": "Informed Consent",
-  "e": "It is the strictly the SURGEON'S legal duty to obtain informed consent by explaining the procedure, risks, and benefits. The nurse acts ONLY as a witness to the physical act of signing. The nurse's signature means: 1) It was actually the patient who signed, 2) The patient wasn't coerced, and 3) The patient wasn't visibly intoxicated or incompetent at the exact moment of signing."
-},
-{
-  "q": "A patient's morning potassium level is 2.2 mEq/L. The nurse expects to see which classic manifestation on the patient's Electrocardiogram (ECG)?",
-  "o": [
-    "Tall, peaked, tented T waves",
-    "A flattened T wave and the presence of a prominent U wave",
-    "Massive ST segment elevation",
-    "A massively widened QRS complex blending into the T wave (sine wave)"
-  ],
-  "a": 1,
-  "t": "Fluid & Electrolytes",
-  "e": "Severe hypokalemia (K+ < 3.5) prolongs repolarization of the ventricles. This manifests on an ECG as ST-segment depression, a flattened or inverted T wave, and classically, the appearance of a prominent U wave right after the T wave. Peaked T waves and widened QRS complexes indicate Hyperkalemia."
-},
-{
-  "q": "A patient with a severe head injury is admitted to the neuro ICU. To promote cerebral venous drainage and prevent spikes in Intracranial Pressure (ICP), what is the optimal positioning for this patient?",
-  "o": [
-    "Supine, completely flat without a pillow",
-    "Trendelenburg position",
-    "Head of the bed elevated 30 to 45 degrees, with the neck kept in a neutral, midline alignment",
-    "Prone position"
-  ],
-  "a": 2,
-  "t": "Patient Positioning",
-  "e": "To aggressively lower ICP, gravity must be used to drain blood out of the brain via the jugular veins. The HOB must be elevated 30-45 degrees. Crucially, the neck MUST be kept perfectly straight (neutral midline). If the neck is bent or twisted to the side, the jugular veins are physically kinked, blood backs up into the brain, and ICP skyrockets."
-},
-{
-  "q": "A patient just had a percutaneous Liver Biopsy. Because the liver is a highly vascular organ prone to massive hemorrhage, how MUST the nurse position the patient immediately after the procedure?",
-  "o": [
-    "Lying flat on their back (supine) for 12 hours",
-    "Strictly on their RIGHT side (Right lateral decubitus) with a towel or pillow placed under the puncture site",
-    "On their LEFT side to prevent aspiration",
-    "Sitting upright in high-Fowler's position"
-  ],
-  "a": 1,
-  "t": "Patient Positioning",
-  "e": "The liver is located on the right side of the abdomen. After a biopsy, the patient is at extreme risk of internal bleeding. Placing the patient on their RIGHT side, laying their own body weight directly on top of the puncture site, acts as a massive natural pressure dressing (tamponade) to physically stop the liver from bleeding."
-},
-{
-  "q": "A patient has just undergone a Lumbar Puncture (Spinal Tap). To prevent the most common, debilitating complication of this procedure, what post-procedure instruction is mandatory?",
-  "o": [
-    "'You must walk around the unit for 30 minutes immediately.'",
-    "'Lie completely flat (supine) in bed for 4 to 8 hours.'",
-    "'Sit upright at a 90-degree angle to drain the fluid.'",
-    "'You must be NPO for 24 hours.'"
-  ],
-  "a": 1,
-  "t": "Patient Positioning",
-  "e": "A lumbar puncture punches a hole in the dura mater. If cerebrospinal fluid (CSF) leaks out of this hole, the brain loses its fluid cushion, sags downward, and pulls on the meninges, causing an agonizing, excruciating 'Spinal Headache'. Lying strictly flat (supine) for several hours prevents gravity from pulling the CSF out of the puncture site until it clots/heals."
-},
-{
-  "q": "The ethical principle of 'Beneficence' in nursing practice is best defined as:",
-  "o": [
-    "The obligation to tell the truth at all times",
-    "The duty to do no harm",
-    "The active obligation to do good, promote the patient's welfare, and act in their best interest",
-    "The obligation to distribute healthcare resources fairly and equally"
-  ],
-  "a": 2,
-  "t": "Legal and Ethics",
-  "e": "Beneficence is the core ethical principle requiring nurses to actively take positive actions to help others and promote good (e.g., administering pain medication, providing comfort). Nonmaleficence is the duty to do no harm. Veracity is telling the truth. Justice is fairness."
-},
-{
-  "q": "A patient is exhibiting Trousseau's sign (carpal spasm when a blood pressure cuff is inflated above systolic pressure for 3 minutes) and Chvostek's sign (facial twitching when the facial nerve is tapped). These are classic pathognomonic signs of which severe electrolyte imbalance?",
-  "o": [
-    "Hypernatremia",
-    "Hypocalcemia",
-    "Hypercalcemia",
-    "Hypokalemia"
-  ],
-  "a": 1,
-  "t": "Fluid & Electrolytes",
-  "e": "Calcium acts as a stabilizer for nerve and muscle membranes. In Hypocalcemia (low calcium), the nerves lose this stabilizer and become wildly hyper-excitable. This causes severe, uncontrollable muscle spasms, tetany, and the classic Trousseau's and Chvostek's signs. It is a medical emergency requiring IV Calcium Gluconate."
-},
-{
-  "q": "During a surgical procedure, the circulating nurse counts the surgical sponges. At the end of the case, the count is off by one sponge. The surgeon ignores the nurse and begins suturing the patient closed. If the nurse says nothing and the sponge is left inside, the nurse can be sued for:",
-  "o": [
-    "Assault",
-    "Defamation of Character",
-    "Malpractice (Professional Negligence)",
-    "False Imprisonment"
-  ],
-  "a": 2,
-  "t": "Legal / Perioperative",
-  "e": "Malpractice is a specific type of negligence applied to professionals. It occurs when a nurse fails to meet the standard of care (verifying counts and advocating for the patient by stopping the closure), and that failure causes actual harm to the patient (a retained foreign body). It is an unintentional tort."
-},
-{
-  "q": "A patient undergoes a Subtotal Thyroidectomy. 12 hours post-op, the patient complains of a 'tight, choking' feeling in the neck, and the nurse hears high-pitched inspiratory stridor. What is the absolute FIRST, life-saving action?",
-  "o": [
-    "Administer IV Calcium Gluconate for suspected hypocalcemia",
-    "Call a code blue and start chest compressions",
-    "Open the emergency tracheostomy tray, remove the surgical clips/sutures from the incision to release the expanding hematoma, and call the rapid response team",
-    "Elevate the HOB and apply an ice pack"
-  ],
-  "a": 2,
-  "t": "Perioperative Emergencies",
-  "e": "Stridor and a tight neck post-thyroidectomy indicate a rapidly expanding hematoma under the incision that is physically crushing the trachea shut. The patient will suffocate in minutes. The immediate, life-saving action is to manually pop open the surgical incision to release the blood pressure, saving the airway, while preparing for an emergency airway/trach."
-},
-{
-  "q": "When providing post-mortem care to a deceased patient prior to allowing the family to view the body, which nursing action is appropriate?",
-  "o": [
-    "Remove the patient's dentures and place them in a cup next to the bed",
-    "Leave all IV lines, endotracheal tubes, and Foley catheters completely intact and taped in place if an autopsy is NOT scheduled",
-    "Close the patient's eyes gently, place the body in a supine position with the head slightly elevated on a pillow, and insert the dentures",
-    "Tape the patient's mouth shut tightly"
-  ],
-  "a": 2,
-  "t": "Post-Mortem Care",
-  "e": "Post-mortem care aims to maintain the body's dignity and natural appearance. The head is elevated slightly on a pillow immediately to prevent blood from pooling and staining the face (livor mortis). Eyes are gently closed. Dentures must be INSERTED immediately before rigor mortis sets in, to maintain the natural shape of the face. Tubes are removed ONLY if no autopsy/medical examiner case is pending."
-},
-{
-  "q": "A nurse is caring for a patient with severe Hypernatremia (Sodium 160 mEq/L). The primary physiological consequence of massive hypernatremia involves fluid shifting. What happens to the cells?",
-  "o": [
-    "Water shifts from the extracellular fluid INTO the cells, causing them to swell and burst",
-    "Water shifts from the intracellular fluid OUT into the hypertonic blood, causing massive cellular dehydration and brain cell shrinkage",
-    "Potassium aggressively enters the cell to replace the sodium",
-    "The cells become completely immune to insulin"
-  ],
-  "a": 1,
-  "t": "Fluid & Electrolytes",
-  "e": "Hypernatremia means the blood is extremely salty (hypertonic). Osmosis dictates that water moves from areas of low concentration to high concentration. The salty blood violently sucks water OUT of the body's cells, causing severe cellular dehydration. In the brain, these shrinking cells pull on the meninges, causing fatal seizures and coma."
-},
-{
-  "q": "A patient is scheduled for a Total Hip Arthroplasty (replacement). In the operating room, before the anesthesia is induced and the incision is made, the entire surgical team pauses. The surgeon, anesthesiologist, and nurse verbally confirm the patient's identity, the exact procedure, and the correct surgical site. What is this mandatory protocol called?",
-  "o": [
-    "The Surgical Scrub",
-    "The Universal Protocol 'Time-Out'",
-    "Informed Consent Verification",
-    "The Post-Anesthesia Care Unit (PACU) Handoff"
-  ],
-  "a": 1,
-  "t": "Perioperative Safety",
-  "e": "The Universal Protocol 'Time-Out' is a mandatory safety check instituted by The Joint Commission. Just before the scalpel cuts the skin, the entire room stops all activity to collectively verify the right patient, right surgery, and right anatomical site, definitively preventing wrong-site surgery."
-},
-{
-  "q": "A patient refuses to take their prescribed morning dose of antihypertensive medication. The nurse crushes the pill and hides it in the patient's applesauce without their knowledge. The patient eats it. Legally, the nurse has committed:",
-  "o": [
-    "Beneficence, because the nurse controlled the patient's blood pressure",
-    "Battery",
-    "Slander",
-    "Negligence"
-  ],
-  "a": 1,
-  "t": "Legal - Torts",
-  "e": "Battery is the intentional, unauthorized physical contact or administration of treatment against a patient's will. Even if the drug helps the patient, tricking a competent patient into taking a medication they explicitly refused is an extreme violation of autonomy and constitutes the intentional tort of Battery."
-},
-{
-  "q": "To evaluate a patient's acid-base balance, an Arterial Blood Gas (ABG) is ordered. The nurse must draw the blood from the radial artery. What specific test MUST the nurse perform before puncturing the radial artery?",
-  "o": [
-    "The Phalen's Test",
-    "The Homan's Sign",
-    "The Allen Test",
-    "The Romberg Test"
-  ],
-  "a": 2,
-  "t": "Clinical Procedures",
-  "e": "The Allen Test ensures that the ulnar artery provides adequate collateral blood flow to the hand. If the nurse accidentally damages/clots the radial artery during the ABG puncture, the hand will suffer severe ischemia and gangrene unless the ulnar artery can compensate. A positive (normal) Allen test is mandatory before a radial ABG."
-},
-{
-  "q": "A patient is diagnosed with Respiratory Acidosis. Which set of Arterial Blood Gas (ABG) values confirms this specific diagnosis?",
-  "o": [
-    "pH 7.30, PaCO2 55 mmHg, HCO3 24 mEq/L",
-    "pH 7.50, PaCO2 30 mmHg, HCO3 24 mEq/L",
-    "pH 7.28, PaCO2 35 mmHg, HCO3 16 mEq/L",
-    "pH 7.48, PaCO2 40 mmHg, HCO3 32 mEq/L"
-  ],
-  "a": 0,
-  "t": "Acid-Base Balance",
-  "e": "Normal values: pH (7.35-7.45), PaCO2 (35-45), HCO3 (22-26). A pH of 7.30 indicates Acidosis. A high PaCO2 of 55 indicates the lungs are trapping carbon dioxide (an acid). Because the CO2 matches the acidotic pH, the primary cause is respiratory. Therefore, it is Uncompensated Respiratory Acidosis."
-},
-{
-  "q": "A nurse on the surgical floor receives a patient immediately post-op from a Right Pneumonectomy (entire right lung removed). How should the nurse position this patient in bed?",
-  "o": [
-    "Strictly on the non-operative (LEFT) side",
-    "On the operative (RIGHT) side or supine",
-    "In the prone position",
-    "In the Trendelenburg position"
-  ],
-  "a": 1,
-  "t": "Patient Positioning",
-  "e": "After a pneumonectomy, the empty pleural space must fill with fluid to consolidate and prevent a mediastinal shift. If the patient lies on the good lung (left side), fluid from the surgical stump could drown the single remaining lung, and the mediastinum could shift and crush the good lung. Therefore, position them on the OPERATIVE side (right) or supine."
-},
-{
-  "q": "Which ethical principle dictates that a nurse must always tell the truth and not deceive the patient regarding their diagnosis or treatment plan?",
-  "o": [
-    "Fidelity",
-    "Veracity",
-    "Justice",
-    "Nonmaleficence"
-  ],
-  "a": 1,
-  "t": "Ethics",
-  "e": "Veracity is the ethical principle of truth-telling. It requires healthcare providers to be honest and not intentionally deceive or mislead patients. Fidelity is keeping promises. Nonmaleficence is doing no harm. Justice is fairness in resource distribution."
-},
-{
-  "q": "A patient has a critically low serum Magnesium level of 0.8 mg/dL (Hypomagnesemia). Because magnesium and calcium are intimately related, the patient is at extreme risk for developing which life-threatening cardiac arrhythmia?",
-  "o": [
-    "Sinus Bradycardia",
-    "Atrial Fibrillation",
-    "Torsades de Pointes (Polymorphic Ventricular Tachycardia)",
-    "First-Degree AV Block"
-  ],
-  "a": 2,
-  "t": "Fluid & Electrolytes",
-  "e": "Severe hypomagnesemia prolongs the QT interval on the electrocardiogram. A prolonged QT interval is the exact trigger for a deadly, chaotic ventricular arrhythmia called Torsades de Pointes, which rapidly deteriorates into Ventricular Fibrillation and cardiac arrest. IV Magnesium Sulfate is the antidote."
-}
-];
-]; // Closes the rawQuestions array
-
-// Structure into 5 sections of 20 questions each
-let sections = [];
-for (let i = 0; i < 5; i++) {
-    sections.push(rawQuestions.slice(i * 20, (i + 1) * 20));
-}
 
 let currentSection = 0;
 let currentQ = 0;
@@ -1287,8 +899,8 @@ function updateTimers() {
     sectionTimeLeft--;
     totalTimeLeft--;
     
-    secTimerEl.innerText = `Section Time: ${formatTime(sectionTimeLeft)}`;
-    totTimerEl.innerText = `Total Time: ${formatTime(totalTimeLeft)}`;
+    secTimerEl.innerText = "Section Time: " + formatTime(sectionTimeLeft);
+    totTimerEl.innerText = "Total Time: " + formatTime(totalTimeLeft);
     
     if (sectionTimeLeft <= 0) {
         advanceSection();
@@ -1297,10 +909,10 @@ function updateTimers() {
 
 function advanceSection() {
     if (currentSection < 4) {
-        alert(`Time's up for Section ${currentSection + 1}. Auto-advancing to Section ${currentSection + 2}.`);
+        alert("Time's up for Section " + (currentSection + 1) + ". Auto-advancing to Section " + (currentSection + 2) + ".");
         currentSection++;
         currentQ = 0;
-        sectionTimeLeft = 18 * 60; // Reset for next section
+        sectionTimeLeft = 18 * 60; 
         renderQuestion();
     } else {
         clearInterval(timerInterval);
@@ -1310,13 +922,12 @@ function advanceSection() {
 
 function renderQuestion() {
     quizBody.innerHTML = '';
-    const q = sections[currentSection][currentQ];
+    const q = rawQuestions[(currentSection * 20) + currentQ];
     const globalQNum = (currentSection * 20) + currentQ + 1;
     
     const qDiv = document.createElement('div');
     qDiv.className = 'question-container active';
     
-    // Check if already answered in this section
     const isAnswered = answersData[currentSection][currentQ] !== null;
     const selectedIdx = answersData[currentSection][currentQ];
     
@@ -1328,52 +939,46 @@ function renderQuestion() {
             if (optIndex === q.a) btnClass += ' correct';
             else if (optIndex === selectedIdx) btnClass += ' incorrect';
         }
-        optionsHtml += `
-            <button class="${btnClass}" onclick="checkAnswer(${optIndex}, this)">
-                ${String.fromCharCode(65 + optIndex)}. ${opt}
-            </button>
-        `;
+        optionsHtml += '<button class="' + btnClass + '" onclick="checkAnswer(' + optIndex + ', this)">' + String.fromCharCode(65 + optIndex) + '. ' + opt + '</button>';
     });
 
     let navHtml = '';
     if (currentQ > 0) {
-        navHtml += `<button class="nav-btn" onclick="navigate(-1)">Previous</button>`;
+        navHtml += '<button class="nav-btn" onclick="navigate(-1)">Previous</button>';
     } else {
-        navHtml += `<button class="nav-btn" disabled>Previous</button>`;
+        navHtml += '<button class="nav-btn" disabled>Previous</button>';
     }
     
     if (currentQ < 19) {
-        navHtml += `<button class="nav-btn" onclick="navigate(1)">Next</button>`;
+        navHtml += '<button class="nav-btn" onclick="navigate(1)">Next</button>';
     } else {
         if (currentSection < 4) {
-            navHtml += `<button class="nav-btn" onclick="submitSection()">Submit Section ${currentSection + 1}</button>`;
+            navHtml += '<button class="nav-btn" onclick="submitSection()">Submit Section ' + (currentSection + 1) + '</button>';
         } else {
-            navHtml += `<button class="nav-btn" onclick="finishExam()">Final Submit</button>`;
+            navHtml += '<button class="nav-btn" onclick="finishExam()">Final Submit</button>';
         }
     }
 
-    qDiv.innerHTML = `
-        <div class="subject-tag">${q.t}</div>
-        <div class="q-text">Q${globalQNum}: ${q.q}</div>
-        <div class="options" id="opts-container">${optionsHtml}</div>
-        <div class="rationale" id="rationale-box" style="display: ${isAnswered ? 'block' : 'none'};">
-            <strong>Calculation Rationale:</strong> ${q.e}
-        </div>
-        <div class="navigation">${navHtml}</div>
-    `;
+    qDiv.innerHTML = '<div class="subject-tag">' + q.t + '</div>' +
+                     '<div class="q-text">Q' + globalQNum + ': ' + q.q + '</div>' +
+                     '<div class="options" id="opts-container">' + optionsHtml + '</div>' +
+                     '<div class="rationale" id="rationale-box" style="display: ' + (isAnswered ? 'block' : 'none') + ';">' +
+                     '<strong>Calculation Rationale:</strong> ' + q.e + '</div>' +
+                     '<div class="navigation">' + navHtml + '</div>';
+    
     quizBody.appendChild(qDiv);
     
-    secDisplayEl.innerText = `Section: ${currentSection + 1} / 5`;
-    qCounterEl.innerText = `Q: ${currentQ + 1} / 20`;
+    secDisplayEl.innerText = "Section: " + (currentSection + 1) + " / 5";
+    qCounterEl.innerText = "Q: " + (currentQ + 1) + " / 20";
     
     const globalProgress = (globalQNum / 100) * 100;
-    progressEl.style.width = `${globalProgress}%`;
+    progressEl.style.width = globalProgress + '%';
 }
 
 window.checkAnswer = function(selectedOptIndex, btnElement) {
     if (answersData[currentSection][currentQ] !== null) return; 
     
-    const q = sections[currentSection][currentQ];
+    const q = rawQuestions[(currentSection * 20) + currentQ];
     answersData[currentSection][currentQ] = selectedOptIndex;
     
     const container = document.getElementById('opts-container');
@@ -1387,7 +992,7 @@ window.checkAnswer = function(selectedOptIndex, btnElement) {
     } else {
         btnElement.classList.add('incorrect');
         buttons[q.a].classList.add('correct');
-        score -= 0.3333; // 1/3 negative marking
+        score -= 0.3333; 
     }
     
     document.getElementById('rationale-box').style.display = 'block';
@@ -1405,9 +1010,9 @@ window.submitSection = function() {
         if(answersData[currentSection][i] === null) unans++;
     }
     if(unans > 0) {
-        if(!confirm(`You have ${unans} unattempted questions in this section. Submit and move to next section? You CANNOT return.`)) return;
+        if(!confirm("You have " + unans + " unattempted questions in this section. Submit and move to next section? You CANNOT return.")) return;
     } else {
-        if(!confirm(`Are you sure you want to submit Section ${currentSection + 1}? You CANNOT return.`)) return;
+        if(!confirm("Are you sure you want to submit Section " + (currentSection + 1) + "? You CANNOT return.")) return;
     }
     
     currentSection++;
@@ -1424,7 +1029,7 @@ window.finishExam = function() {
     document.getElementById('results-screen').style.display = 'block';
     
     let finalScoreFormatted = score < 0 ? "0.00" : score.toFixed(2);
-    document.getElementById('final-score-display').innerText = `${finalScoreFormatted} / 100`;
+    document.getElementById('final-score-display').innerText = finalScoreFormatted + " / 100";
 }
 
 window.onload = function() {
